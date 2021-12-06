@@ -1,0 +1,818 @@
+.Auction-Detail-Hero-Container{
+      max-width: 1290px !important;
+}
+
+.sidebar {
+    min-width: 250px;
+    max-width: 250px;
+    background-color: rgb(240 248 255 / 82%);
+    color: black !important;
+    margin-left: -250px;
+    transition: all 0.5s;
+    height: calc(100% - 35px);
+  }
+  
+  .sidebar.is-open {
+    margin-left: 0;
+    transition: 0.5s;
+  }
+  
+  .sidebar-header {
+    background-color: black;
+  }
+  
+  .sidebar-header h3 {
+    color: #fff;
+    padding: 1em;
+  }
+  .sidebar-header h4 {
+    color: #fff;
+    padding: 1em;
+  }
+  
+  .sidebar ul p {
+    color: #fff;
+    padding: 10px;
+  }
+  
+  .menu-open {
+    background-color: #00000070;
+  }
+  .nav-item  {
+    color: #fff; 
+  }
+  .nav-item:hover {
+    color: #008BFF;
+    background: #fff;
+  }
+  
+  .items-menu {
+    color: #fff;
+    background-color: #0000009e;
+  }
+  
+  li a.dropdown-toggle::after {
+    display: inline-flex;
+    position: relative;
+    left: 60%;
+    top: 10%;
+  }
+  
+  .sidebar-header > span {
+    position: relative;
+    float: right;
+    margin: 18px 21px;
+    font-size: 2rem;
+    cursor: pointer;
+    display: none;
+  }
+  .side-menu {
+    height: calc(100vh - 130px);
+    overflow-y: scroll;
+  }
+  
+  .side-menu::-webkit-scrollbar {
+    width: 10px;
+  }
+  
+  .side-menu::-webkit-scrollbar-thumb {
+    background: #008BFF;
+    border-radius: 3px;
+  }
+  
+  .side-menu::-webkit-scrollbar-thumb:hover {
+    background: #0000009e;
+  }
+  
+  /* ---------------------------------------------------
+      CONTENT STYLE
+  ----------------------------------------------------- */
+
+  .content {
+    padding: 20px;
+    margin-left: 0;
+    height: 100vh;
+  }
+   .nav-items{
+    display: flex;
+    color: black !important;
+    width: 100%;
+  }
+  .nav-items:hover{
+    color: black !important;
+  }
+  .nav-msg {
+    color: black !important;
+    background-color: rgb(240 248 255 / 82%) !important;
+    width: 100%;
+    height: 80px;
+}
+.active-chat {
+  color: black !important;
+  background-color: rgb(192 219 242 / 82%) !important;
+  width: 100%;
+  height: 80px;
+}
+ 
+
+
+    /* ---------------------------------------------------
+      Main Content  style started
+  ----------------------------------------------------- */
+.list-section{ 
+  padding: 0px 0px 60px 0px;
+}
+.tabs-card{
+  background-color: rgb(240 248 255 / 82%);
+  padding: 0px 7px;
+  height: calc(100% - 32px);
+}
+/* .tabs-card::-webkit-scrollbar {
+  display: none;
+} */
+  .main-content-tabs{
+    background: black;
+    padding: 18px 0px 0px 0px;
+    height: 75px ;
+  }
+  .nav-tabs .nav-link.active, .nav-tabs .nav-item.show .nav-link {
+    color: white;
+    background-color: black;
+    border-color: #dee2e6 #dee2e6 #fff;
+}
+.tabs-card .card-header
+{
+  padding: unset;
+}  
+.tabs-card  .nav-item:hover{
+  background-color: black;
+}
+.tabs-card .nav-item button{
+  color: white;
+  border-radius: unset;
+  margin-left: 10px;
+}
+
+/* list start */
+.list-container{
+margin-top: 10px;
+box-shadow: 0px 0px 5px #ffffff9e;
+}
+.list-image-area{
+  position: relative;
+}
+.car-badge{
+  position: absolute;
+  left: 20px;
+  top: 20px ; 
+  padding: 10px;
+  letter-spacing: 2px;
+  z-index: 2;
+}
+.car-badge-360{
+  position: absolute;
+  /* background-color: #81d742; */
+  right: 20px;
+  top: 20px ; 
+  padding: 10px;
+  color: white;
+  letter-spacing: 2px;
+  z-index: 2;
+}
+/* auction details page ended */
+.btn-bid{
+    border-radius: 4px !important;
+    padding: 0px 18px !important;
+    background-color: rgb(22 20 20 / 44%) !important;
+    border-color: #f9fafb !important;
+    transition: .2s  ease-in-out;
+}
+.btn-bid:hover{  
+  color:black !important
+}
+  /* Button:hover{
+      background: #ffffff2e !important;
+    } */
+/* view auction live auction's tab */
+.trade-btn {
+    position: absolute;
+    top: 28px;
+    z-index: 2;
+    border-radius: 4px;
+    background-color: #00000073;
+    color: whilte;
+    border: 1px solid;
+    font-size: 14px;
+    left: 34px; 
+}
+.trade-btn:hover{
+  border-color: white ;
+}
+.images-360{
+   overflow-x: scroll;
+}
+.images-360::-webkit-scrollbar {
+	width: 35px;
+}
+
+.images-360::-webkit-scrollbar-track {
+	background: rgb(117 115 115 / 82%);
+}
+.images-360::-webkit-scrollbar-thumb {
+	/* background: rgb(37 31 31 / 77%); */
+  border-radius: 25px;
+}
+
+.hot{
+  background-color: #81d742;
+  color: white;
+}
+.sale{
+  background-color: #8224e3;
+  color: white;
+}
+.red{
+  background-color: red;
+  color: white;
+}
+.list-text-area{
+
+}
+.car-list-title{
+  background: #3c39392e;
+  width: max-content;
+  color: whtie;
+  /* padding: 9px 15px; */
+  padding: 9px 36px 9px 9px;
+  clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+  font-size: 25px;
+  letter-spacing: 3px;
+  margin: auto;
+}
+
+.car-list-title-simple{
+  background: #ffffff2e; 
+  color: whtie;
+  
+  padding: 9px 15px; 
+  font-size: 25px;
+  letter-spacing: 3px;
+  margin: auto;
+}
+.car-list-titles {
+    background: #ffffff2e;
+    /* width: max-content; */
+    color: whtie;
+    padding: 0px 16px;
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    clip-path: polygon(12% 0%, 100% 0%, 100% 100%, 0% 100%);
+    font-size: 20px;
+    letter-spacing: 3px;
+    width: 100%;
+}
+.badge-link{
+  text-decoration: none;
+  padding-top: 7px !important;
+  cursor: pointer;
+}
+.badge-draft{
+  margin: 11px !important;
+  cursor: pointer;
+}
+.car-list-wrap{
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  padding-top:10px;
+}
+.car-list-wrap-left{
+  display: flex;
+  flex-direction: column;
+}
+.right--content{
+  padding: 3px 23px 3px 3px; 
+}
+
+.right--content:hover{ 
+  background: #817c7c1f;
+  width: max-content;
+  color: whtie;
+  clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%); 
+  padding: 3px 23px 3px 3px;
+  }
+.card-list__title{
+
+}
+.card-list__info{
+
+}
+.car-list-wrap-right{
+  display: flex;
+  flex-direction: column;
+}
+.card__price-number {
+    background: #3c39392e;
+    width: max-content;
+    color: whtie;
+    padding: 9px 16px;
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    font-size: 19px;
+    letter-spacing: 2px;
+}
+.card-start-time{
+    float:left;
+    background: #817c7c1f;
+    width: max-content;
+    color: whtie;
+    padding: 9px 16px;
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    font-size: 17px;
+    letter-spacing: 1px
+}
+.card-start-time-accept{
+    float:left;
+    background: #605b5b1a;
+    width: max-content;
+    color: whtie;
+    padding: 9px 16px;
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    font-size: 17px;
+    letter-spacing: 1px; 
+    -webkit-transition: all 0.3s;
+    transition: all 0.3s;
+}
+.card-start-time-accept:active {
+  box-shadow: 0px 4px 8px #333;
+  -webkit-transform: scale(0.98);
+  transform: scale(0.98);
+}
+.card-end-time {
+    float: right;
+    background: #817c7c1f;
+    width: max-content;
+    color: whtie;
+    padding: 9px 16px;
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 0% 100%);
+    font-size: 17px;
+    letter-spacing: 1px;
+}
+.card-end-time-reject {
+    float: right;
+    background: #605b5b1a;
+    width: max-content;
+    color: whtie;
+    padding: 9px 16px;
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    clip-path: polygon(10% 0%, 100% 0%, 100% 100%, 0% 100%);
+    font-size: 17px;
+    letter-spacing: 1px;
+    -webkit-transition: all 0.3s;
+transition: all 0.3s;
+}
+ 
+.card-end-time-reject:active {
+box-shadow: 0px 4px 8px #333;
+-webkit-transform: scale(0.98);
+transform: scale(0.98);
+}
+.link{
+  float: right;
+}
+
+
+.card-end-time-label {
+  float: right;
+  background: #605b5b1a;
+  width: max-content;
+  color: whtie;  
+  font-size: 17px;
+  letter-spacing: 1px; 
+}
+
+.bid-modal{
+  top: 150px;
+}
+.bid-amount{
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+}
+.bid-input {
+    border-radius: 2px;
+    height: 38px;
+}
+.modal-bid-header{ 
+ background: white !important;
+ color: black !important;
+ padding: 20px;
+}
+.bid-btn {
+    background-color: rgb(22 20 20 / 44%) !important;
+    border-radius: 2px;
+    padding: 8px 25px;
+}
+button.bid-btn:hover{
+  color: black !important; 
+}
+.dim-dark{
+  background-color: rgb(240 248 255 / 82%);
+}
+.padding{
+  padding-bottom: 37px !important;
+}
+
+
+
+/* winner car card started */
+.winner-card{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  box-shadow: 0px 0px 5px #ffffff9e;
+  margin-top: 10px;
+  padding: 5px;
+}
+.space-between{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-align: center;
+  flex-wrap: wrap;
+}
+.winner-card img{
+  max-width: 100px;
+  max-height: 120px;
+}
+
+/* winner car card ended */
+
+
+.dashboard-text{
+  margin-top: 1px !important;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@media (min-width: 1024px) and (max-width: 1440px){
+.accept-reject{
+  display: block !important;
+}
+.card-start-time-accept {
+    float: left;
+    background: #605b5b1a;
+    width: max-content;
+    color: whtie;
+    padding: 9px 16px;
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 102% 100%, 0% 100%);
+    font-size: 17px;
+    letter-spacing: 1px;
+}
+.card-end-time-reject {
+    float: right;
+    background: #605b5b1a;
+    width: max-content;
+    color: whtie;
+    padding: 9px 16px;
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    font-size: 17px;
+    letter-spacing: 1px;
+}
+.winner{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    font-size: 16px;
+    padding: 7px;
+}
+.bid-amount{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: center;
+    flex-wrap: wrap;
+    font-size: 16px;
+    padding: 6px;
+
+}
+}
+
+@media only screen and (min-width: 769px) {
+.dashboard-text-mobile{
+  display: none;
+}
+}
+
+@media (min-width: 768px) and (max-width: 1024px){
+.card-start-time {
+   font-size: 14px !important;
+}
+.card-end-time {
+    font-size: 14px !important;
+}  
+.car-list-title {
+  font-size: 23px !important; 
+
+}
+.pannellum{
+  height: 350px !important;
+}
+
+}
+
+  @media only screen and (max-width: 768px) {
+    .dashboard-text{
+      display: none;
+    }
+    .content.is-open {
+      margin-left: 100%;
+    }
+    .btn-bid{
+      padding: 6px !important;
+      background-color: rgba(247, 181, 181, 0.439) !important;
+      border-color: #f9fafb !important;
+    }
+    .btn-bid:hover{
+      background: #ffffff2e !important;
+    }
+    .sidebar.is-open {
+      min-width: 65px;
+      max-width: 17px;
+      margin-left: 0;
+      transition: all 0.5s, height 0s;
+    }
+  
+    .sidebar.is-open > .sidebar-header span {
+      display: unset;
+    }
+  
+    li a.dropdown-toggle::after {
+      display: inline-block;
+      position: relative;
+      left: 68%;
+    }
+    .nav-items {
+    display: flex;
+    color: black !important;
+    width: 100%;
+    padding: 3px 8px;
+}
+
+
+
+  }
+  @media only screen and (max-width: 425px) {
+
+  
+    .card-end-time {
+    /* float: right; */
+    background: #ffffff2e;
+    width: max-content;
+    color: whtie;
+    padding: 9px 16px;
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 100% 100%, 0% 100%);
+    font-size: 17px;
+    letter-spacing: 1px;
+}
+.card-end-live-auction{
+  display: flex !important;
+  justify-content: center !important;
+}
+  }
+@media (max-width: 320px){
+.tabs-card {
+  max-width: 265px !important;
+}
+.tab-content{
+ max-width: 265px !important;
+}
+
+.tabs-card .nav-item button {
+    color: white;
+    border-radius: unset;
+    margin-left: 0px;
+    font-size: 13px;
+    padding: 8px;
+}
+.sidebar.is-open {
+    min-width: 44px;
+    max-width: 17px;
+    margin-left: 0;
+    transition: all 0.5s, height 0s;
+}
+.sidebar-header > span {
+    position: relative;
+    /* float: right; */
+    margin: 0px 10px;
+    padding-top: 13px;
+    font-size: 2rem;
+    cursor: pointer;
+    display: none;
+}
+.nav-items {
+    display: flex;
+    color: black;
+    width: 100%;
+    padding: 3px 3px;
+}
+.side-menu::-webkit-scrollbar {
+    width: 8px;
+  }
+.car-list-title {
+    background: #ffffff2e;
+    /* width: max-content; */
+    color: whtie;
+    padding: 9px 16px;
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    font-size: 20px;
+    letter-spacing: 3px;
+    margin-left: 0px;
+}
+
+.card__price-number {
+    background: #ffffff2e;
+    width: max-content;
+    color: whtie;
+    padding: 9px 16px;
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    font-size: 20px;
+    letter-spacing: 3px;
+}
+.car-description {
+  font-size: 14px;
+  letter-spacing: 0.6px;
+}
+.card-list__info {
+    font-size: 14px;
+    letter-spacing: 0.5px;
+}
+.card-list__title {
+    font-size: 15px;
+    letter-spacing: 0.5px;
+}
+.tabs-card {
+    max-width: 303px;
+}
+.badge-link {
+    text-decoration: none;
+    padding-top: 7px !important;
+    cursor: pointer;
+    margin-right: 10px;
+}
+}
+@media (min-width: 321px) and (max-width: 375px){
+
+  .tabs-card{
+    max-width: 303px !important;
+
+  }
+}
+
+@media (min-width: 320px) and (max-width: 375px){
+.tabs-card {
+    background-color: #0000007a;
+    padding: 0px 6px;
+    height: calc(100% - 35px);
+}
+.tabs-card .nav-item button {
+    color: white;
+    border-radius: unset;
+    margin-left: 0px;
+    font-size: 13px !important;
+}
+.draft-items{
+  display: block !important;
+}
+}
+
+@media (min-width: 375px) and (max-width: 425px){
+  .tabs-card .nav-item button {
+    color: white;
+    border-radius: unset;
+    margin-left: 0px;
+    font-size: 14px;
+}
+.tabs-card{
+  max-width: 355px;
+}
+.car-list-title {
+    background: #ffffff2e;
+    width: max-content;
+    color: whtie;
+    padding: 9px 15px;
+    -webkit-clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%);
+    font-size: 20px;
+    letter-spacing: 3px;
+    margin-left: 0px !important;
+}
+.draft-items{
+  display: block !important;
+}
+.badge-link {
+    text-decoration: none;
+    padding-top: 10px !important;
+    cursor: pointer;
+    margin-right: 10px;
+}
+}
+    /* ---------------------------------------------------
+      Main Content  style started
+  ----------------------------------------------------- */
+.item-right{
+  display: flex;
+  justify-content: flex-end;
+}
+.btn-search{
+  border-radius: 5px 0px 0px 5px;
+  background: #ffffff2e;
+}
+.btn-search:hover{
+  border-radius: 5px 0px 0px 5px;
+  background: #ffffff2e;
+}
+.btn-reset{
+  border-radius: 0px 5px 5px 0px;
+  background: #ffffff2e;
+  /* clip-path: polygon(0% 0%, 100% 0%, 88% 100%, 0% 100%); */
+}
+.btn-reset:hover{
+  border-radius: 0px 5px 5px 0px;
+  background: #ffffff2e;
+}
+  
+  .modal-header { 
+  background: black !important;
+  color: white !important;
+  border-bottom: 1px solid BLACK;
+}
+.modal-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  pointer-events: auto;
+  background: black !important;
+  color: white !important;
+  border-bottom: 1px solid BLACK;
+  background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  outline: 0;
+}
+.modal-content  button{
+  color: white !important;
+}
+    /* ---------------------------------------------------
+      Main Content  style ENDED
+  ----------------------------------------------------- */
