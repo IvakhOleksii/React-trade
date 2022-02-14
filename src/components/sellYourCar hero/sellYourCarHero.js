@@ -838,7 +838,7 @@ class SellYourCarHero extends Component {
                       </Col> */}
 
                         <Col lg={6} md={12} sm={12}>
-                          <Form.Group className="mb-3" controlId="Odometer">
+                          <Form.Group className="mb-3" controlId="Odometer2">
                             <Form.Control
                               className="ts-input"
                               type="text"

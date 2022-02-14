@@ -162,13 +162,18 @@ class TradeYourCarHero extends Component {
     //   });
     //   this.props.history.push("/login");
     // }
-    this.setState({ step: this.state.step + 1 });
+    if(this.state.step === 2) {
+      this.setState({ step: 6 });
+    } else this.setState({ step: this.state.step + 1 });
     window.scroll(100, 100);
   };
   handlePreviousStep = (e) => {
     e.preventDefault();
     window.scroll(100, 100);
-    this.setState({ step: this.state.step - 1 });
+    if(this.state.step === 6) {
+      this.setState({ step: 2 });
+    } else this.setState({ step: this.state.step - 1 });
+    
   };
   handleDeletePhoto = (item, fileName) => {
     if (fileName === "additional_photos") {
@@ -704,22 +709,22 @@ class TradeYourCarHero extends Component {
                       </Row>
 
                       <Row className="  ">
-                        {/* <Col lg={6} md={12} sm={12}>
-                          <Form.Group className="mb-3" controlId="Trim">
+                         <Col lg={6} md={12} sm={12}>
+                           <Form.Group className="mb-3" controlId="Body Type">
                             <Form.Control
-                              required
-                              name="trim"
-                              value={"" || this.state.trim}
+                              name="body_type"
+                              value={"" || this.state.body_type}
                               onChange={(e) =>
-                                this.setState({ trim: e.target.value })
+                                this.setState({ body_type: e.target.value })
                               }
                               className="ts-input"
                               type="text"
-                              placeholder="  Trim *"
+                              placeholder=" Body Type *"
                             />
                           </Form.Group>
-                        </Col> */}
-                        <Col lg={12} md={12} sm={12}>
+
+                        </Col> 
+                        <Col lg={6} md={12} sm={12}>
                           <Form.Group
                             className="mb-3"
                             controlId="zip_code Code"
@@ -846,18 +851,18 @@ class TradeYourCarHero extends Component {
                         <img src={Step2} className="  " alt="steps" />
                       </Col> */}
 
+                        
                         <Col lg={6} md={12} sm={12}>
-                          <Form.Group className="mb-3" controlId="Odometer">
+                        <Form.Group className="mb-3" controlId="mileage ">
                             <Form.Control
                               className="ts-input"
                               type="text"
-                              name="odometer"
-                              value={"" || this.state.odometer}
+                              name="mileage "
+                              value={"" || this.state.mileage }
                               onChange={(e) =>
-                                this.setState({ odometer: e.target.value })
-                              }
-                              type="text"
-                              placeholder="Odometer  "
+                                this.setState({ mileage : e.target.value })
+                              } 
+                              placeholder="Mileage...  "
                             />
                           </Form.Group>
                         </Col>
@@ -875,20 +880,23 @@ class TradeYourCarHero extends Component {
                             />
                           </Form.Group>
                         </Col>
+                        {/* 
                         <Col lg={12} md={12} sm={12}>
-                          <Form.Group className="mb-3" controlId="mileage ">
+                        <Form.Group className="mb-3" controlId="Odometer">
                             <Form.Control
                               className="ts-input"
                               type="text"
-                              name="mileage "
-                              value={"" || this.state.mileage }
+                              name="odometer"
+                              value={"" || this.state.odometer}
                               onChange={(e) =>
-                                this.setState({ mileage : e.target.value })
-                              } 
-                              placeholder="Mileage...  "
+                                this.setState({ odometer: e.target.value })
+                              }
+                              type="text"
+                              placeholder="Odometer"
                             />
                           </Form.Group>
                         </Col>
+                        */}
                       </Row>
 
                       <Row className="  ">
@@ -911,37 +919,28 @@ class TradeYourCarHero extends Component {
                             />
                           </Form.Group>
                         </Col>
-                        <Col lg={6} md={12} sm={12}>
+                        <Col lg={6} md={12} sm={12}>          
                           <Form.Group className="mb-3" controlId="Fuel Type">
-                            <Form.Control
+                          <Form.Select
                               name="fuel_type"
                               value={"" || this.state.fuel_type}
                               onChange={(e) =>
-                                this.setState({ fuel_type: e.target.value })
+                                this.setState({ condition: e.target.value })
                               }
                               className="ts-input"
-                              type="text"
-                              placeholder="  Fuel Type  "
-                            />
+                              defaultValue="  Condition"
+                            >
+                              <option>Fule Type </option>
+                              <option value="Gas">Gas</option>
+                              <option value="Diesel">Diesel</option>
+                              <option value="Electric">Electric</option>
+                              <option value="Natural Gas">Natrual Gas</option>
+                            </Form.Select>
                           </Form.Group>
                         </Col>
                       </Row>
 
                       <Row className="  ">
-                        <Col lg={6} md={12} sm={12}>
-                          <Form.Group className="mb-3" controlId="Body Type">
-                            <Form.Control
-                              name="body_type"
-                              value={"" || this.state.body_type}
-                              onChange={(e) =>
-                                this.setState({ body_type: e.target.value })
-                              }
-                              className="ts-input"
-                              type="text"
-                              placeholder=" Body Type"
-                            />
-                          </Form.Group>
-                        </Col>
                         <Col lg={6} md={12} sm={12}>
                           <Form.Group controlId="formGridState">
                             <Form.Select
@@ -959,9 +958,6 @@ class TradeYourCarHero extends Component {
                             </Form.Select>
                           </Form.Group>
                         </Col>
-                      </Row>
-
-                      <Row className="  ">
                         <Col lg={6} md={12} sm={12}>
                           <Form.Group
                             className="mb-3"
@@ -984,6 +980,11 @@ class TradeYourCarHero extends Component {
                             </Form.Select>
                           </Form.Group>
                         </Col>
+
+                      </Row>
+
+                     {/* 
+                      <Row className="  ">
                         <Col lg={6} md={12} sm={12}>
                           <Form.Group controlId="formGridState">
                             <Form.Select
@@ -1010,6 +1011,7 @@ class TradeYourCarHero extends Component {
                           </Form.Group>
                         </Col>
                       </Row>
+                      */}
 
                       {/* <Row className="  ">
                       <Col lg={12} md={12} sm={12}>
