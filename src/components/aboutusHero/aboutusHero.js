@@ -7,7 +7,6 @@ import NavBar from "../../views/_partials/navbar"
 import { toast } from 'react-toastify';
 import { ReactVideo } from "reactjs-media";
 // import { YoutubePlayer } from "reactjs-media";
-import Video from "../../assets/videos/MissionVideoBackground.mp4"
 import poster from "../../assets/imgs/png/newcars/3.jpg"
 
 class AboutUsHero extends Component {
@@ -27,16 +26,6 @@ class AboutUsHero extends Component {
                                 <p>Whether your trading-in or selling let us help you
                                 get the most value from your current vehicle. </p>
 
-                        </Col>
-                        <Col lg={8} md={12} sm={12} className="pb-3">
-                                <div>
-                                    <ReactVideo
-                                        className="video-player"
-                                        src= {Video}
-                                        poster= {poster}
-                                        primaryColor="red"
-                                    />
-                                </div>
                         </Col>
                         <Col lg={8} md={12} sm={12} className="pt-5">
                                 <div>
