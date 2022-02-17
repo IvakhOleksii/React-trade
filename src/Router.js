@@ -1,5 +1,5 @@
 import React, { lazy } from "react";
-import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { Router, Switch, Route } from "react-router-dom";
 import { connect } from "react-redux";
 import { ToastContainer } from "react-toastify";
 import { history } from "./helpers/history";
@@ -18,10 +18,7 @@ const AuctionDetail = lazy(() => import("./views/pages/auctionDetail"));
 class AppRouter extends React.Component {
   render() {
     return (
-      <BrowserRouter
-        basename={window.location.pathname || ""}
-        history={history}
-      >
+      <Router basename={window.location.pathname || ""} history={history}>
         <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -43,7 +40,11 @@ class AppRouter extends React.Component {
           <Route exact path="/Sell-your-car" component={SellYourCar} />
           <Route exact path="/car-viewer" component={CarViewer} />
           <Route exact path="/privacy" component={Privacy} />
-          <Route exact path="/terms-and-condition" component={TermsAndCondition} />
+          <Route
+            exact
+            path="/terms-and-condition"
+            component={TermsAndCondition}
+          />
           {this.props.user?.isLogin ? (
             <Switch>
               <Route exact path="/dashboard" component={Dashboard} />
@@ -53,7 +54,7 @@ class AppRouter extends React.Component {
             ""
           )}
         </Switch>
-      </BrowserRouter>
+      </Router>
     );
   }
 }
