@@ -40,23 +40,23 @@ class SellYourCarHero extends Component {
     super(props);
     this.state = {
       cardsData: {
-          heading1: "Get the Best Offer ",
-          heading2: "Selling your Vehicle",
-          cards: [
-            {
-              value:
-                "  My vehicle is 6 years or newer and I’m ready to sell now for the best offer.",
-            },
-            {
-              value:
-                "My vehicle is older than 6 years and I’m ready to sell now for the best offer.",
-            },
-            {
-              value:
-                "I’m not ready to sell but would like an idea of what my vehicle is worth",
-            },
-          ],
-        }, 
+        heading1: "Get the Best Offer ",
+        heading2: "Selling your Vehicle",
+        cards: [
+          {
+            value:
+              "  My vehicle is 6 years or newer and I’m ready to sell now for the best offer.",
+          },
+          {
+            value:
+              "My vehicle is older than 6 years and I’m ready to sell now for the best offer.",
+          },
+          {
+            value:
+              "I’m not ready to sell but would like an idea of what my vehicle is worth",
+          },
+        ],
+      },
       seletedValue: "",
       // images: [
       //   { image: Image1 },
@@ -71,7 +71,7 @@ class SellYourCarHero extends Component {
       images: [],
       images360: [],
       step: 0,
-      btnType:"",
+      btnType: "",
       // vin: "5UXKU2C54J0X48668",
       car_details_by_vin: null,
 
@@ -93,7 +93,7 @@ class SellYourCarHero extends Component {
       odometer: "",
       transmission: "",
       fuel_type: "",
-      mileage:"",
+      mileage: "",
       body_type: "",
       condition: "",
       exterior_color: "",
@@ -140,18 +140,19 @@ class SellYourCarHero extends Component {
       // make: '',
       // model: '', already define
       radius: "",
-      latitude :"",
-      longitude:"",   
+      latitude: "",
+      longitude: "",
       primary_photo: [],
       additional_photos: [],
 
       alredyHaveAccount: false,
       loading: false,
+      isVINValid: false,
       preview: [],
     };
   }
   handleNextStep = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     // if (this.props.user?.isLogin) {
     //   this.setState({ step: this.state.step + 1 });
     //   window.scroll(100, 100);
@@ -162,6 +163,15 @@ class SellYourCarHero extends Component {
     //   });
     //   this.props.history.push("/login");
     // }
+    if (!this.state.isVINValid) {
+      toast.error("Vin is incorrect, please try again", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000,
+      });
+
+      return;
+    }
+
     this.setState({ step: this.state.step + 1 });
     window.scroll(100, 100);
   };
@@ -223,9 +233,7 @@ class SellYourCarHero extends Component {
         };
         reader.readAsDataURL(file);
       });
-
-    } else 
-    {
+    } else {
       // del if exist previous
       this.state.primary_photo?.map((item, index) => {
         if (item.fileName === e.target.name) {
@@ -330,7 +338,7 @@ class SellYourCarHero extends Component {
     data.append("model", this.state.model);
     data.append("zip", this.state.zip_code);
     data.append("state", this.state.state);
-    data.append("city",this.props?.user?.city);
+    data.append("city", this.props?.user?.city);
     data.append("phone", this.state.phone);
 
     // 2nd step
@@ -379,7 +387,7 @@ class SellYourCarHero extends Component {
     data.append("sunroof", this.state.sunroof);
     data.append("navigation", this.state.navigation);
 
-    data.append("latitude", this.state.latitude);   
+    data.append("latitude", this.state.latitude);
     data.append("longitude", this.state.longitude);
     data.append(
       "aftermarket_stereo_equipment",
@@ -423,6 +431,7 @@ class SellYourCarHero extends Component {
         if (response.status === 200) {
           this.setState({
             loading: false,
+            isVINValid: true,
             car_details_by_vin: response.data.data,
             drivetrain: response.data.data.attributes.drivetrain,
             engine: response.data.data.attributes.engine,
@@ -441,7 +450,7 @@ class SellYourCarHero extends Component {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 1800,
         });
-        this.setState({ loading: false });
+        this.setState({ loading: false, isVINValid: false });
       }
     } else {
       toast.warning("Please fill VIN number before proceed.", {
@@ -470,14 +479,14 @@ class SellYourCarHero extends Component {
     this.setState({ step: 1, seletedValue: value });
   };
   handleDeletePhotoOnServer(id, name, is_primary) {
-    if(is_primary===0){
+    if (is_primary === 0) {
       var index = this.state?.images360.findIndex(
         (find) => find.is_primary === is_primary
       );
       var tempImages = this.state.images360;
       tempImages.splice(index, 1);
       this.setState({ images360: tempImages });
-    }else{
+    } else {
       var index = this.state?.images.findIndex(
         (find) => find.is_primary === is_primary
       );
@@ -485,7 +494,6 @@ class SellYourCarHero extends Component {
       tempImages.splice(index, 1);
       this.setState({ images: tempImages });
     }
-
   }
   render() {
     return (
@@ -872,10 +880,10 @@ class SellYourCarHero extends Component {
                               className="ts-input"
                               type="text"
                               name="mileage "
-                              value={"" || this.state.mileage }
+                              value={"" || this.state.mileage}
                               onChange={(e) =>
-                                this.setState({ mileage : e.target.value })
-                              } 
+                                this.setState({ mileage: e.target.value })
+                              }
                               placeholder="Mileage...  "
                             />
                           </Form.Group>
@@ -2712,26 +2720,30 @@ class SellYourCarHero extends Component {
                             Back
                           </Button>
                           {this.props.user?.isLogin ? (
-                          <React.Fragment>
-                          <Button
-                    className="btn-next btn-margin-left"
-                    variant="primary"
-                    type="submit"
-                    value="draft"
-                    onClick={()=>this.setState({btnType:"draft"})}
-                  >
-                  Save As Draft
-                  </Button>
-                          <Button
-                    className="btn-next btn-margin-left"
-                    variant="primary"
-                    type="submit"
-                    value="publish"
-                    onClick={()=>this.setState({btnType:"publish"})}
-                  >
-                    Submit
-                  </Button>
-                  </React.Fragment> 
+                            <React.Fragment>
+                              <Button
+                                className="btn-next btn-margin-left"
+                                variant="primary"
+                                type="submit"
+                                value="draft"
+                                onClick={() =>
+                                  this.setState({ btnType: "draft" })
+                                }
+                              >
+                                Save As Draft
+                              </Button>
+                              <Button
+                                className="btn-next btn-margin-left"
+                                variant="primary"
+                                type="submit"
+                                value="publish"
+                                onClick={() =>
+                                  this.setState({ btnType: "publish" })
+                                }
+                              >
+                                Submit
+                              </Button>
+                            </React.Fragment>
                           ) : (
                             ""
                           )}
@@ -2837,104 +2849,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(SellYourCarHero);
 
 // const response = await axios(APIConfig("post", "/sell_your_car", data));
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import React, { Component } from "react";
 // import { connect } from "react-redux";
 // import {
@@ -3020,22 +2934,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(SellYourCarHero);
 //       city: "",
 //       phone: "",
 //       trim: "",
-//       zip_code: "",  
-      
-      
+//       zip_code: "",
 
 //       // Additional Information 2
 
 //       odometer: "",
-//       transmission: "", 
+//       transmission: "",
 //       fuel_type: "",
 //       body_type: "",
 //       condition: "",
 //       exterior_color: "",
 //       loan_or_lease_on_car: "",
 //       car_keys: "",
-
-   
 
 //       //  Additional Information Driveability 3
 
@@ -3067,7 +2977,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(SellYourCarHero);
 //       dashboard_damage: "",
 //       interior_trim_damage: "",
 //       sunroof: "",
-//       navigation: "", 
+//       navigation: "",
 //       aftermarket_stereo_equipment: "",
 //       hvac_not_working: "",
 //       leather_Or_Leather_type_seats: "",
@@ -3176,7 +3086,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(SellYourCarHero);
 //   }
 
 //   handleFinalSubmit = async (e) => {
-//     e.preventDefault(); 
+//     e.preventDefault();
 //     this._isMounted = true;
 //     var FormData = require("form-data");
 //     var data = new FormData();
@@ -3228,7 +3138,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(SellYourCarHero);
 //     data.append("vin", this.state.vin);
 //     data.append("drivetrain", this.state.drivetrain);
 //     data.append("engine", this.state.engine);
-//     data.append("trim", this.state.trim); 
+//     data.append("trim", this.state.trim);
 //     data.append("year", this.state.year);
 //     data.append("make", this.state.make);
 //     data.append("model", this.state.model);
@@ -3239,7 +3149,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(SellYourCarHero);
 
 //     // 2nd step
 //     data.append("odometer", this.state.odometer);
-//     data.append("transmission", this.state.transmission); 
+//     data.append("transmission", this.state.transmission);
 //     data.append("fuel_type", this.state.fuel_type);
 //     data.append("body_type", this.state.body_type);
 //     data.append("condition", this.state.condition);
@@ -3247,9 +3157,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(SellYourCarHero);
 //     data.append("loan_or_lease_on_car", this.state.loan_or_lease_on_car);
 //     data.append("car_keys", this.state.car_keys);
 
-//     // data.append("color", this.state.color);  
-    
-    
+//     // data.append("color", this.state.color);
+
 //     // 3rd step
 //     data.append("vehicle_driving", this.state.vehicle_driving);
 //     data.append("transmission_issue", this.state.transmission_issue);
@@ -3282,7 +3191,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(SellYourCarHero);
 //     data.append( "aftermarket_stereo_equipment",   this.state.aftermarket_stereo_equipment );
 //     data.append("hvac_not_working", this.state.hvac_not_working);
 //     data.append( "leather_Or_Leather_type_seats",  this.state.leather_Or_Leather_type_seats  );
- 
+
 //     try {
 //       const response = await axios(APIConfig("post", "/sell_your_car", data));
 //       if (response.status === 200) {
@@ -3349,7 +3258,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(SellYourCarHero);
 //     }
 //     else{
 //       this.setState({state :this.props.user.state,city:this.props.user.city,phone:this.props.user.phone})
-     
+
 //     }
 //   }
 //   componentWillUnmount() {
@@ -3385,7 +3294,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(SellYourCarHero);
 //                 <div className="login-hero-container margin-top-medium">
 //                   {/* <div className="d-flex justify-content-center flex-column text-center login-header-container algin-center mb-4">
 //                   <h3 style={{color:"white"}} className="car-info">Car Information </h3>
-//                   <h6 style={{color:"white"}} className="car-info">   
+//                   <h6 style={{color:"white"}} className="car-info">
 //                     {this.state.step===1 ?" ":this.state.step===2 ?" Additional Information":this.state.step===3 ?" Driveability":this.state.step===4 ?" Exterior":this.state.step===5 ?"Interior ":this.state.step===6 ?" Final info ": "" }</h6>
 //                 </div> */}
 //                   <div className="d-flex justify-content-center flex-column text-center algin-center mb-2">
@@ -3932,14 +3841,13 @@ export default connect(mapStateToProps, mapDispatchToProps)(SellYourCarHero);
 //                         })}
 //                       </Col>
 //                     </Row>
-                 
-                 
+
 //                     <Row className="  ">
 //                     <Col lg={12} md={12} sm={12}>
 //                         <h5 className="car-list-title-simple mt-3">
 //                         Additional Images
 //                         </h5>
-//                       </Col> 
+//                       </Col>
 //                       <Col lg={6} md={12} sm={12}>
 //                         <Form.Label className="sell-form-label">
 //                           {" "}
@@ -3988,8 +3896,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(SellYourCarHero);
 //                         })}
 //                       </Col>
 //                     </Row>
-                 
-                 
+
 //                   */}
 
 //                       <div className="d-flex  justify-content-center algin-items-center mt-4 ">
@@ -4013,9 +3920,8 @@ export default connect(mapStateToProps, mapDispatchToProps)(SellYourCarHero);
 //                     ""
 //                   )}
 
-
 //                       {/* step 2  Additional Info   ended */}
-                          
+
 //                   {/* step 3  Driveability started */}
 //                   {this.state.step === 3 ? (
 //                     <Form onSubmit={this.handleNextStep}>
@@ -4177,7 +4083,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(SellYourCarHero);
 //                     </Form>
 //                   ) : (
 //                     ""
-//                   )} 
+//                   )}
 //                   {/* step 3 Driveability   started ended */}
 
 //                   {/* step 4  Exterior started */}
@@ -5314,7 +5220,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(SellYourCarHero);
 //                   ) : (
 //                     ""
 //                   )}
-               
+
 //                   {/* step 6 Final Details   started ended */}
 //                 </div>
 //               </Col>

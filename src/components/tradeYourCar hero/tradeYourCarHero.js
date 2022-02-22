@@ -29,7 +29,10 @@ import NavBar from "../../views/_partials/navbar";
 import APIConfig from "../../helpers/api/config";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { validateMaxLength, validateSingleField } from "../../helpers/validation";
+import {
+  validateMaxLength,
+  validateSingleField,
+} from "../../helpers/validation";
 import TradeYourCarCard from "../tradyourcarCard";
 import Registrationhero from "../Registration hero/Registrationhero";
 import Login from "../login hero/loginHero";
@@ -71,7 +74,7 @@ class TradeYourCarHero extends Component {
       images: [],
       images360: [],
       step: 0,
-      btnType:"",
+      btnType: "",
       // vin: "5UXKU2C54J0X48668",
       car_details_by_vin: null,
 
@@ -92,7 +95,7 @@ class TradeYourCarHero extends Component {
 
       odometer: "",
       transmission: "",
-      mileage:"",
+      mileage: "",
       fuel_type: "",
       body_type: "",
       condition: "",
@@ -140,18 +143,19 @@ class TradeYourCarHero extends Component {
       // make: '',
       // model: '', already define
       radius: "",
-      latitude :"",
-      longitude:"",   
+      latitude: "",
+      longitude: "",
       primary_photo: [],
       additional_photos: [],
 
       alredyHaveAccount: false,
       loading: false,
+      isVINValid: false,
       preview: [],
     };
   }
   handleNextStep = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     // if (this.props.user?.isLogin) {
     //   this.setState({ step: this.state.step + 1 });
     //   window.scroll(100, 100);
@@ -162,7 +166,16 @@ class TradeYourCarHero extends Component {
     //   });
     //   this.props.history.push("/login");
     // }
-    if(this.state.step === 2) {
+    if (!this.state.isVINValid) {
+      toast.error("Vin is incorrect, please try again", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000,
+      });
+
+      return;
+    }
+
+    if (this.state.step === 2) {
       this.setState({ step: 6 });
     } else this.setState({ step: this.state.step + 1 });
     window.scroll(100, 100);
@@ -170,10 +183,9 @@ class TradeYourCarHero extends Component {
   handlePreviousStep = (e) => {
     e.preventDefault();
     window.scroll(100, 100);
-    if(this.state.step === 6) {
+    if (this.state.step === 6) {
       this.setState({ step: 2 });
     } else this.setState({ step: this.state.step - 1 });
-    
   };
   handleDeletePhoto = (item, fileName) => {
     if (fileName === "additional_photos") {
@@ -228,9 +240,7 @@ class TradeYourCarHero extends Component {
         };
         reader.readAsDataURL(file);
       });
-
-    } else 
-    {
+    } else {
       // del if exist previous
       this.state.primary_photo?.map((item, index) => {
         if (item.fileName === e.target.name) {
@@ -270,9 +280,8 @@ class TradeYourCarHero extends Component {
     // }
   }
 
-  handleFinalSubmit = async (e) => { 
-    
-    e.preventDefault();  
+  handleFinalSubmit = async (e) => {
+    e.preventDefault();
     this._isMounted = true;
     var FormData = require("form-data");
     var data = new FormData();
@@ -325,7 +334,7 @@ class TradeYourCarHero extends Component {
     if (this.state.id !== null) {
       data.append("id", this.state.id);
     }
-    
+
     data.append("publish_status", this.state?.btnType);
     data.append("type", "trade");
     data.append("user_id", this.props.user.id);
@@ -355,7 +364,6 @@ class TradeYourCarHero extends Component {
 
     // data.append("color", this.state.color);
 
-    
     data.append("vehicle_driving", this.state.vehicle_driving);
     data.append("transmission_issue", this.state.transmission_issue);
     data.append("drivetrain_issue", this.state.drivetrain_issue);
@@ -382,14 +390,14 @@ class TradeYourCarHero extends Component {
     data.append("mismatched_paint_colors", this.state.mismatched_paint_colors);
     data.append("previous_paint_work", this.state.previous_paint_work);
 
-    // 5th step 
+    // 5th step
     data.append("seat_damage", this.state.seat_damage);
     data.append("carpet_damage", this.state.carpet_damage);
     data.append("dashboard_damage", this.state.dashboard_damage);
     data.append("interior_trim_damage", this.state.interior_trim_damage);
     data.append("sunroof", this.state.sunroof);
     data.append("navigation", this.state.navigation);
-    data.append("latitude", this.state.latitude);   
+    data.append("latitude", this.state.latitude);
     data.append("longitude", this.state.longitude);
     data.append(
       "aftermarket_stereo_equipment",
@@ -433,6 +441,8 @@ class TradeYourCarHero extends Component {
         if (response.status === 200) {
           this.setState({
             loading: false,
+            isVINValid: true,
+
             car_details_by_vin: response.data.data,
             drivetrain: response.data.data.attributes.drivetrain,
             engine: response.data.data.attributes.engine,
@@ -451,7 +461,7 @@ class TradeYourCarHero extends Component {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 1800,
         });
-        this.setState({ loading: false });
+        this.setState({ loading: false, isVINValid: false });
       }
     } else {
       toast.warning("Please fill VIN number before proceed.", {
@@ -481,14 +491,14 @@ class TradeYourCarHero extends Component {
     this.setState({ step: 1, seletedValue: value });
   };
   handleDeletePhotoOnServer(id, name, is_primary) {
-    if(is_primary===0){
+    if (is_primary === 0) {
       var index = this.state?.images360.findIndex(
         (find) => find.is_primary === is_primary
       );
       var tempImages = this.state.images360;
       tempImages.splice(index, 1);
       this.setState({ images360: tempImages });
-    }else{
+    } else {
       var index = this.state?.images.findIndex(
         (find) => find.is_primary === is_primary
       );
@@ -496,7 +506,6 @@ class TradeYourCarHero extends Component {
       tempImages.splice(index, 1);
       this.setState({ images: tempImages });
     }
-
   }
   render() {
     return (
@@ -709,8 +718,8 @@ class TradeYourCarHero extends Component {
                       </Row>
 
                       <Row className="  ">
-                         <Col lg={6} md={12} sm={12}>
-                           <Form.Group className="mb-3" controlId="Body Type">
+                        <Col lg={6} md={12} sm={12}>
+                          <Form.Group className="mb-3" controlId="Body Type">
                             <Form.Control
                               name="body_type"
                               value={"" || this.state.body_type}
@@ -722,8 +731,7 @@ class TradeYourCarHero extends Component {
                               placeholder=" Body Type *"
                             />
                           </Form.Group>
-
-                        </Col> 
+                        </Col>
                         <Col lg={6} md={12} sm={12}>
                           <Form.Group
                             className="mb-3"
@@ -734,8 +742,10 @@ class TradeYourCarHero extends Component {
                               className="ts-input"
                               name="zip_code"
                               value={"" || this.state.zip_code}
-                              onChange={(e) => 
-                                validateMaxLength(e.target.value,5)? this.setState({ zip_code:e.target.value  }):""
+                              onChange={(e) =>
+                                validateMaxLength(e.target.value, 5)
+                                  ? this.setState({ zip_code: e.target.value })
+                                  : ""
                               }
                               type="number"
                               placeholder="   Zip Code *"
@@ -851,17 +861,16 @@ class TradeYourCarHero extends Component {
                         <img src={Step2} className="  " alt="steps" />
                       </Col> */}
 
-                        
                         <Col lg={6} md={12} sm={12}>
-                        <Form.Group className="mb-3" controlId="mileage ">
+                          <Form.Group className="mb-3" controlId="mileage ">
                             <Form.Control
                               className="ts-input"
                               type="text"
                               name="mileage "
-                              value={"" || this.state.mileage }
+                              value={"" || this.state.mileage}
                               onChange={(e) =>
-                                this.setState({ mileage : e.target.value })
-                              } 
+                                this.setState({ mileage: e.target.value })
+                              }
                               placeholder="Mileage...  "
                             />
                           </Form.Group>
@@ -919,9 +928,9 @@ class TradeYourCarHero extends Component {
                             />
                           </Form.Group>
                         </Col>
-                        <Col lg={6} md={12} sm={12}>          
+                        <Col lg={6} md={12} sm={12}>
                           <Form.Group className="mb-3" controlId="Fuel Type">
-                          <Form.Select
+                            <Form.Select
                               name="fuel_type"
                               value={"" || this.state.fuel_type}
                               onChange={(e) =>
@@ -980,10 +989,9 @@ class TradeYourCarHero extends Component {
                             </Form.Select>
                           </Form.Group>
                         </Col>
-
                       </Row>
 
-                     {/* 
+                      {/* 
                       <Row className="  ">
                         <Col lg={6} md={12} sm={12}>
                           <Form.Group controlId="formGridState">
@@ -2126,7 +2134,7 @@ class TradeYourCarHero extends Component {
                                         >
                                           X
                                         </span>
-                                       
+
                                         <Image src={item.thumbnail} thumbnail />
                                       </span>
                                     );
@@ -2725,25 +2733,29 @@ class TradeYourCarHero extends Component {
                           </Button>
                           {this.props.user?.isLogin ? (
                             <React.Fragment>
-                                    <Button
-                              className="btn-next btn-margin-left"
-                              variant="primary"
-                              type="submit"
-                              value="draft"
-                              onClick={()=>this.setState({btnType:"draft"})}
-                            >
-                            Save As Draft
-                            </Button>
-                                    <Button
-                              className="btn-next btn-margin-left"
-                              variant="primary"
-                              type="submit"
-                              value="publish"
-                              onClick={()=>this.setState({btnType:"publish"})}
-                            >
-                              Submit
-                            </Button>
-                            </React.Fragment> 
+                              <Button
+                                className="btn-next btn-margin-left"
+                                variant="primary"
+                                type="submit"
+                                value="draft"
+                                onClick={() =>
+                                  this.setState({ btnType: "draft" })
+                                }
+                              >
+                                Save As Draft
+                              </Button>
+                              <Button
+                                className="btn-next btn-margin-left"
+                                variant="primary"
+                                type="submit"
+                                value="publish"
+                                onClick={() =>
+                                  this.setState({ btnType: "publish" })
+                                }
+                              >
+                                Submit
+                              </Button>
+                            </React.Fragment>
                           ) : (
                             ""
                           )}
