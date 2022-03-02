@@ -31,7 +31,7 @@ export const FORM_MODES = {
 };
 
 const FORM_STEPS = {
-  [FORM_MODES.SELL]: [0, 1, 2, 3, 4, 5, 6],
+  [FORM_MODES.SELL]: [0, 1, 2, 6],
   [FORM_MODES.TRADE]: [0, 1, 2, 6],
 };
 
@@ -64,7 +64,6 @@ class YourCarForm extends Component {
 
       odometer: "",
       transmission: "",
-      mileage: "",
       fuel_type: "",
       body_type: "",
       condition: "",
@@ -282,7 +281,6 @@ class YourCarForm extends Component {
     data.append("odometer", this.state.odometer);
     data.append("transmission", this.state.transmission);
     data.append("fuel_type", this.state.fuel_type);
-    data.append("mileage", this.state.mileage);
     data.append("body_type", this.state.body_type);
     data.append("condition", this.state.condition);
     data.append("exterior_color", this.state.exterior_color);
@@ -699,20 +697,6 @@ class YourCarForm extends Component {
                             />
                           </Form.Group>
                         </Col>
-                        <Col lg={6} md={12} sm={12}>
-                          <Form.Group className="mb-3" controlId="mileage ">
-                            <Form.Control
-                              className="ts-input"
-                              type="text"
-                              name="mileage "
-                              value={"" || this.state.mileage}
-                              onChange={(e) =>
-                                this.setState({ mileage: e.target.value })
-                              }
-                              placeholder="Mileage...  "
-                            />
-                          </Form.Group>
-                        </Col>
                       </Row>
 
                       <Row className="  ">
@@ -767,7 +751,7 @@ class YourCarForm extends Component {
                               <option value="Gas">Gas</option>
                               <option value="Diesel">Diesel</option>
                               <option value="Electric">Electric</option>
-                              <option value="Natural Gas">Natrual Gas</option>
+                              <option value="Natural Gas">Natural Gas</option>
                             </Form.Select>
                           </Form.Group>
                         </Col>
@@ -783,8 +767,10 @@ class YourCarForm extends Component {
                               defaultValue="  Condition"
                             >
                               <option>Condition </option>
-                              <option value="Used">Used</option>
-                              <option value="New">New</option>
+                              <option value="Excellent">Excellent</option>
+                              <option value="Good">Good</option>
+                              <option value="Fair">Fair</option>
+                              <option value="Poor">Poor</option>
                             </Form.Select>
                           </Form.Group>
                         </Col>
@@ -830,11 +816,6 @@ class YourCarForm extends Component {
                               <option value="3">3</option>
                               <option value="4">4</option>
                               <option value="5">5</option>
-                              <option value="6">6</option>
-                              <option value="7">7</option>
-                              <option value="8">8</option>
-                              <option value="9">9</option>
-                              <option value="10">10</option>
                             </Form.Select>
                           </Form.Group>
                         </Col>
