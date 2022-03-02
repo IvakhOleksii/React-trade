@@ -22,10 +22,19 @@ class NavBar extends Component {
       message: "testing phase",
     };
   }
+  getNavItemStyle = (item) => {
+    if (item !== this.props.showSidebarItem) {
+      return {};
+    }
+
+    return {
+      background: "#fff",
+    };
+  };
   handleLogout = () => {
     this.props.UserHandler([]);
-    this.props.handeChangeSidebarItem("accountSetting")
-    this.props.history.push("/")
+    this.props.handeChangeSidebarItem("accountSetting");
+    this.props.history.push("/");
   };
   render() {
     return (
@@ -45,7 +54,10 @@ class NavBar extends Component {
           </div>
           <div className="side-menu">
             <Nav vertical className="list-unstyled pb-3 d-flex">
-              <NavItem className="nav-items">
+              <NavItem
+                className="nav-items"
+                style={this.getNavItemStyle("accountSetting")}
+              >
                 <NavLink
                   onClick={() =>
                     this.props.handeChangeSidebarItem("accountSetting")
@@ -83,7 +95,6 @@ class NavBar extends Component {
                   </Link>
                 </NavLink>
               </NavItem> */}
-
               {this.props?.user?.user_type === "Car Owner" ? (
                 <React.Fragment>
                   <NavItem className="nav-items">
@@ -109,7 +120,10 @@ class NavBar extends Component {
                     </NavLink>
                   </NavItem>
 
-                  <NavItem className="nav-items">
+                  <NavItem
+                    className="nav-items"
+                    style={this.getNavItemStyle("viewAuction")}
+                  >
                     <NavLink
                       onClick={() =>
                         this.props.handeChangeSidebarItem("viewAuction")
@@ -122,7 +136,10 @@ class NavBar extends Component {
                       </h6>
                     </NavLink>
                   </NavItem>
-                  <NavItem className="nav-items">
+                  <NavItem
+                    className="nav-items"
+                    style={this.getNavItemStyle("auctionEnd")}
+                  >
                     <NavLink
                       onClick={() =>
                         this.props.handeChangeSidebarItem("auctionEnd")
@@ -138,7 +155,10 @@ class NavBar extends Component {
                 </React.Fragment>
               ) : (
                 <React.Fragment>
-                  <NavItem className="nav-items">
+                  <NavItem
+                    className="nav-items"
+                    style={this.getNavItemStyle("liveAuction")}
+                  >
                     <NavLink
                       onClick={() =>
                         this.props.handeChangeSidebarItem("liveAuction")
@@ -151,7 +171,10 @@ class NavBar extends Component {
                       </h6>
                     </NavLink>
                   </NavItem>
-                  <NavItem className="nav-items">
+                  <NavItem
+                    className="nav-items"
+                    style={this.getNavItemStyle("auction")}
+                  >
                     <NavLink
                       onClick={() =>
                         this.props.handeChangeSidebarItem("auction")
@@ -166,7 +189,10 @@ class NavBar extends Component {
                   </NavItem>
                 </React.Fragment>
               )}
-              <NavItem className="nav-items">
+              <NavItem
+                className="nav-items"
+                style={this.getNavItemStyle("messaging")}
+              >
                 <NavLink
                   onClick={() => this.props.handeChangeSidebarItem("messaging")}
                   className="nav-items"
@@ -203,6 +229,7 @@ const mapStateToProps = (state) => {
   return {
     alert: state.app.alert,
     user: state.app.user,
+    showSidebarItem: state.app.showSidebarItem,
   };
 };
 const mapDispatchToProps = (dispatch) => {
