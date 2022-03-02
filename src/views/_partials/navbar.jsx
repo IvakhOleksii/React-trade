@@ -36,17 +36,13 @@ class NavBar extends Component {
         autoClose: 2000,
       });
     }
-    
   };
   handleLogout = () => {
     try {
       this.props.UserHandler([]);
-      this.props.handeChangeSidebarItem("accountSetting")
-      this.props.history.push("/")
-    } catch (error) {
-      
-    }
-
+      this.props.handeChangeSidebarItem("accountSetting");
+      this.props.history.push("/");
+    } catch (error) {}
   };
   render() {
     return (
@@ -80,8 +76,25 @@ class NavBar extends Component {
               <Nav className="me-auto"></Nav>
 
               <Nav className="main-nav-items">
+                {this.props.user?.isLogin ? (
+                  <React.Fragment>
+                    <Link className="nav-link" to="/dashboard">
+                      {" "}
+                      Home
+                    </Link>
+                  </React.Fragment>
+                ) : (
+                  <React.Fragment>
+                    <Link className="nav-link" to="/">
+                      {" "}
+                      Home
+                    </Link>
+                  </React.Fragment>
+                )}
+
                 {/* <Link className="nav-link" to="/">Home </Link> */}
-                {this.props.user?.user_type === "Car Owner" || !this.props.user?.user_type ? (
+                {this.props.user?.user_type === "Car Owner" ||
+                !this.props.user?.user_type ? (
                   <React.Fragment>
                     <Link className="nav-link" to="/trade-your-car">
                       Trade Your Car{" "}
@@ -93,14 +106,15 @@ class NavBar extends Component {
                   </React.Fragment>
                 ) : (
                   <React.Fragment>
-  <Link className="nav-link" to="/aboutus">
-                  {" "}
-                 About us 
-                </Link><Link className="nav-link" to="/contactus">
-                  {" "}
-                 Contact us 
-                </Link>
-                  </React.Fragment> 
+                    <Link className="nav-link" to="/aboutus">
+                      {" "}
+                      About us
+                    </Link>
+                    <Link className="nav-link" to="/contactus">
+                      {" "}
+                      Contact us
+                    </Link>
+                  </React.Fragment>
                 )}
                 {/* <Link className="nav-link" to="/dashboard">
                       {" "}
@@ -160,7 +174,7 @@ const mapDispatchToProps = (dispatch) => {
     AlertHandler: (value) => dispatch({ type: "ALERT", value: value }),
     UserHandler: (value) => dispatch({ type: "USER", value: value }),
     handeChangeSidebarItem: (value) =>
-    dispatch({ type: "SHOWSIDEBARITEM", value: value }),
+      dispatch({ type: "SHOWSIDEBARITEM", value: value }),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
