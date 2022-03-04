@@ -40,7 +40,7 @@ class NavBar extends Component {
   handleLogout = () => {
     try {
       this.props.UserHandler([]);
-      this.props.handeChangeSidebarItem("accountSetting");
+      this.props.handeChangeSidebarItem("viewAuction");
       this.props.history.push("/");
     } catch (error) {}
   };

@@ -130,7 +130,37 @@ class NavBar extends Component {
                       }
                       className="nav-items"
                     >
-                      <h6 className="dashboard-text">View Auctions </h6>
+                      <h6 className="dashboard-text">Current Auctions </h6>
+                      <h6 className="dashboard-text-mobile">
+                        <CommuteIcon fontSize="medium" />
+                      </h6>
+                    </NavLink>
+                  </NavItem>
+                  <NavItem
+                    className="nav-items"
+                    style={this.getNavItemStyle("bids")}
+                  >
+                    <NavLink
+                      onClick={() => this.props.handeChangeSidebarItem("bids")}
+                      className="nav-items"
+                    >
+                      <h6 className="dashboard-text">Bids </h6>
+                      <h6 className="dashboard-text-mobile">
+                        <CommuteIcon fontSize="medium" />
+                      </h6>
+                    </NavLink>
+                  </NavItem>
+                  <NavItem
+                    className="nav-items"
+                    style={this.getNavItemStyle("drafts")}
+                  >
+                    <NavLink
+                      onClick={() =>
+                        this.props.handeChangeSidebarItem("drafts")
+                      }
+                      className="nav-items"
+                    >
+                      <h6 className="dashboard-text">Drafts </h6>
                       <h6 className="dashboard-text-mobile">
                         <CommuteIcon fontSize="medium" />
                       </h6>
@@ -146,7 +176,7 @@ class NavBar extends Component {
                       }
                       className="nav-items"
                     >
-                      <h6 className="dashboard-text"> Auction End </h6>
+                      <h6 className="dashboard-text">Ended Auctions </h6>
                       <h6 className="dashboard-text-mobile">
                         <CommuteIcon fontSize="medium" />
                       </h6>
