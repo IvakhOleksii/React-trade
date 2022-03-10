@@ -1,28 +1,13 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  Button,
-  Image,
-  FormControl,
-  Spinner,
-  Carousel,
-} from "react-bootstrap";
+import { Container, Row, Col, Spinner } from "react-bootstrap";
 import ImageGallery from "react-image-gallery";
 import NavBar from "../../views/_partials/navbar";
-import Image1 from "../../assets/imgs/360/3.jpg";
-import Image2 from "../../assets/imgs/360/8hw0clw-360-panorama-miami.jpeg";
-import Image3 from "../../assets/imgs/360/1.jpg";
-import Image4 from "../../assets/imgs/360/2.jpg";
 import car3 from "../../assets/imgs/360/car3.jpeg";
 import car4 from "../../assets/imgs/360/car4.jpg";
 import car5 from "../../assets/imgs/360/car8.jpg";
 import car6 from "../../assets/imgs/360/car7.jpg";
 import car7 from "../../assets/imgs/360/car6.jpg";
-import { validateSingleField } from "../../helpers/validation";
 import { Eye } from "react-feather";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 // import { Modal, ModalHeader, ModalBody, ModalFooter } from "react-bootstrap";
@@ -68,10 +53,10 @@ class AuctionDetailHero extends Component {
       openModal: false,
       bid_amount: Number,
 
-      showChatModal:false
+      showChatModal: false,
     };
   }
-  handleShow = (e) => { 
+  handleShow = (e) => {
     this.setState({ openModal: true });
   };
 
@@ -86,8 +71,7 @@ class AuctionDetailHero extends Component {
     this.handlePopup();
   };
   componentDidMount() {
-    console.log("qwe"+ JSON.stringify(this.props?.acution_detail));
-    
+    console.log("qwe" + JSON.stringify(this.props?.acution_detail));
   }
   handleSubmit = async (e) => {
     e.preventDefault();
@@ -103,7 +87,7 @@ class AuctionDetailHero extends Component {
       data.append("bid_amount", this.state.bid_amount);
       data.append("dealer_id", this.props?.user?.id);
       data.append("item_id", this.props?.acution_detail?.id);
-      data.append("owner_id",this.props?.acution_detail?.user_id);
+      data.append("owner_id", this.props?.acution_detail?.user_id);
       const response = await axios(APIConfig("post", "/addbid", data));
       if (response.status === 200) {
         // console.log("testtt"+JSON.stringify(response?.data))
@@ -113,8 +97,8 @@ class AuctionDetailHero extends Component {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 1800,
         });
-      }else if (response.status === 204) { 
-        this.setState({ loading: false }); 
+      } else if (response.status === 204) {
+        this.setState({ loading: false });
         toast.success("Your have already bid on this auction", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 1800,
@@ -136,10 +120,10 @@ class AuctionDetailHero extends Component {
   handleChange = (e) => {
     this.setState({ bid_amount: e.target.value });
   };
-  handleRedirectMessage =() => {
-    this.props.handeChangeSidebarItem("messaging")
-    this.props.history.push('/dashboard') 
-  }
+  handleRedirectMessage = () => {
+    this.props.handeChangeSidebarItem("messaging");
+    this.props.history.push("/dashboard");
+  };
   render() {
     return (
       <div className="contact-hero-section">
@@ -164,9 +148,13 @@ class AuctionDetailHero extends Component {
                     
                       {this.state?.acution_detail?.city}{" "}
                     </h3> */}
-                      <button
+                    <button
                       className="detail-car-price mt-20 btn-detail w-100"
-                      onClick={()=>{this.setState({showChatModal:!this.state.showChatModal})}}
+                      onClick={() => {
+                        this.setState({
+                          showChatModal: !this.state.showChatModal,
+                        });
+                      }}
                     >
                       {" "}
                       Send Message
@@ -748,17 +736,23 @@ class AuctionDetailHero extends Component {
             </ModalHeader>
             <ImageViewer360 images={this.state.images} />
           </Modal>
-      
+
           <Modal
             isOpen={this.state?.showChatModal}
             size={"md"}
-            toggle={()=>{this.setState({showChatModal:!this.state.showChatModal})}}
+            toggle={() => {
+              this.setState({ showChatModal: !this.state.showChatModal });
+            }}
             className={"dark "}
           >
-            <ModalHeader toggle={()=>{this.setState({showChatModal:!this.state.showChatModal})}}>
-           Send direct message to owner
+            <ModalHeader
+              toggle={() => {
+                this.setState({ showChatModal: !this.state.showChatModal });
+              }}
+            >
+              Send direct message to owner
             </ModalHeader>
-            <ChatModal   {...this.props}  chat={this.props?.acution_detail}/>
+            <ChatModal {...this.props} chat={this.props?.acution_detail} />
           </Modal>
         </Container>
       </div>
@@ -773,9 +767,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-        handeChangeSidebarItem: (value) =>
+    handeChangeSidebarItem: (value) =>
       dispatch({ type: "SHOWSIDEBARITEM", value: value }),
   };
-  
 };
 export default connect(mapStateToProps, mapDispatchToProps)(AuctionDetailHero);

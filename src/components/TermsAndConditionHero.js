@@ -4,9 +4,6 @@ import { Container, Row, Col } from "react-bootstrap";
 import NavBar from "../views/_partials/navbar";
 
 class TermsAndConditionHero extends Component {
-  constructor(props) {
-    super(props);
-  }
   render() {
     return (
       <div className="contact-hero-section">
@@ -14,14 +11,13 @@ class TermsAndConditionHero extends Component {
         <Container>
           <Row className="d-flex justify-content-center align-items-center  pt-4 pb-4">
             <Col className=" p-3 mb-2" lg={12} md={12} sm={12}>
-          
-            <h1 className="trade-your-car-heading">
-            Terms and
-          <span className="d-inline trader-sell-text pl-2">
-          Condition 
-          </span> 
-        </h1>
-             
+              <h1 className="trade-your-car-heading">
+                Terms and
+                <span className="d-inline trader-sell-text pl-2">
+                  Condition
+                </span>
+              </h1>
+
               <h3 className="pt-3">Introduction</h3>
               <p>
                 TNS Enterprises (TNS) is the owner and operator of this website.

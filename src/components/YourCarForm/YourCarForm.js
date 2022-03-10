@@ -51,7 +51,7 @@ class YourCarForm extends Component {
       vin: "",
       drivetrain: "",
       engine: "",
-      year: Number,
+      year: 0,
       make: "",
       model: "",
       state: "",
