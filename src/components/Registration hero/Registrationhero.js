@@ -59,7 +59,6 @@ class RegistrationHero extends Component {
   };
 
   GetLocationCoordinates = () => {
- 
     var that = this;
     const showPosition = (position) => {
       that.setState({
@@ -97,8 +96,6 @@ class RegistrationHero extends Component {
       }
     }
 
-
-
     if (this.state.key === "Car Owner") {
       data.append("state", this.state.state);
       data.append("city", this.state.city);
@@ -106,7 +103,6 @@ class RegistrationHero extends Component {
       data.append("dealername", this.state.dealerName);
       data.append("companywebsite", this.state.companywebsite);
       data.append("car_make", this.state.car_make);
-    
     }
 
     try {
@@ -119,7 +115,7 @@ class RegistrationHero extends Component {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 1500,
         });
-        if (this.state?.showNavBar || reduxData?.user_type==="Car Dealer") {
+        if (this.state?.showNavBar || reduxData?.user_type === "Car Dealer") {
           this.props.history.push("/dashboard");
         }
         this.resetForm();
@@ -129,25 +125,23 @@ class RegistrationHero extends Component {
           autoClose: 1500,
         });
       }
-    } catch (error) {  
-        toast.warn("Email already Exist ", {
-          position: toast.POSITION.TOP_RIGHT,
-          autoClose: 1500,
-        });
-     
-     
-      console.log(error);
+    } catch (error) {
+      toast.warn("Email already Exist ", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1500,
+      });
+
+      console.error(error);
       this.resetForm();
     }
   };
   handleImageChange(e) {
     e.preventDefault();
-    // this.GetLocationCoordinates();
-    // del if exist previous
-    this.state.primary_photo?.map((item, index) => {
+    this.state.primary_photo?.map((item) => {
       if (item.fileName === e.target.name) {
         return this.handleDeletePhoto(item, "primary_photo");
       }
+      return undefined;
     });
     let files = Array.from(e.target.files);
     files.forEach((file) => {
@@ -181,51 +175,25 @@ class RegistrationHero extends Component {
       });
       return false;
     } else {
-   return true
+      return true;
     }
   };
 
   validatePicture = () => {
-    if (!this.state.primary_photo.length > 0   ) {
+    if (!this.state.primary_photo.length > 0) {
       toast.warn("Please Upload Image", {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 1500,
       });
       return false;
     } else {
-   return true
+      return true;
     }
   };
 
-  
   handleSubmit = async (e) => {
     this._isMounted = true;
     e.preventDefault();
-    // this.GetLocationCoordinates();
-    // const testData={
-    //   name   :this.state.name,
-    //   email   :this.state.email,
-    //   password  :this.state.password,
-    //   state  : this.state.state,
-    //   city  : this.state.city,
-    //   address:this.state.address,
-    //   phone:this.state.phone,
-    //   user_type:this.state.key
-    // }
-    // const testData={
-    //   name   :this.state.name,
-    //   email   :this.state.email,
-    //   password  :this.state.password,
-    //   dealerName  : this.state.dealerName,
-    //   companywebsite : this.state.companywebsite,
-    //   car_make  : this.state.car_make,
-    //   address:this.state.address,
-    //   phone:this.state.phone,
-    //   user_type:this.state.key,
-    //   license:this.state.primary_photo[0].file
-    // }
-
-    // alert(JSON.stringify(testData))
     if (this.validatePassword() && this.validatePicture()) {
       this.setState({ loading: true });
       this.handleRegistration();
@@ -277,31 +245,6 @@ class RegistrationHero extends Component {
                   className="tab-bg"
                 >
                   <Tab eventKey="Car Owner" title="Owner" className="tab-color">
-
-
-
-
-                  {/* <Formik
-                    onSubmit={this.nextHandler}
-                    initialValues={{
-                      appliance: this.state.appliance,
-                    }}
-                    validationSchema={formSchema}
-                  >
-                    {({ errors, touched }) => (
-
-                    <Form
-                      onSubmit={(e) => {
-                        this.handleSubmit(e);
-                      }}
-                      className={
-                        this.state?.showNavBar ? "login-hero-container" : ""
-                      }
-                    >
-        </Form>
-                    )}
-                  </Formik> */}
-
                     <Form
                       onSubmit={(e) => {
                         this.handleSubmit(e);
@@ -380,13 +323,15 @@ class RegistrationHero extends Component {
                           <Form.Group className="mb-3" controlId="Phone">
                             <Form.Control
                               className="ts-input"
-                              type="number" 
+                              type="number"
                               required
                               value={"" || this.state.phone}
                               onChange={(e) =>
-                                validateMaxLength(e.target.value,7)? this.setState({ phone:e.target.value  }):""
+                                validateMaxLength(e.target.value, 7)
+                                  ? this.setState({ phone: e.target.value })
+                                  : ""
                               }
-                              name="phone" 
+                              name="phone"
                               placeholder="Phone*"
                             />
                           </Form.Group>
@@ -414,8 +359,8 @@ class RegistrationHero extends Component {
                           <Form.Group className="mb-3" controlId="password">
                             <Form.Control
                               value={this.state.password || ""}
-                               pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
-                                onChange={(e) =>
+                              pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
+                              onChange={(e) =>
                                 this.setState({ password: e.target.value })
                               }
                               required
@@ -425,7 +370,10 @@ class RegistrationHero extends Component {
                               placeholder="Password"
                             />
                           </Form.Group>
-                          <small style={{color:"black",fontSize:"10px"}}>Password must contain uppercase,special character, lower case and number</small>
+                          <small style={{ color: "black", fontSize: "10px" }}>
+                            Password must contain uppercase,special character,
+                            lower case and number
+                          </small>
                         </Col>
                         <Col lg={6} sm={12} md={12}>
                           <Form.Group
@@ -451,10 +399,16 @@ class RegistrationHero extends Component {
                       </Row>
                       <Row>
                         <Col lg={6} md={12} sm={12}>
-                          <Form.Label style={{color:"black"}} className="sell-form-label">
+                          <Form.Label
+                            style={{ color: "black" }}
+                            className="sell-form-label"
+                          >
                             Owner Image
                           </Form.Label>
-                          <Form.Group className="mb-3" controlId="dealer_image1">
+                          <Form.Group
+                            className="mb-3"
+                            controlId="dealer_image1"
+                          >
                             <Form.Control
                               name="dealer_image"
                               onChange={(e) => this.handleImageChange(e)}
@@ -482,64 +436,10 @@ class RegistrationHero extends Component {
                                 </span>
                               );
                             }
+                            return undefined;
                           })}
                         </Col>
                       </Row>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                      {/* <Form.Group className="mb-3  " controlId="cardOwner">
-                        <Form.Check
-                          value={
-                            this.state.user_type === "owner" ? true : false
-                          }
-                          onChange={(e) =>
-                            this.setState({
-                              user_type: e.target.checked ? "Car Owner" : "",
-                            })
-                          }
-                          name="user_type"
-                          type="radio"
-                          className="ts-bbg-text-color"
-                          required
-                          label="Car Owner"
-                        />
-
-                        <Form.Check
-                          value={
-                            this.state.user_type === "dealer" ? true : false
-                          }
-                          onChange={(e) =>
-                            this.setState({
-                              user_type: e.target.checked ? "Car Dealer" : "",
-                            })
-                          }
-                          name="user_type"
-                          type="radio"
-                          className="ts-bbg-text-color"
-                          required
-                          label="Car Dealer"
-                        />
-                      </Form.Group> */}
                       <div className="d-flex justify-content-flex-start">
                         <Link className="ts-bbg-text-color" to="/login">
                           {" "}
@@ -621,10 +521,11 @@ class RegistrationHero extends Component {
                               className="ts-input"
                               type="number"
                               required
-                               
                               value={"" || this.state.phone}
                               onChange={(e) =>
-                                validateMaxLength(e.target.value,7)? this.setState({ phone:e.target.value  }):""
+                                validateMaxLength(e.target.value, 7)
+                                  ? this.setState({ phone: e.target.value })
+                                  : ""
                               }
                               name="phone"
                               placeholder="Phone*"
@@ -711,7 +612,7 @@ class RegistrationHero extends Component {
                           <Form.Group className="mb-3" controlId="password">
                             <Form.Control
                               value={this.state.password || ""}
-                              pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$" 
+                              pattern="^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$%^&*-]).{8,}$"
                               onChange={(e) =>
                                 this.setState({ password: e.target.value })
                               }
@@ -722,8 +623,10 @@ class RegistrationHero extends Component {
                               placeholder="Password"
                             />
                           </Form.Group>
-                          <small style={{color:"black",fontSize:"10px"}}>Password must contain uppercase,special character, lower case and number</small>
-                          
+                          <small style={{ color: "black", fontSize: "10px" }}>
+                            Password must contain uppercase,special character,
+                            lower case and number
+                          </small>
                         </Col>
                         <Col lg={6} sm={12} md={12}>
                           <Form.Group
@@ -780,6 +683,7 @@ class RegistrationHero extends Component {
                                 </span>
                               );
                             }
+                            return undefined;
                           })}
                         </Col>
                       </Row>
@@ -816,6 +720,7 @@ class RegistrationHero extends Component {
                                 </span>
                               );
                             }
+                            return undefined;
                           })}
                         </Col>
                       </Row>
@@ -906,82 +811,6 @@ const mapDispatchToProps = (dispatch) => {
 };
 export default connect(mapStateToProps, mapDispatchToProps)(RegistrationHero);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 // import React, { Component } from "react";
 // import { connect } from "react-redux";
 // import {
@@ -1049,7 +878,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(RegistrationHero);
 //   };
 
 //   GetLocationCoordinates = () => {
- 
+
 //     var that = this;
 //     const showPosition = (position) => {
 //       that.setState({
@@ -1087,8 +916,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(RegistrationHero);
 //       }
 //     }
 
-
-
 //     if (this.state.key === "Car Owner") {
 //       data.append("state", this.state.state);
 //       data.append("city", this.state.city);
@@ -1096,7 +923,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(RegistrationHero);
 //       data.append("dealername", this.state.dealerName);
 //       data.append("companywebsite", this.state.companywebsite);
 //       data.append("car_make", this.state.car_make);
-    
+
 //     }
 
 //     try {
@@ -1251,35 +1078,33 @@ export default connect(mapStateToProps, mapDispatchToProps)(RegistrationHero);
 //                   className="tab-bg"
 //                 >
 //                   <Tab eventKey="Car Owner" title="Owner" className="tab-color">
-     
+
 //                   <Formik
 //                     onSubmit={this.handleSubmit}
 //                     initialValues={{
 //                       name: this.state.name,
 //                       email: this.state.email,
 //                       password: this.state.password,
-//                       confirmPassword:this.state.confirmPassword, 
+//                       confirmPassword:this.state.confirmPassword,
 //                       phone: this.state.phone,
-//                       address: this.state.address, 
+//                       address: this.state.address,
 //                       state: this.state.state,
 //                       city:this.state.city,
 //                     }}
 //                     validationSchema={formSchema}
 //                   >
 //                     {({ errors, touched }) => (
-//                     //   <Form className="w-100 text-center"> 
+//                     //   <Form className="w-100 text-center">
 //                     //    <FormGroup onChange={(e) => this.setState({ name: e.target.value })}>
 //                     //       <Field name="name" type="text" placeholder="Name" id="name" className={`form-control ${errors.name && touched.name && "is-invalid"}`} />
 //                     //       {errors.name && touched.name ? <div className="text-danger">{errors.name && touched.name}</div> : null}
 //                     //     </FormGroup>
-                        
+
 //                     //       <Button type="submit" className="mt-2   polar-btn-bg" size="lg">
 //                     //         Next
 //                     //  </Button>
-                       
+
 //                     //  </Form>
-
-
 
 //                     <Form
 //                     // onSubmit={(e) => {
@@ -1295,9 +1120,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(RegistrationHero);
 //                               this.setState({ name: e.target.value })
 //                             } className="mb-3" controlId="name">
 //                           <Field
-//                             // value={this.state.name || ""} 
+//                             // value={this.state.name || ""}
 //                             className={`ts-input ${errors.name && touched.name && "is-invalid"}`}
-//                             name="name" 
+//                             name="name"
 //                             type="text"
 //                             placeholder="Name"
 //                           />
@@ -1310,7 +1135,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(RegistrationHero);
 //                             } className="mb-3" controlId="email">
 //                           <Field
 //                             // value={this.state.email || ""}
-//                           name="email" 
+//                           name="email"
 //                             className={`ts-input ${errors.name && touched.name && "is-invalid"}`}
 //                             // className="ts-input"
 //                             type="email"
@@ -1319,7 +1144,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(RegistrationHero);
 //                         </Form.Group>
 //                       </Col>
 //                     </Row>
-// {/* 
+// {/*
 //                     <Row>
 //                       <Col lg={6} sm={12} md={12}>
 //                         <Form.Group className="mb-3" controlId="State">
@@ -1462,27 +1287,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(RegistrationHero);
 //                       </Col>
 //                     </Row> */}
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 //                     {/* <Form.Group className="mb-3  " controlId="cardOwner">
 //                       <Form.Check
 //                         value={
@@ -1548,15 +1352,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(RegistrationHero);
 //                     </div>
 //                   </Form>
 
+// // test
 
-
-// // test 
-                    
 //                     )}
 //                   </Formik>
- 
 
-                
 //                   </Tab>
 
 //                   <Tab eventKey="Car Dealer" title="Dealer">

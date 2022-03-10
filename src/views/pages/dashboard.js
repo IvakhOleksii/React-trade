@@ -32,7 +32,6 @@ class Dashboard extends Component {
               sm={12}
             >
               <Sidebar {...this.props} />
-
               {this.props.showSidebarItem === "auction" ? (
                 <Acution {...this.props} />
               ) : this.props.showSidebarItem === "accountSetting" ? (

@@ -1,31 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import {
-  Container,
-  Row,
-  Col,
-  Form,
-  Button,
-  Image,
-  FormControl,
-  Spinner,
-} from "react-bootstrap";
-import InputGroup from "react-bootstrap/InputGroup";
+import { Container, Row, Col } from "react-bootstrap";
 import NavBar from "../../views/_partials/navbar";
-import Step1 from "../../assets/imgs/png/tradeSteps/1.png";
-import Step2 from "../../assets/imgs/png/tradeSteps/2.png";
-import Step3 from "../../assets/imgs/png/tradeSteps/3.png";
-import Step4 from "../../assets/imgs/png/tradeSteps/4.png";
-import Step5 from "../../assets/imgs/png/tradeSteps/5.png";
-import Step6 from "../../assets/imgs/png/tradeSteps/6.png";
 import ImageViewer360 from "../imageViewer360";
-import Image1 from "../../assets/imgs/360/3.jpg";
-import Image2 from "../../assets/imgs/360/8hw0clw-360-panorama-miami.jpeg";
-import Image3 from "../../assets/imgs/360/1.jpg";
-import Image4 from "../../assets/imgs/360/2.jpg";
-
-import car1 from "../../assets/imgs/360/car1.jpeg";
-import car2 from "../../assets/imgs/360/car2.jpeg";
 import car3 from "../../assets/imgs/360/car3.jpeg";
 import car4 from "../../assets/imgs/360/car4.jpg";
 import car5 from "../../assets/imgs/360/car8.jpg";
@@ -41,16 +18,11 @@ class CarViewerHero extends Component {
     super(props);
     this.state = {
       images: [
-        // { image: Image1 },
-        // { image: Image2 },
-        // {image:"https://i2.wp.com/www.samrohn.com/wp-content/uploads/le-meridien-bedroom-panorama.jpg?resize=1200%2C600" }, 
-        // { image: Image3 },
-        // { image: Image4 },
         { image: car4 },
         { image: car5 },
         { image: car6 },
-        { image: car7 },  
-        { image: car3 }, 
+        { image: car7 },
+        { image: car3 },
       ],
 
       step: 1,
@@ -352,7 +324,7 @@ class CarViewerHero extends Component {
             <Col lg={12}>
               <ImageViewer360 images={this.state.images} />
             </Col>
-          </Row>  
+          </Row>
         </Container>
       </div>
     );

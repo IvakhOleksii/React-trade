@@ -2,19 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Container, Row, Col } from "react-bootstrap";
 class NewCars extends Component {
-  constructor(props) {
-    super(props);
-  }
   handleRedirect = (value) => {
-    // if (this.props.user.isLogin) {
-    //   if (value === "trade") {
-    //     this.props.history.push("/trade-you-car");
-    //   } else {
-    //     this.props.history.push("/sell-your-car");
-    //   }
-    // } else {
-    //   this.props.history.push("/login");
-    // }
     this.props.history.push("/login");
   };
   render() {
@@ -23,7 +11,7 @@ class NewCars extends Component {
         <Container>
           <Row className="buy-sell-container">
             <Col
-              onClick={() =>this.handleRedirect("trade")}
+              onClick={() => this.handleRedirect("trade")}
               className="buy-card"
               lg={6}
               md={12}
@@ -54,7 +42,7 @@ class NewCars extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.app.user
+    user: state.app.user,
   };
 };
 const mapDispatchToProps = (dispatch) => {

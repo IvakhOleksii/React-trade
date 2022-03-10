@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-// import Context from "../context/Context";
 import { Navbar, Nav, Container } from "react-bootstrap";
 import { Link } from "react-router-dom";
-// import Circle from "../assets/imgs/App Icon/JPG/circle.jpg";
 import { ReactComponent as Logo } from "../../assets/imgs/svgs/nav/1615889129-78426.svg";
-import * as Icon from "react-feather";
 import { toast } from "react-toastify";
 import DottedSVG1 from "../../assets/imgs/png/bg/1.jpg";
 
@@ -47,17 +44,8 @@ class NavBar extends Component {
   render() {
     return (
       <>
-        {/* {this.props.alert?.showAlert ? this.handleNotify() : ""} */}
-        {/* <div className="d-flex justfiy-content-center align-items-center upper-nav flex-wrap">
-                    <span className="upper-nav-items">support@abc.com </span>
-                    <span className="upper-nav-items">Mon to Fri : 9:00am to 6:pm </span>
-                    <span className="upper-nav-items">5132 Otsego st Duluth, MN 55804 </span>
-                    <span className="upper-nav-items"> <Icon.Phone color="white" className="ml-1 pr-2" />
-                + 1 238 675 309 </span>
-                </div> */}
-
         {this.props?.showSvg ? (
-          <img src={DottedSVG1} className="page-top-dottedSvg-trade" />
+          <img src={DottedSVG1} className="page-top-dottedSvg-trade" alt="" />
         ) : (
           ""
         )}
@@ -68,7 +56,6 @@ class NavBar extends Component {
         >
           <Container>
             <Link className="navbar-brand" to="/">
-              {/* <img className="logo" src={LOGO} alt="logo" /> */}
               <Logo className="logo" />
             </Link>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
@@ -92,7 +79,6 @@ class NavBar extends Component {
                   </React.Fragment>
                 )}
 
-                {/* <Link className="nav-link" to="/">Home </Link> */}
                 {this.props.user?.user_type === "Car Owner" ||
                 !this.props.user?.user_type ? (
                   <React.Fragment>
@@ -116,17 +102,16 @@ class NavBar extends Component {
                     </Link>
                   </React.Fragment>
                 )}
-                {/* <Link className="nav-link" to="/dashboard">
-                      {" "}
-                      Dashboard
-                    </Link> */}
-
                 {this.props.user?.isLogin ? (
                   <React.Fragment>
-                    {/* <Link className="nav-link" to="/dashboard"> Dashboard</Link>  */}
+                    {/* TODO: Don't use anchor with onClick and no href.
+                      Change this anchor to a button styled as an anchor.
+                      Accessibility issue.
+                    */}
                     <a
                       className="nav-link main-nav-items-span"
-                      onClick={() => this.handleLogout()}
+                      onClick={this.handleLogout}
+                      href="/"
                     >
                       {" "}
                       Logout
@@ -138,24 +123,9 @@ class NavBar extends Component {
                       {" "}
                       Login
                     </Link>
-                    {/* <Link className="nav-link" to="/register"> Register</Link> */}
                   </React.Fragment>
                 )}
               </Nav>
-              {/* <Nav className="main-nav-social-links">
-                                <div className="main-nav-social-links-container">
-                                    <div className="pr-3">
-                                        <Nav.Link href="#" > <Icon.Facebook color="white" className=" " />  </Nav.Link>
-                                    </div>
-                                    <div className="pr-3">
-                                        <Nav.Link href="#"> <Icon.Instagram color="white" className=" " />  </Nav.Link>
-                                    </div>
-                                    <div className="pr-3">
-                                        <Nav.Link href="#"> <Icon.Twitter color="white" className=" " />  </Nav.Link>
-                                    </div>
-                                    
-                                </div>
-                            </Nav> */}
             </Navbar.Collapse>
           </Container>
         </Navbar>
