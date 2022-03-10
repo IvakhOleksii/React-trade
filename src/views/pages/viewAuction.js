@@ -1,32 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import LoginHero from "../../components/login hero/loginHero";
-import GetRegistered from "../../components/getRegistered";
-import Footer from "../_partials/footer";
-import {
-  Card,
-  Nav,
-  Button,
-  Tab,
-  Form,
-  Row,
-  Col,
-  Spinner,
-} from "react-bootstrap";
+import { Card, Tab } from "react-bootstrap";
 import Tabs from "react-bootstrap/Tabs";
 import List from "../../components/list";
-import { Dropdown } from "react-bootstrap";
-import TabList from "react-bootstrap/Tabs";
-import car3 from "../../assets/imgs/360/car3.jpeg";
-import car4 from "../../assets/imgs/360/car4.jpg";
-import car5 from "../../assets/imgs/360/car8.jpg";
-import car6 from "../../assets/imgs/360/car7.jpg";
-import car7 from "../../assets/imgs/360/car6.jpg";
-import Logo from "../../assets/imgs/png/nav/logo.png";
-import SortFilter from "../../components/sortFilter";
 import APIConfig from "../../helpers/api/config";
 import axios from "axios";
-import { toast } from "react-toastify";
 import HandleAPIData from "../../helpers/handleAPIData";
 import Loader from "../../components/loader";
 class ViewAuction extends Component {
@@ -37,47 +15,50 @@ class ViewAuction extends Component {
       key: this.props?.viewAuctionTabKey,
       loading: false,
       tradeAuction: null,
-      sellAuction:null
+      sellAuction: null,
     };
   }
   getData = async () => {
     this._isMounted = true;
-    this.setState({ loading: true }); 
+    this.setState({ loading: true });
     try {
-      const response =  this.props?.viewAuctionTabKey==="tradecar"?    await axios(APIConfig("get", "/trade_your_car_list", null))  : await axios(APIConfig("get", "/sell_your_car_list", null))
+      const response =
+        this.props?.viewAuctionTabKey === "tradecar"
+          ? await axios(APIConfig("get", "/trade_your_car_list", null))
+          : await axios(APIConfig("get", "/sell_your_car_list", null));
       if (response.status === 200) {
-        console.log("Ressss"+JSON.stringify(response.data))
-        (this.state.key==="tradecar"?
-          this.setState({
-          loading: false ,
-          tradeAuction:HandleAPIData(response?.data ) 
-        })
-        :
-        this.setState({
-          loading: false ,
-          sellAuction: HandleAPIData(response?.data ) 
-        }))  
-      } 
+        console.log("Ressss" + JSON.stringify(response.data))(
+          this.state.key === "tradecar"
+            ? this.setState({
+                loading: false,
+                tradeAuction: HandleAPIData(response?.data),
+              })
+            : this.setState({
+                loading: false,
+                sellAuction: HandleAPIData(response?.data),
+              })
+        );
+      }
     } catch (error) {
-      console.log(JSON.stringify(error)) 
+      console.log(JSON.stringify(error));
     }
   };
   handleTabChange = (k) => {
     // this.setState({ key: k })
-  
+
     this.props.handleViewAuctionTabKey(k);
-    this.setState({key:k},()=>{
+    this.setState({ key: k }, () => {
       this.getData();
-    }) 
+    });
     // alert(this.props.sortFilter)
     // alert(this.state.key)
     //this.getData()
-  }; 
+  };
   componentWillUnmount() {
     this._isMounted = false;
   }
-  componentDidMount() { 
-      this.getData();
+  componentDidMount() {
+    this.getData();
   }
   render() {
     return (
@@ -97,13 +78,16 @@ class ViewAuction extends Component {
               >
                 {!this.state.loading ? (
                   <List {...this.props} listData={this.state?.tradeAuction} />
-                ) : <Loader/>}
+                ) : (
+                  <Loader />
+                )}
               </Tab>
               <Tab eventKey="sellcar" title="Sell Car" className="auction-text">
-               
                 {!this.state.loading ? (
-                   <List {...this.props} listData={this.state?.sellAuction} />
-                ) :<Loader/>}
+                  <List {...this.props} listData={this.state?.sellAuction} />
+                ) : (
+                  <Loader />
+                )}
               </Tab>
             </Tabs>
           </Card.Header>
@@ -125,21 +109,6 @@ const mapDispatchToProps = (dispatch) => {
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(ViewAuction);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // appild: [
 //   {
@@ -226,5 +195,5 @@ export default connect(mapStateToProps, mapDispatchToProps)(ViewAuction);
 //     radius: "10",
 //     loan_or_lease_on_car: "No",
 //     aftermarket_parts_exterior: "Yes",
-//   } 
-// ] 
+//   }
+// ]

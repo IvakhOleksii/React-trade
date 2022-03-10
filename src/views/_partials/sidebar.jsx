@@ -2,18 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Nav, NavItem, NavLink } from "react-bootstrap";
 import { Link } from "react-router-dom";
-import AccessAlarmIcon from "@material-ui/icons/AccessAlarm";
 import SettingsIcon from "@material-ui/icons/Settings";
 import GavelIcon from "@material-ui/icons/Gavel";
-import AppsIcon from "@material-ui/icons/Apps";
 import { Settings } from "react-feather";
 import classNames from "classnames";
-import DriveEtaIcon from "@material-ui/icons/DriveEta";
-import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import CommuteIcon from "@material-ui/icons/Commute";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 
-class NavBar extends Component {
+class SideBar extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -41,7 +37,7 @@ class NavBar extends Component {
       <>
         <div className={classNames("sidebar", { "is-open": true })}>
           <div className="sidebar-header">
-            <span color="info" onClick={"toggle"} style={{ color: "#fff" }}>
+            <span color="info" style={{ color: "#fff" }}>
               &#9776;
             </span>
             <h4 className="dashboard-text">Settings</h4>
@@ -53,7 +49,7 @@ class NavBar extends Component {
             </h6>
           </div>
           <div className="side-menu">
-            <Nav vertical className="list-unstyled pb-3 d-flex">
+            <Nav className="list-unstyled pb-3 d-flex">
               <NavItem
                 className="nav-items"
                 style={this.getNavItemStyle("accountSetting")}
@@ -239,4 +235,4 @@ const mapDispatchToProps = (dispatch) => {
       dispatch({ type: "SHOWSIDEBARITEM", value: value }),
   };
 };
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default connect(mapStateToProps, mapDispatchToProps)(SideBar);

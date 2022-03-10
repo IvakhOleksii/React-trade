@@ -1,19 +1,8 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import LoginHero from "../../components/login hero/loginHero";
-import GetRegistered from "../../components/getRegistered";
-import Footer from "../_partials/footer";
-import { Card, Nav, Button, Tab, Form, Row, Col } from "react-bootstrap";
+import { Card, Tab } from "react-bootstrap";
 import Tabs from "react-bootstrap/Tabs";
 import List from "../../components/list";
-import { Dropdown } from "react-bootstrap";
-import TabList from "react-bootstrap/Tabs";
-import car3 from "../../assets/imgs/360/car3.jpeg";
-import car4 from "../../assets/imgs/360/car4.jpg";
-import car5 from "../../assets/imgs/360/car8.jpg";
-import car6 from "../../assets/imgs/360/car7.jpg";
-import car7 from "../../assets/imgs/360/car6.jpg";
-import SortFilter from "../../components/sortFilter";
 import HandleAPIData from "../../helpers/handleAPIData";
 import axios from "axios";
 import APIConfig from "../../helpers/api/config";
@@ -35,9 +24,13 @@ class AuctionEnd extends Component {
     try {
       const response =
         // this.props?.auctionEndTabKey === "tradecar"
-        tabValue==="tradecar" || tabValue===null  
-        ? await axios(APIConfig("get", `/bidtrade/${this.props.user?.id}`, null))
-          : await axios(APIConfig("get", `/bidsell/${this.props.user?.id}`, null));
+        tabValue === "tradecar" || tabValue === null
+          ? await axios(
+              APIConfig("get", `/bidtrade/${this.props.user?.id}`, null)
+            )
+          : await axios(
+              APIConfig("get", `/bidsell/${this.props.user?.id}`, null)
+            );
       if (response.status === 200) {
         console.log("Ressss" + JSON.stringify(response.data))(
           this.state.key === "tradecar"
@@ -67,7 +60,7 @@ class AuctionEnd extends Component {
   componentWillUnmount() {
     this._isMounted = false;
   }
-  componentDidMount() { 
+  componentDidMount() {
     this.getData(null);
   }
   render() {
@@ -502,11 +495,11 @@ export default connect(mapStateToProps, mapDispatchToProps)(AuctionEnd);
 //       radius:   "10",
 //       loan_or_lease_on_car: "No",
 //       aftermarket_parts_exterior : "Yes",
-      // winner:{
-      //   name:"MACKENZI",
-      //   image:"https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
-      //   bid_amount:"$454.00"
-      // }
+// winner:{
+//   name:"MACKENZI",
+//   image:"https://images.pexels.com/photos/220453/pexels-photo-220453.jpeg?auto=compress&cs=tinysrgb&dpr=1&w=500",
+//   bid_amount:"$454.00"
+// }
 
 //     },
 //     {

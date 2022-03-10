@@ -20,38 +20,36 @@ import {
   ALERT,
   SHOWSIDEBARITEM,
   SORT_FILTER,
-  APPLIED_AUCTION_KEY ,
+  APPLIED_AUCTION_KEY,
   VIEW_AUCTION_TAB_KEY,
-  AUCTION_END_TAB_KEY,
-  AUCTION_DETAIL
-   
-} from '../../actions/app/appActions';
+  AUCTION_DETAIL,
+} from "../../actions/app/appActions";
 
 const initialState = {
-  postCat: 'Feed',
-  token: '',
+  postCat: "Feed",
+  token: "",
   user: [],
   update: false,
   isExpired: false,
   payment: true,
   modalShow: false,
-  creditId: '',
+  creditId: "",
   chatUpdate: false,
   notifications: [],
-  from: '',
+  from: "",
   price: undefined,
-  category: '',
+  category: "",
   Tags: [],
   clear: false,
   following: false,
-  vouched: 'test',
-  showSidebarItem:"accountSetting",
-  sortFilter:"",
-  appliedAuctionKey:"applied", 
-  viewAuctionTabKey:"sellcar",
-  auctionEndTabKey:"tradecar", 
-  acution_detail:[],
-  alert: { showAlert: false, alertMessage: "", alertType: "Success" }
+  vouched: "test",
+  showSidebarItem: "accountSetting",
+  sortFilter: "",
+  appliedAuctionKey: "applied",
+  viewAuctionTabKey: "sellcar",
+  auctionEndTabKey: "tradecar",
+  acution_detail: [],
+  alert: { showAlert: false, alertMessage: "", alertType: "Success" },
 };
 const app = (state = initialState, action) => {
   switch (action.type) {
@@ -91,7 +89,7 @@ const app = (state = initialState, action) => {
         modalShow: action.value,
       };
     case IS_TOKEN_EXP:
-      const session = JSON.parse(window.sessionStorage.getItem('sessionToken'));
+      const session = JSON.parse(window.sessionStorage.getItem("sessionToken"));
       return {
         ...state,
         isExpired: session,
@@ -153,32 +151,32 @@ const app = (state = initialState, action) => {
         ...state,
         vouched: action.value,
       };
-      case SORT_FILTER:
-        return {
-          ...state,
-          sortFilter: action.value,
-        };
-      case SHOWSIDEBARITEM:
-        return {
-          ...state,
-          showSidebarItem: action.value,
-        };
-        case APPLIED_AUCTION_KEY:
-          return {
-            ...state,
-            appliedAuctionKey: action.value,
-          };
-          case VIEW_AUCTION_TAB_KEY:
-          return {
-            ...state,
-            viewAuctionTabKey: action.value,
-          };
-          case AUCTION_DETAIL:
-            return {
-              ...state,
-              acution_detail: action.value,
-            };
-          
+    case SORT_FILTER:
+      return {
+        ...state,
+        sortFilter: action.value,
+      };
+    case SHOWSIDEBARITEM:
+      return {
+        ...state,
+        showSidebarItem: action.value,
+      };
+    case APPLIED_AUCTION_KEY:
+      return {
+        ...state,
+        appliedAuctionKey: action.value,
+      };
+    case VIEW_AUCTION_TAB_KEY:
+      return {
+        ...state,
+        viewAuctionTabKey: action.value,
+      };
+    case AUCTION_DETAIL:
+      return {
+        ...state,
+        acution_detail: action.value,
+      };
+
     case ALL_CLEAR:
       return initialState;
     default:
