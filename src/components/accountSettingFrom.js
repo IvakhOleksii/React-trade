@@ -13,16 +13,10 @@ class AccountSettingFrom extends Component {
     super(props);
     this.state = {
       step: 1,
-      // vin: "5UXKU2C54J0X48668",
       car_details_by_vin: null,
-
-      // make: '',
-      // model: '', already define
       radius: "",
-
       loading: false,
       preview: [],
-
       name: "",
       email: "",
       user_type: "",
@@ -100,17 +94,6 @@ class AccountSettingFrom extends Component {
 
   handleFinalSubmit = async (e) => {
     e.preventDefault();
-    //     var test = {
-    //       name:this.state?.name,
-    //       email:this.state?.email,
-    //       user_type:this.state?.user_type,
-    //       dealername:this.state?.dealername,
-    //       companywebsite:this.state?.companywebsite,
-    //       address:this.state?.address,
-    //       phone:this.state?.phone,
-    //       car_make:this.state?.car_make,
-    //     }
-    //  alert(JSON.stringify(test))
 
     this._isMounted = true;
     const FormData = require("form-data");
@@ -164,7 +147,6 @@ class AccountSettingFrom extends Component {
       const response = await axios(APIConfig("post", "/update_user", data));
       if (response.status === 200) {
         var reduxData = response.data.data;
-        console.log(JSON.stringify(reduxData));
         reduxData["isLogin"] = true;
         this.props.UserHandler(reduxData);
         toast.success("Data submited successFully", {
@@ -172,8 +154,6 @@ class AccountSettingFrom extends Component {
           autoClose: 1000,
         });
         this.setState({ loading: false });
-        // this.props.history.push("/");
-        // this.resetForm()
       }
     } catch (error) {
       alert(error);
@@ -244,7 +224,7 @@ class AccountSettingFrom extends Component {
                       className="ts-input"
                       name="state"
                       required
-                      value={"" || this.state.state}
+                      value={this.state.state || ""}
                       onChange={(e) => this.setState({ state: e.target.value })}
                       type="text"
                       placeholder="State*"
@@ -257,7 +237,7 @@ class AccountSettingFrom extends Component {
                       className="ts-input"
                       name="city"
                       required
-                      value={"" || this.state.city}
+                      value={this.state.city || ""}
                       onChange={(e) => this.setState({ city: e.target.value })}
                       type="text"
                       placeholder="City*  "
@@ -272,7 +252,7 @@ class AccountSettingFrom extends Component {
                       className="ts-input"
                       type="number"
                       required
-                      value={"" || this.state.phone}
+                      value={this.state.phone || ""}
                       onChange={(e) =>
                         validateMaxLength(e.target.value, 7)
                           ? this.setState({ phone: e.target.value })
@@ -412,7 +392,7 @@ class AccountSettingFrom extends Component {
                       className="ts-input"
                       type="number"
                       required
-                      value={"" || this.state.phone}
+                      value={this.state.phone || ""}
                       onChange={(e) =>
                         validateMaxLength(e.target.value, 7)
                           ? this.setState({ phone: e.target.value })
@@ -446,7 +426,7 @@ class AccountSettingFrom extends Component {
                     <Form.Control
                       className="ts-input"
                       name="dealername"
-                      value={"" || this.state.dealername}
+                      value={this.state.dealername || ""}
                       onChange={(e) =>
                         this.setState({ dealername: e.target.value })
                       }
@@ -460,7 +440,7 @@ class AccountSettingFrom extends Component {
                     <Form.Control
                       className="ts-input"
                       name="companywebsite"
-                      value={"" || this.state.companywebsite}
+                      value={this.state.companywebsite || ""}
                       onChange={(e) =>
                         this.setState({
                           companywebsite: e.target.value,
@@ -543,52 +523,6 @@ class AccountSettingFrom extends Component {
                     </span>
                   )}
                 </Col>
-
-                {/* <Col
-                        className="   preview-images-list"
-                        lg={6}
-                        md={12}
-                        sm={12}
-                      >
-                       
-                        {this.state.primary_photo.length>0?
-                        this.state.primary_photo?.map((item, index) => {
-                          if (this.state.primary_photo.length - 1 === index) {
-                            return (
-                              <span user_type={index} className="image-container">
-                                <span
-                                  onClick={() =>
-                                    this.handleDeletePhoto(
-                                      item,
-                                      "primary_photo"
-                                    )
-                                  }
-                                  className="image-btn-close"
-                                >
-                                  X
-                                </span>
-                                <Image src={item.Preview} thumbnail />
-                              </span>
-                            );
-                          }
-                        }) 
-                        :
-                         <span   className="image-container">
-                                 <span
-                                  onClick={() =>
-                                    this.handleDeletePhoto(
-                                      item,
-                                      "primary_photo"
-                                    )
-                                  }
-                                  className="image-btn-close"
-                                >
-                                  X
-                                </span> 
-                                <Image src={`${process.env.React_App_BASE_URL_IMAGE}/storage/images${this.state.Licence}`} thumbnail />
-                              </span>
-                              }
-                      </Col> */}
               </Row>
 
               <Row className="  ">
