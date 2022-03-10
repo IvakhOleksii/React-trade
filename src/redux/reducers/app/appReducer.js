@@ -43,7 +43,7 @@ const initialState = {
   clear: false,
   following: false,
   vouched: "test",
-  showSidebarItem: "accountSetting",
+  showSidebarItem: "viewAuction",
   sortFilter: "",
   appliedAuctionKey: "applied",
   viewAuctionTabKey: "sellcar",

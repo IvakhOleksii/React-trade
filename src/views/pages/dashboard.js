@@ -40,6 +40,10 @@ class Dashboard extends Component {
                 <LiveAcution {...this.props} />
               ) : this.props.showSidebarItem === "viewAuction" ? (
                 <ViewAuction {...this.props} />
+              ) : this.props.showSidebarItem === "bids" ? (
+                <ViewAuction {...this.props} bids />
+              ) : this.props.showSidebarItem === "drafts" ? (
+                <ViewAuction {...this.props} drafts />
               ) : this.props.showSidebarItem === "auctionEnd" ? (
                 <AuctionEnd {...this.props} />
               ) : this.props.showSidebarItem === "messaging" ? (
