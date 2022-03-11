@@ -91,7 +91,7 @@ class MessagingCard extends Component {
                             <div className="d-flex justify-content-between border-bottom chatters pb-2 ">
                               <div className="d-flex w-100">
                                 <img
-                                  src={`${process.env.React_App_BASE_URL_IMAGE}/storage/images${item.dp}`}
+                                  src={`${process.env.React_App_BASE_URL_IMAGE}${item.dp}`}
                                   className="chats-msg-image"
                                   // TODO: Add meaningful alt
                                   alt=""

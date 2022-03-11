@@ -326,7 +326,7 @@ class AccountSettingFrom extends Component {
                   ) : (
                     <span className="image-container d-flex justify-content-center">
                       <Image
-                        src={`${process.env.React_App_BASE_URL_IMAGE}/storage/images${this.state?.dealer_image}`}
+                        src={`${process.env.React_App_BASE_URL_IMAGE}${this.state?.dealer_image}`}
                         thumbnail
                       />
                     </span>
@@ -570,7 +570,7 @@ class AccountSettingFrom extends Component {
                   ) : (
                     <span className="image-container d-flex justify-content-center">
                       <Image
-                        src={`${process.env.React_App_BASE_URL_IMAGE}/storage/images${this.state?.dealer_image}`}
+                        src={`${process.env.React_App_BASE_URL_IMAGE}${this.state?.dealer_image}`}
                         thumbnail
                       />
                     </span>
