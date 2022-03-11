@@ -52,7 +52,7 @@ class LiveAcution extends Component {
           });
         }
       } else {
-        response = await axios(APIConfig("get", "/get_all", null));
+        response = await axios(APIConfig("get", "/list_auction_dealer", null));
         if (response.status === 200) {
           this.setState({
             loading: false,
@@ -122,7 +122,7 @@ const mapStateToProps = (state) => {
     vouched: state.app.vouched,
   };
 };
-const mapDispatchToProps = (dispatch) => {
+const mapDispatchToProps = () => {
   return {};
 };
 export default connect(mapStateToProps, mapDispatchToProps)(LiveAcution);
