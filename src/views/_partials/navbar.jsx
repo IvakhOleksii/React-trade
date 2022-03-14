@@ -67,7 +67,7 @@ class NavBar extends Component {
                   <React.Fragment>
                     <Link className="nav-link" to="/dashboard">
                       {" "}
-                      Home
+                      Dashboard
                     </Link>
                   </React.Fragment>
                 ) : (
