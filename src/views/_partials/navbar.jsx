@@ -36,8 +36,12 @@ class NavBar extends Component {
   };
   handleLogout = () => {
     try {
+      const { user_type: userType } = this.props.user;
+
       this.props.UserHandler([]);
-      this.props.handeChangeSidebarItem("viewAuction");
+      this.props.handeChangeSidebarItem(
+        userType === "Car Dealer" ? "liveAuction" : "viewAuction"
+      );
       this.props.history.push("/");
     } catch (error) {}
   };

@@ -207,7 +207,23 @@ class SideBar extends Component {
                       }
                       className="nav-items"
                     >
-                      <h6 className="dashboard-text">Applied Auctions </h6>
+                      <h6 className="dashboard-text">Current Bids </h6>
+                      <h6 className="dashboard-text-mobile">
+                        <CommuteIcon fontSize="medium" />
+                      </h6>
+                    </NavLink>
+                  </NavItem>
+                  <NavItem
+                    className="nav-items"
+                    style={this.getNavItemStyle("topBids")}
+                  >
+                    <NavLink
+                      onClick={() =>
+                        this.props.handeChangeSidebarItem("topBids")
+                      }
+                      className="nav-items"
+                    >
+                      <h6 className="dashboard-text">Top Bids </h6>
                       <h6 className="dashboard-text-mobile">
                         <CommuteIcon fontSize="medium" />
                       </h6>
