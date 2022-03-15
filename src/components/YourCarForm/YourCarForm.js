@@ -109,8 +109,6 @@ class YourCarForm extends Component {
       //  final info  6
 
       radius: "",
-      latitude: "",
-      longitude: "",
       primary_photo: [],
       additional_photos: [],
 
@@ -318,8 +316,6 @@ class YourCarForm extends Component {
     data.append("interior_trim_damage", this.state.interior_trim_damage);
     data.append("sunroof", this.state.sunroof);
     data.append("navigation", this.state.navigation);
-    data.append("latitude", this.state.latitude);
-    data.append("longitude", this.state.longitude);
     data.append(
       "aftermarket_stereo_equipment",
       this.state.aftermarket_stereo_equipment
@@ -1546,34 +1542,6 @@ class YourCarForm extends Component {
                                 }
                                 name="model"
                                 placeholder=" Modal   "
-                              />
-                            </Form.Group>
-                          </Col>
-                          <Col lg={6} md={12} sm={12}>
-                            <Form.Group className="mb-3" controlId="latitude">
-                              <Form.Control
-                                className="ts-input"
-                                type="text"
-                                value={"" || this.state.latitude}
-                                onChange={(e) =>
-                                  this.setState({ latitude: e.target.value })
-                                }
-                                name="latitude"
-                                placeholder="Latitude"
-                              />
-                            </Form.Group>
-                          </Col>
-                          <Col lg={6} md={12} sm={12}>
-                            <Form.Group className="mb-3" controlId="longitude">
-                              <Form.Control
-                                className="ts-input"
-                                type="text"
-                                value={"" || this.state.longitude}
-                                onChange={(e) =>
-                                  this.setState({ longitude: e.target.value })
-                                }
-                                name="longitude"
-                                placeholder="Longitude"
                               />
                             </Form.Group>
                           </Col>

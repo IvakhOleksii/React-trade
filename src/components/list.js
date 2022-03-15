@@ -106,8 +106,7 @@ class List extends Component {
                   </div>
                   {this.props?.user?.user_type === "Car Owner" &&
                   this.props?.showSidebarItem === "viewAuction" &&
-                  this.props.user.id === parseInt(item.user_id) &&
-                  this.props?.viewAuctionTabKey === "tradecar" ? (
+                  this.props.user.id === parseInt(item.user_id) ? (
                     <div className="d-flex justify-content-between w-100">
                       <div>
                         {item?.publish_status === "draft" ? (
@@ -115,7 +114,6 @@ class List extends Component {
                         ) : (
                           ""
                         )}
-                        {/* <Badge bg="warning badge-draft">Draft</Badge> */}
                       </div>
                       <div>
                         <span
@@ -324,7 +322,6 @@ class List extends Component {
                 lg={12}
                 className="d-flex-justify-content-center align-items-center flex-column text-center"
               >
-                {/* <h3>No data to show</h3>  */}
                 <Image
                   className="mt-4"
                   src={NoResultFound}
