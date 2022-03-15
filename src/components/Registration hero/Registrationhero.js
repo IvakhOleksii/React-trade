@@ -31,6 +31,7 @@ class RegistrationHero extends Component {
       user_type: "",
       phone: "",
       address: "",
+      zip_code: "",
 
       state: "",
       city: "",
@@ -63,7 +64,10 @@ class RegistrationHero extends Component {
     data.append("email", this.state.email);
     data.append("password", this.state.password);
     data.append("user_type", this.state.key);
+    data.append("city", this.state.city);
+    data.append("state", this.state.state);
     data.append("address", this.state.address);
+    data.append("zip_code", this.state.zip_code);
     data.append("phone", this.state.phone);
 
     var temp_primary_photo = this.state.primary_photo.map((val) => {
@@ -77,10 +81,7 @@ class RegistrationHero extends Component {
       }
     }
 
-    if (this.state.key === "Car Owner") {
-      data.append("state", this.state.state);
-      data.append("city", this.state.city);
-    } else {
+    if (this.state.key !== "Car Owner") {
       data.append("dealername", this.state.dealerName);
       data.append("companywebsite", this.state.companywebsite);
       data.append("car_make", this.state.car_make);
@@ -161,7 +162,10 @@ class RegistrationHero extends Component {
   };
 
   validatePicture = () => {
-    if (!this.state.primary_photo.length > 0) {
+    if (
+      this.state.key !== "Car Owner" &&
+      !this.state.primary_photo.length > 0
+    ) {
       toast.warn("Please Upload Image", {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 1500,
@@ -288,7 +292,7 @@ class RegistrationHero extends Component {
                               className="ts-input"
                               name="city"
                               required
-                              value={"" || this.state.city}
+                              value={this.state.city || ""}
                               onChange={(e) =>
                                 this.setState({ city: e.target.value })
                               }
@@ -303,13 +307,10 @@ class RegistrationHero extends Component {
                           <Form.Group className="mb-3" controlId="Phone">
                             <Form.Control
                               className="ts-input"
-                              type="number"
                               required
-                              value={"" || this.state.phone}
+                              value={this.state.phone || ""}
                               onChange={(e) =>
-                                validateMaxLength(e.target.value, 7)
-                                  ? this.setState({ phone: e.target.value })
-                                  : ""
+                                this.setState({ phone: e.target.value })
                               }
                               name="phone"
                               placeholder="Phone*"
@@ -329,6 +330,22 @@ class RegistrationHero extends Component {
                               className="ts-input"
                               type="textarea"
                               placeholder="  Address"
+                            />
+                          </Form.Group>
+                        </Col>
+
+                        <Col lg={6} sm={12} md={12}>
+                          <Form.Group className="mb-3" controlId="zip_code">
+                            <Form.Control
+                              value={this.state.zip_code || ""}
+                              onChange={(e) =>
+                                this.setState({ zip_code: e.target.value })
+                              }
+                              required
+                              name="zip_code"
+                              className="ts-input"
+                              type="textarea"
+                              placeholder="  Zip Code"
                             />
                           </Form.Group>
                         </Col>
@@ -499,16 +516,45 @@ class RegistrationHero extends Component {
                           <Form.Group className="mb-3" controlId="Phone">
                             <Form.Control
                               className="ts-input"
-                              type="number"
                               required
-                              value={"" || this.state.phone}
+                              value={this.state.phone || ""}
                               onChange={(e) =>
-                                validateMaxLength(e.target.value, 7)
-                                  ? this.setState({ phone: e.target.value })
-                                  : ""
+                                this.setState({ phone: e.target.value })
                               }
                               name="phone"
                               placeholder="Phone*"
+                            />
+                          </Form.Group>
+                        </Col>
+
+                        <Col lg={6} sm={12} md={12}>
+                          <Form.Group className="mb-3" controlId="State">
+                            <Form.Control
+                              className="ts-input"
+                              name="state"
+                              required
+                              value={"" || this.state.state}
+                              onChange={(e) =>
+                                this.setState({ state: e.target.value })
+                              }
+                              type="text"
+                              placeholder="State*"
+                            />
+                          </Form.Group>
+                        </Col>
+
+                        <Col lg={6} sm={12} md={12}>
+                          <Form.Group className="mb-3" controlId="City">
+                            <Form.Control
+                              className="ts-input"
+                              name="city"
+                              required
+                              value={this.state.city || ""}
+                              onChange={(e) =>
+                                this.setState({ city: e.target.value })
+                              }
+                              type="text"
+                              placeholder="City*  "
                             />
                           </Form.Group>
                         </Col>
@@ -525,6 +571,22 @@ class RegistrationHero extends Component {
                               className="ts-input"
                               type="textarea"
                               placeholder=" Address"
+                            />
+                          </Form.Group>
+                        </Col>
+
+                        <Col lg={6} sm={12} md={12}>
+                          <Form.Group className="mb-3" controlId="zip_code">
+                            <Form.Control
+                              value={this.state.zip_code || ""}
+                              onChange={(e) =>
+                                this.setState({ zip_code: e.target.value })
+                              }
+                              required
+                              name="zip_code"
+                              className="ts-input"
+                              type="textarea"
+                              placeholder="  Zip Code"
                             />
                           </Form.Group>
                         </Col>
