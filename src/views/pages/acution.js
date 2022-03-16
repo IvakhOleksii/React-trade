@@ -15,9 +15,7 @@ class Acution extends Component {
     this.state = {
       key: this.props?.appliedAuctionKey,
       loading: false,
-      appliedAuction: null,
-      wonAuction: null,
-      lostAuction: null,
+      data: [],
       filterValue: "",
     };
   }
@@ -41,21 +39,11 @@ class Acution extends Component {
         )
       );
 
-      if (response?.status === 200) {
-        this.state.key === "applied"
-          ? this.setState({
-              loading: false,
-              appliedAuction: HandleAPIData(response?.data),
-            })
-          : this.state.key === "won-auction"
-          ? this.setState({
-              loading: false,
-              wonAuction: HandleAPIData(response?.data),
-            })
-          : this.setState({
-              loading: false,
-              wonAuction: HandleAPIData(response?.data),
-            });
+      if (response.status === 200) {
+        this.setState({
+          loading: false,
+          data: HandleAPIData(response?.data),
+        });
       }
     } catch (error) {
       console.log(JSON.stringify(error));
@@ -100,51 +88,14 @@ class Acution extends Component {
               onSelect={(k) => this.handleTabChange(k)}
               className="mb-3 main-content-tabs"
             >
-              <Tab eventKey="applied" title="Applied" className="auction-text">
+              <Tab eventKey="won-auction" className="auction-text">
                 {!this.state.loading ? (
                   <React.Fragment>
                     <Filters
                       handleResetFilter={this.handleResetFilter}
                       handleFilters={this.handleFilters}
                     />
-                    <List
-                      {...this.props}
-                      listData={this.state?.appliedAuction}
-                    />
-                  </React.Fragment>
-                ) : (
-                  <Loader />
-                )}
-              </Tab>
-              <Tab
-                eventKey="won-auction"
-                title="Won Auction"
-                className="auction-text"
-              >
-                {!this.state.loading ? (
-                  <React.Fragment>
-                    <Filters
-                      handleResetFilter={this.handleResetFilter}
-                      handleFilters={this.handleFilters}
-                    />
-                    <List {...this.props} listData={this.state?.wonAuction} />
-                  </React.Fragment>
-                ) : (
-                  <Loader />
-                )}
-              </Tab>
-              <Tab
-                eventKey="lost-auction"
-                title="Lost Auction"
-                className="auction-text"
-              >
-                {!this.state.loading ? (
-                  <React.Fragment>
-                    <Filters
-                      handleResetFilter={this.handleResetFilter}
-                      handleFilters={this.handleFilters}
-                    />
-                    <List {...this.props} listData={this.state?.wonAuction} />
+                    <List {...this.props} listData={this.state?.data} />
                   </React.Fragment>
                 ) : (
                   <Loader />

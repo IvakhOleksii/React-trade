@@ -5,7 +5,6 @@ import { Row, Col, Form, Button, Image, Spinner } from "react-bootstrap";
 import APIConfig from "../helpers/api/config";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { validateMaxLength } from "../helpers/validation";
 import { CarMake } from "../helpers/contraints";
 class AccountSettingFrom extends Component {
   _isMounted = false;
@@ -22,8 +21,9 @@ class AccountSettingFrom extends Component {
       user_type: "",
       phone: "",
       address: "",
-      id: null,
       state: "",
+      zip_code: "",
+      id: null,
       city: "",
       Licence: "",
       dealer_image: "",
@@ -129,7 +129,6 @@ class AccountSettingFrom extends Component {
       data.append("name", this.state.name);
       data.append("email", this.state.email);
       data.append("user_type", this.state.user_type);
-      data.append("state", this.state.state);
       data.append("city", this.state.city);
       data.append("address", this.state.address);
       data.append("phone", this.state.phone);
@@ -143,6 +142,10 @@ class AccountSettingFrom extends Component {
       data.append("phone", this.state.phone);
       data.append("car_make", this.state.car_make);
     }
+
+    data.append("state", this.state.state);
+    data.append("zip_code", this.state.zip_code);
+
     try {
       const response = await axios(APIConfig("post", "/update_user", data));
       if (response.status === 200) {
@@ -253,11 +256,7 @@ class AccountSettingFrom extends Component {
                       type="number"
                       required
                       value={this.state.phone || ""}
-                      onChange={(e) =>
-                        validateMaxLength(e.target.value, 7)
-                          ? this.setState({ phone: e.target.value })
-                          : ""
-                      }
+                      onChange={(e) => this.setState({ phone: e.target.value })}
                       name="phone"
                       placeholder="Phone*"
                     />
@@ -276,6 +275,38 @@ class AccountSettingFrom extends Component {
                       className="ts-input"
                       type="textarea"
                       placeholder="  Address"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col lg={6} sm={12} md={12}>
+                  <Form.Group className="mb-3" controlId="state">
+                    <Form.Control
+                      className="ts-input"
+                      type="number"
+                      required
+                      value={this.state.state || ""}
+                      onChange={(e) => this.setState({ state: e.target.value })}
+                      name="state"
+                      placeholder="State*"
+                    />
+                  </Form.Group>
+                </Col>
+
+                <Col lg={6} sm={12} md={12}>
+                  <Form.Group className="mb-3" controlId="zip_code">
+                    <Form.Control
+                      value={this.state.zip_code || ""}
+                      onChange={(e) =>
+                        this.setState({ zip_code: e.target.value })
+                      }
+                      required
+                      name="zip_code"
+                      className="ts-input"
+                      type="textarea"
+                      placeholder="  Zip code"
                     />
                   </Form.Group>
                 </Col>
@@ -393,11 +424,7 @@ class AccountSettingFrom extends Component {
                       type="number"
                       required
                       value={this.state.phone || ""}
-                      onChange={(e) =>
-                        validateMaxLength(e.target.value, 7)
-                          ? this.setState({ phone: e.target.value })
-                          : ""
-                      }
+                      onChange={(e) => this.setState({ phone: e.target.value })}
                       name="phone"
                       placeholder="Phone*"
                     />
@@ -420,6 +447,39 @@ class AccountSettingFrom extends Component {
                   </Form.Group>
                 </Col>
               </Row>
+
+              <Row>
+                <Col lg={6} sm={12} md={12}>
+                  <Form.Group className="mb-3" controlId="state">
+                    <Form.Control
+                      className="ts-input"
+                      type="number"
+                      required
+                      value={this.state.state || ""}
+                      onChange={(e) => this.setState({ state: e.target.value })}
+                      name="state"
+                      placeholder="State*"
+                    />
+                  </Form.Group>
+                </Col>
+
+                <Col lg={6} sm={12} md={12}>
+                  <Form.Group className="mb-3" controlId="zip_code">
+                    <Form.Control
+                      value={this.state.zip_code || ""}
+                      onChange={(e) =>
+                        this.setState({ zip_code: e.target.value })
+                      }
+                      required
+                      name="zip_code"
+                      className="ts-input"
+                      type="textarea"
+                      placeholder="  Zip code"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
               <Row>
                 <Col lg={6} sm={12} md={12}>
                   <Form.Group className="mb-3" controlId="dealername">

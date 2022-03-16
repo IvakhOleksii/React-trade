@@ -90,11 +90,7 @@ class LiveAcution extends Component {
               onSelect={(k) => this.setState({ key: k })}
               className="mb-3 main-content-tabs"
             >
-              <Tab
-                eventKey="view-auction"
-                title="View Auction "
-                className="auction-text"
-              >
+              <Tab eventKey="view-auction" className="auction-text">
                 <Filters
                   handleResetFilter={this.handleResetFilter}
                   handleFilters={this.handleFilters}
