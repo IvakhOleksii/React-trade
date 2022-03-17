@@ -6,9 +6,7 @@ import List from "../../components/list";
 import Filters from "../../components/filters";
 import APIConfig from "../../helpers/api/config";
 import axios from "axios";
-import HandleAPIData, {
-  ConvertObjectIntoArray,
-} from "../../helpers/handleAPIData";
+import HandleAPIData from "../../helpers/handleAPIData";
 import moment from "moment";
 class LiveAcution extends Component {
   _isMounted = false;
@@ -19,7 +17,10 @@ class LiveAcution extends Component {
       liveAuction: [],
       showData: true,
       loading: false,
-      appild: null,
+      appild: [],
+      filters: {},
+      start: 0,
+      total: 0,
     };
   }
   handleDateFilter = (data) => {
@@ -33,60 +34,65 @@ class LiveAcution extends Component {
     });
     return tempArray;
   };
-  getData = async (filters) => {
+  getData = async () => {
     this._isMounted = true;
     this.setState({ loading: true });
-    var FormData = require("form-data");
-    var data = new FormData();
-    var response;
     try {
-      if (filters !== null) {
-        data.append("make", filters?.car_make);
-        data.append("model", filters?.car_model);
-        data.append("location", filters?.location);
-        response = await axios(APIConfig("post", "/car_list", data));
-        if (response.status === 200) {
-          this.setState({
-            loading: false,
-            appild: HandleAPIData(ConvertObjectIntoArray(response?.data)),
-          });
-        }
-      } else {
-        response = await axios(APIConfig("get", "/list_auction_dealer", null));
-        if (response.status === 200) {
-          this.setState({
-            loading: false,
-            appild: HandleAPIData(response?.data),
-          });
-        }
+      const { filters, start: startState, appild } = this.state;
+      const make = filters.car_make ? `&make=${filters.car_make}` : "";
+      const model = filters.car_model ? `&model=${filters.car_model}` : "";
+
+      const response = await axios(
+        APIConfig(
+          "get",
+          `/list_auction_dealer?start=${startState}${make}${model}`,
+          null
+        )
+      );
+      if (response.status === 200) {
+        const { auctions, start, total } = response.data;
+
+        this.setState({
+          loading: false,
+          start,
+          total,
+          appild: [...appild, ...HandleAPIData(auctions)],
+        });
       }
     } catch (error) {
       console.log(JSON.stringify(error));
     }
   };
   handleFilters = (filters) => {
-    this.setState({ showData: true }, function () {});
-    this.getData(filters);
+    this.setState({ showData: true, filters }, function () {
+      this.getData();
+    });
   };
   handleResetFilter = () => {
-    this.getData(null);
-    this.setState({ showData: false }, function () {});
+    this.setState({ showData: false, filters: {} }, function () {
+      this.getData();
+    });
   };
+  handleLoadMore() {
+    this.getData();
+  }
 
   componentWillUnmount() {
     this._isMounted = false;
   }
   componentDidMount() {
-    this.getData(null);
+    this.getData();
   }
   render() {
+    const { loading, key, appild, start, total } = this.state;
+
     return (
       <div className="w-100">
         <Card className="tabs-card">
           <Card.Header>
             <Tabs
               id="controlled-tab-example"
-              activeKey={this.state.key}
+              activeKey={key}
               onSelect={(k) => this.setState({ key: k })}
               className="mb-3 main-content-tabs"
             >
@@ -100,8 +106,13 @@ class LiveAcution extends Component {
                   handleFilters={this.handleFilters}
                 />
 
-                {!this.state.loading ? (
-                  <List {...this.props} listData={this.state.appild} />
+                {!loading ? (
+                  <List
+                    {...this.props}
+                    listData={appild}
+                    loadMore={total > start}
+                    handleLoadMore={this.handleLoadMore.bind(this)}
+                  />
                 ) : (
                   <div className="d-flex justify-content-center align-items-center loading-container">
                     <Spinner animation="grow" variant="light" role="status">
