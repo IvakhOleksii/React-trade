@@ -264,38 +264,6 @@ class AccountSettingFrom extends Component {
                 </Col>
 
                 <Col lg={6} sm={12} md={12}>
-                  <Form.Group className="mb-3" controlId="address">
-                    <Form.Control
-                      value={this.state.address || ""}
-                      onChange={(e) =>
-                        this.setState({ address: e.target.value })
-                      }
-                      required
-                      name="address"
-                      className="ts-input"
-                      type="textarea"
-                      placeholder="  Address"
-                    />
-                  </Form.Group>
-                </Col>
-              </Row>
-
-              <Row>
-                <Col lg={6} sm={12} md={12}>
-                  <Form.Group className="mb-3" controlId="state">
-                    <Form.Control
-                      className="ts-input"
-                      type="number"
-                      required
-                      value={this.state.state || ""}
-                      onChange={(e) => this.setState({ state: e.target.value })}
-                      name="state"
-                      placeholder="State*"
-                    />
-                  </Form.Group>
-                </Col>
-
-                <Col lg={6} sm={12} md={12}>
                   <Form.Group className="mb-3" controlId="zip_code">
                     <Form.Control
                       value={this.state.zip_code || ""}
@@ -307,6 +275,24 @@ class AccountSettingFrom extends Component {
                       className="ts-input"
                       type="textarea"
                       placeholder="  Zip code"
+                    />
+                  </Form.Group>
+                </Col>
+              </Row>
+
+              <Row>
+                <Col sm={12} md={12}>
+                  <Form.Group className="mb-3" controlId="address">
+                    <Form.Control
+                      value={this.state.address || ""}
+                      onChange={(e) =>
+                        this.setState({ address: e.target.value })
+                      }
+                      required
+                      name="address"
+                      className="ts-input"
+                      type="textarea"
+                      placeholder="  Address"
                     />
                   </Form.Group>
                 </Col>
@@ -453,7 +439,7 @@ class AccountSettingFrom extends Component {
                   <Form.Group className="mb-3" controlId="state">
                     <Form.Control
                       className="ts-input"
-                      type="number"
+                      type="text"
                       required
                       value={this.state.state || ""}
                       onChange={(e) => this.setState({ state: e.target.value })}
