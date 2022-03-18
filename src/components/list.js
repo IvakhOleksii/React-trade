@@ -30,8 +30,11 @@ class List extends Component {
     this.props?.history?.push("/auction-detail");
   };
   handleEdit = (auctionDetail) => {
+    const pathname =
+      auctionDetail.type === "trade" ? "/trade-your-car" : "/sell-your-car";
+
     this.props.history.push({
-      pathname: `/trade-your-car`,
+      pathname,
       state: { auctionDetail },
     });
   };
@@ -42,6 +45,8 @@ class List extends Component {
   };
 
   render() {
+    const { loadMore, handleLoadMore } = this.props;
+
     return (
       <div className="list-section">
         {this.state.listData
@@ -105,7 +110,8 @@ class List extends Component {
                     <h5 className="car-list-title">{item.vin}</h5>
                   </div>
                   {this.props?.user?.user_type === "Car Owner" &&
-                  this.props?.showSidebarItem === "viewAuction" &&
+                  (this.props?.showSidebarItem === "viewAuction" ||
+                    this.props?.showSidebarItem === "drafts") &&
                   this.props.user.id === parseInt(item.user_id) ? (
                     <div className="d-flex justify-content-between w-100">
                       <div>
@@ -333,6 +339,19 @@ class List extends Component {
           </React.Fragment>
         ) : (
           ""
+        )}
+
+        {loadMore && (
+          <Row>
+            <Col
+              lg={12}
+              className="d-flex-justify-content-center align-items-center flex-column text-center"
+            >
+              <button className="load-more-btn" onClick={handleLoadMore}>
+                Load More
+              </button>
+            </Col>
+          </Row>
         )}
 
         <Modal
