@@ -23,6 +23,7 @@ import {
   APPLIED_AUCTION_KEY,
   VIEW_AUCTION_TAB_KEY,
   AUCTION_DETAIL,
+  BIDS_MODAL_ID,
 } from "../../actions/app/appActions";
 
 const initialState = {
@@ -50,7 +51,9 @@ const initialState = {
   auctionEndTabKey: "tradecar",
   acution_detail: [],
   alert: { showAlert: false, alertMessage: "", alertType: "Success" },
+  auctionId: null,
 };
+
 const app = (state = initialState, action) => {
   switch (action.type) {
     case POST_CATEGORY:
@@ -175,6 +178,11 @@ const app = (state = initialState, action) => {
       return {
         ...state,
         acution_detail: action.value,
+      };
+    case BIDS_MODAL_ID:
+      return {
+        ...state,
+        auctionId: action.value,
       };
 
     case ALL_CLEAR:

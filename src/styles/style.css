@@ -2589,3 +2589,58 @@ Button.svg-send-btn:hover {
   cursor: pointer;
   background-color: transparent;
 }
+
+.bids-modal-container {
+  position: fixed;
+  z-index: 99;
+  padding-top: 200px;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0, 0, 0);
+  background-color: rgba(0, 0, 0, 0.4);
+}
+
+.bids-modal-content {
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  border: 1px solid #888;
+  min-width: 500px;
+  width: 60%;
+}
+
+.bids-modal-title {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  justify-content: space-between;
+  padding: 0 7px;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.bids-modal-close {
+  width: 50px;
+  height: auto;
+  cursor: pointer;
+  text-align: center;
+}
+
+.bids-modal-table {
+  width: 100%;
+  margin-top: 30px;
+}
+
+.bids-modal-table th,
+.bids-modal-table td {
+  border: 1px solid black;
+  padding: 7px;
+}
+
+.bids-modal-header {
+  background-color: #000;
+  color: #fff;
+}
