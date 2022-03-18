@@ -14,8 +14,10 @@ class AuctionEnd extends Component {
     this.state = {
       key: this.props?.auctionEndTabKey,
       loading: false,
-      tradeAuctionEnd: null,
-      sellAuctionEnd: null,
+      tradeAuctionEnd: [],
+      sellAuctionEnd: [],
+      start: 0,
+      total: 0,
     };
   }
   getData = async (tabValue) => {
@@ -28,35 +30,36 @@ class AuctionEnd extends Component {
       const response = await axios(
         APIConfig(
           "get",
-          `/list_auction_owner?type=${mode}&user_id=${id}&expired=1`,
+          `/list_auction_owner?type=${mode}&user_id=${id}&start=${this.state.start}&expired=1`,
           null
         )
       );
 
       if (response.status === 200) {
-        this.state.key === "tradecar"
-          ? this.setState({
-              loading: false,
-              tradeAuctionEnd: HandleAPIData(response?.data),
-            })
-          : this.setState({
-              loading: false,
-              sellAuctionEnd: HandleAPIData(response?.data),
-            });
+        const { auctions, start, total } = response.data;
+        const dataKey =
+          this.state.key === "tradecar" ? "tradeAuctionEnd" : "sellAuctionEnd";
+
+        this.setState({
+          loading: false,
+          start,
+          total,
+          [dataKey]: [...this.state[dataKey], ...HandleAPIData(auctions)],
+        });
       }
     } catch (error) {
-      console.log(JSON.stringify(error));
+      console.log(error);
     }
   };
   handleTabChange = (k) => {
-    // this.setState({ key: k })
     this.props.handleAcutionEndTabKey(k);
     this.setState({ key: k }, () => {
       this.getData(k);
     });
-    // alert(this.props.sortFilter)
-    // alert(this.state.key)
   };
+  handleLoadMore() {
+    this.getData(this.state.key);
+  }
   componentWillUnmount() {
     this._isMounted = false;
   }
@@ -64,6 +67,9 @@ class AuctionEnd extends Component {
     this.getData();
   }
   render() {
+    const { loading, tradeAuctionEnd, sellAuctionEnd, start, total } =
+      this.state;
+
     return (
       <div className="w-100">
         <Card className="tabs-card">
@@ -79,15 +85,23 @@ class AuctionEnd extends Component {
                 title="Trade Car"
                 className="auction-text"
               >
-                {!this.state.loading ? (
-                  <List listData={this.state?.tradeAuctionEnd} />
+                {!loading ? (
+                  <List
+                    listData={tradeAuctionEnd}
+                    loadMore={total > start}
+                    handleLoadMore={this.handleLoadMore.bind(this)}
+                  />
                 ) : (
                   <Loader />
                 )}
               </Tab>
               <Tab eventKey="sellcar" title="Sell Car" className="auction-text">
-                {!this.state.loading ? (
-                  <List listData={this.state?.sellAuctionEnd} />
+                {!loading ? (
+                  <List
+                    listData={sellAuctionEnd}
+                    loadMore={total > start}
+                    handleLoadMore={this.handleLoadMore.bind(this)}
+                  />
                 ) : (
                   <Loader />
                 )}

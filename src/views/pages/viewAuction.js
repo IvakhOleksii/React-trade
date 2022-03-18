@@ -7,15 +7,22 @@ import APIConfig from "../../helpers/api/config";
 import axios from "axios";
 import HandleAPIData from "../../helpers/handleAPIData";
 import Loader from "../../components/loader";
+
+const INITIAL_STATE = {
+  loading: false,
+  tradeAuction: [],
+  sellAuction: [],
+  start: 0,
+  total: 0,
+};
+
 class ViewAuction extends Component {
   _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
+      ...INITIAL_STATE,
       key: this.props?.viewAuctionTabKey,
-      loading: false,
-      tradeAuction: null,
-      sellAuction: null,
     };
   }
   getData = async () => {
@@ -38,20 +45,21 @@ class ViewAuction extends Component {
       const response = await axios(
         APIConfig(
           "get",
-          `/list_auction_owner?type=${mode}&user_id=${id}${extraParams}`,
+          `/list_auction_owner?type=${mode}&user_id=${id}&start=${this.state.start}${extraParams}`,
           null
         )
       );
       if (response.status === 200) {
-        this.state.key === "tradecar"
-          ? this.setState({
-              loading: false,
-              tradeAuction: HandleAPIData(response?.data),
-            })
-          : this.setState({
-              loading: false,
-              sellAuction: HandleAPIData(response?.data),
-            });
+        const { auctions, start, total } = response.data;
+        const dataKey =
+          this.state.key === "tradecar" ? "tradeAuction" : "sellAuction";
+
+        this.setState({
+          loading: false,
+          start,
+          total,
+          [dataKey]: [...this.state[dataKey], ...HandleAPIData(auctions)],
+        });
       }
     } catch (error) {
       console.log(JSON.stringify(error));
@@ -59,10 +67,13 @@ class ViewAuction extends Component {
   };
   handleTabChange = (k) => {
     this.props.handleViewAuctionTabKey(k);
-    this.setState({ key: k }, () => {
+    this.setState({ ...INITIAL_STATE, key: k }, () => {
       this.getData();
     });
   };
+  handleLoadMore() {
+    this.getData();
+  }
   componentWillUnmount() {
     this._isMounted = false;
   }
@@ -74,10 +85,14 @@ class ViewAuction extends Component {
       prevProps.bids !== this.props.bids ||
       prevProps.drafts !== this.props.drafts
     ) {
-      this.getData();
+      this.setState(INITIAL_STATE, () => {
+        this.getData();
+      });
     }
   }
   render() {
+    const { loading, tradeAuction, sellAuction, start, total } = this.state;
+
     return (
       <div className="w-100">
         <Card className="tabs-card">
@@ -93,15 +108,25 @@ class ViewAuction extends Component {
                 title="Trade Car"
                 className="auction-text"
               >
-                {!this.state.loading ? (
-                  <List {...this.props} listData={this.state?.tradeAuction} />
+                {!loading ? (
+                  <List
+                    {...this.props}
+                    listData={tradeAuction}
+                    loadMore={total > start}
+                    handleLoadMore={this.handleLoadMore.bind(this)}
+                  />
                 ) : (
                   <Loader />
                 )}
               </Tab>
               <Tab eventKey="sellcar" title="Sell Car" className="auction-text">
-                {!this.state.loading ? (
-                  <List {...this.props} listData={this.state?.sellAuction} />
+                {!loading ? (
+                  <List
+                    {...this.props}
+                    listData={sellAuction}
+                    loadMore={total > start}
+                    handleLoadMore={this.handleLoadMore.bind(this)}
+                  />
                 ) : (
                   <Loader />
                 )}

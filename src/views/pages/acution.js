@@ -8,20 +8,27 @@ import axios from "axios";
 import Filters from "../../components/filters";
 import Loader from "../../components/loader";
 import HandleAPIData from "../../helpers/handleAPIData";
+
+const INITIAL_STATE = {
+  loading: false,
+  appliedAuction: [],
+  wonAuction: [],
+  lostAuction: [],
+  filters: {},
+  start: 0,
+  total: 0,
+};
+
 class Acution extends Component {
   _isMounted = false;
   constructor(props) {
     super(props);
     this.state = {
+      ...INITIAL_STATE,
       key: this.props?.appliedAuctionKey,
-      loading: false,
-      appliedAuction: null,
-      wonAuction: null,
-      lostAuction: null,
-      filterValue: "",
     };
   }
-  getData = async (filters = {}) => {
+  getData = async () => {
     this._isMounted = true;
     this.setState({ loading: true });
     try {
@@ -29,6 +36,7 @@ class Acution extends Component {
         user: { id },
         topBids,
       } = this.props;
+      const { filters, start: startState, key } = this.state;
       const mode = topBids ? "top_bids" : "current_bids";
       const make = filters.car_make ? `&make=${filters.car_make}` : "";
       const model = filters.car_model ? `&model=${filters.car_model}` : "";
@@ -36,34 +44,35 @@ class Acution extends Component {
       const response = await axios(
         APIConfig(
           "get",
-          `/list_auction_dealer?${mode}=1&dealer_id=${id}${make}${model}`,
+          `/list_auction_dealer?${mode}=1&dealer_id=${id}&start=${
+            startState || 0
+          }${make}${model}`,
           null
         )
       );
 
       if (response?.status === 200) {
-        this.state.key === "applied"
-          ? this.setState({
-              loading: false,
-              appliedAuction: HandleAPIData(response?.data),
-            })
-          : this.state.key === "won-auction"
-          ? this.setState({
-              loading: false,
-              wonAuction: HandleAPIData(response?.data),
-            })
-          : this.setState({
-              loading: false,
-              wonAuction: HandleAPIData(response?.data),
-            });
+        const { auctions, start, total } = response.data;
+        const dataKey =
+          key === "applied"
+            ? "appliedAuction"
+            : key === "won-auction"
+            ? "wonAuction"
+            : "lostAuction";
+
+        this.setState({
+          loading: false,
+          start,
+          total,
+          [dataKey]: [...this.state[dataKey], ...HandleAPIData(auctions)],
+        });
       }
     } catch (error) {
-      console.log(JSON.stringify(error));
+      console.error(error);
     }
   };
 
   handleTabChange = (k) => {
-    // this.setState({ key: k })
     this.props.handleAppliedAuctionKey(k);
     this.setState({ key: k }, () => {
       this.getData();
@@ -77,31 +86,48 @@ class Acution extends Component {
   }
   componentDidUpdate(prevProps) {
     if (prevProps.topBids !== this.props.topBids) {
-      this.getData();
+      this.setState(INITIAL_STATE, () => {
+        this.getData();
+      });
     }
   }
   handleFilters = (filters) => {
-    this.setState({ filterValue: filters });
-    this.getData(filters);
+    this.setState({ showData: true, filters }, () => {
+      this.getData();
+    });
   };
   handleResetFilter = () => {
-    this.setState({ showData: false });
-    this.getData();
+    this.setState({ showData: false, filters: {} }, () => {
+      this.getData();
+    });
   };
+  handleLoadMore() {
+    this.getData();
+  }
 
   render() {
+    const {
+      loading,
+      key,
+      appliedAuction,
+      wonAuction,
+      lostAuction,
+      start,
+      total,
+    } = this.state;
+
     return (
       <div className="w-100">
         <Card className="tabs-card">
           <Card.Header>
             <Tabs
               id="controlled-tab-example"
-              activeKey={this.state.key}
+              activeKey={key}
               onSelect={(k) => this.handleTabChange(k)}
               className="mb-3 main-content-tabs"
             >
               <Tab eventKey="applied" title="Applied" className="auction-text">
-                {!this.state.loading ? (
+                {!loading ? (
                   <React.Fragment>
                     <Filters
                       handleResetFilter={this.handleResetFilter}
@@ -109,7 +135,9 @@ class Acution extends Component {
                     />
                     <List
                       {...this.props}
-                      listData={this.state?.appliedAuction}
+                      listData={appliedAuction}
+                      loadMore={total > start}
+                      handleLoadMore={this.handleLoadMore.bind(this)}
                     />
                   </React.Fragment>
                 ) : (
@@ -121,13 +149,18 @@ class Acution extends Component {
                 title="Won Auction"
                 className="auction-text"
               >
-                {!this.state.loading ? (
+                {!loading ? (
                   <React.Fragment>
                     <Filters
                       handleResetFilter={this.handleResetFilter}
                       handleFilters={this.handleFilters}
                     />
-                    <List {...this.props} listData={this.state?.wonAuction} />
+                    <List
+                      {...this.props}
+                      listData={wonAuction}
+                      loadMore={total > start}
+                      handleLoadMore={this.handleLoadMore.bind(this)}
+                    />
                   </React.Fragment>
                 ) : (
                   <Loader />
@@ -138,13 +171,18 @@ class Acution extends Component {
                 title="Lost Auction"
                 className="auction-text"
               >
-                {!this.state.loading ? (
+                {!loading ? (
                   <React.Fragment>
                     <Filters
                       handleResetFilter={this.handleResetFilter}
                       handleFilters={this.handleFilters}
                     />
-                    <List {...this.props} listData={this.state?.wonAuction} />
+                    <List
+                      {...this.props}
+                      listData={lostAuction}
+                      loadMore={total > start}
+                      handleLoadMore={this.handleLoadMore.bind(this)}
+                    />
                   </React.Fragment>
                 ) : (
                   <Loader />

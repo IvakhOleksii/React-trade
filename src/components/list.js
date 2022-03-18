@@ -45,6 +45,8 @@ class List extends Component {
   };
 
   render() {
+    const { loadMore, handleLoadMore } = this.props;
+
     return (
       <div className="list-section">
         {this.state.listData
@@ -337,6 +339,19 @@ class List extends Component {
           </React.Fragment>
         ) : (
           ""
+        )}
+
+        {loadMore && (
+          <Row>
+            <Col
+              lg={12}
+              className="d-flex-justify-content-center align-items-center flex-column text-center"
+            >
+              <button className="load-more-btn" onClick={handleLoadMore}>
+                Load More
+              </button>
+            </Col>
+          </Row>
         )}
 
         <Modal
