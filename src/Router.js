@@ -5,6 +5,8 @@ import { ToastContainer } from "react-toastify";
 import { history } from "./helpers/history";
 import Privacy from "./views/pages/privacy";
 import TermsAndCondition from "./views/pages/TermsAndCondition";
+import AuctionBidsModal from "./components/AuctionBidsModal";
+
 const Home = lazy(() => import("./views/pages/home"));
 const Login = lazy(() => import("./views/pages/login"));
 const Registration = lazy(() => import("./views/pages/registration"));
@@ -30,6 +32,7 @@ class AppRouter extends React.Component {
           draggable
           pauseOnHover
         ></ToastContainer>
+        <AuctionBidsModal />
         <Switch>
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />

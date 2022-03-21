@@ -2,11 +2,14 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Row, Col, Carousel, Button, Image, Badge } from "react-bootstrap";
 import { Eye } from "react-feather";
-import ImageViewer360 from "./imageViewer360";
-import NoResultFound from "../assets/imgs/png/dashboard/no-results-found1.png";
 import { Modal, ModalHeader } from "reactstrap";
+import NoResultFound from "../assets/imgs/png/dashboard/no-results-found1.png";
+import { AUCTION_DETAIL, BIDS_MODAL_ID } from "../redux/actions/app/appActions";
+import formatCurrency from "../helpers/formatCurrency";
+import ImageViewer360 from "./imageViewer360";
 import Timmer from "./timmer";
 import AcceptAndRejectAuction from "./acceptAndRejectAuction";
+
 class List extends Component {
   constructor(props) {
     super(props);
@@ -45,7 +48,7 @@ class List extends Component {
   };
 
   render() {
-    const { loadMore, handleLoadMore } = this.props;
+    const { loadMore, handleLoadMore, handleBidsModal } = this.props;
 
     return (
       <div className="list-section">
@@ -155,6 +158,25 @@ class List extends Component {
                       <span className="card-list__title">Engine: </span>
                       <span className="card-list__info">{item.engine} </span>
                     </div>
+                    {item.auction_bids?.length && (
+                      <>
+                        <div className="right--content">
+                          <span className="card-list__title">
+                            Highest Bid:{" "}
+                          </span>
+                          <span className="card-list__info">
+                            {formatCurrency(item.auction_bids[0].bid_price)}{" "}
+                          </span>
+                        </div>
+                        <div
+                          className="right--content"
+                          style={{ cursor: "pointer" }}
+                          onClick={() => handleBidsModal(item.id)}
+                        >
+                          <span className="card-list__title">Bid History </span>
+                        </div>
+                      </>
+                    )}
                   </div>
                   <div className="car-list-wrap-right">
                     <div className="right--content">
@@ -379,8 +401,8 @@ const mapStateToProps = (state) => {
 };
 const mapDispatchToProps = (dispatch) => {
   return {
-    hanldeAuctionDetail: (value) =>
-      dispatch({ type: "AUCTION_DETAIL", value: value }),
+    hanldeAuctionDetail: (value) => dispatch({ type: AUCTION_DETAIL, value }),
+    handleBidsModal: (value) => dispatch({ type: BIDS_MODAL_ID, value }),
   };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(List);
