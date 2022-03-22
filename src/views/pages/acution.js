@@ -26,6 +26,9 @@ class Acution extends Component {
     this.state = {
       ...INITIAL_STATE,
       key: this.props?.appliedAuctionKey,
+      loading: false,
+      data: [],
+      filterValue: "",
     };
   }
   getData = async () => {
