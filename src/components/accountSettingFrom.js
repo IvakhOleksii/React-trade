@@ -253,7 +253,6 @@ class AccountSettingFrom extends Component {
                   <Form.Group className="mb-3" controlId="Phone">
                     <Form.Control
                       className="ts-input"
-                      type="number"
                       required
                       value={this.state.phone || ""}
                       onChange={(e) => this.setState({ phone: e.target.value })}
@@ -407,7 +406,6 @@ class AccountSettingFrom extends Component {
                   <Form.Group className="mb-3" controlId="Phone">
                     <Form.Control
                       className="ts-input"
-                      type="number"
                       required
                       value={this.state.phone || ""}
                       onChange={(e) => this.setState({ phone: e.target.value })}
