@@ -25,7 +25,7 @@ function AuctionBidsModal() {
       setLoading(true);
       axios(APIConfig("get", `/bidhistory/${auctionId}`, null))
         .then(({ data }) => {
-          setData([data[0], data[0], data[0], data[0], data[0]]);
+          setData(data);
           setLoading(false);
         })
         .catch(console.error);
