@@ -8,7 +8,10 @@ import formatCurrency from "../helpers/formatCurrency";
 import Loader from "./loader";
 
 function AuctionBidsModal() {
-  const { auctionId } = useSelector((state) => state.app);
+  const {
+    auctionId,
+    user: { name: userName },
+  } = useSelector((state) => state.app);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const ref = useRef(null);
@@ -25,7 +28,7 @@ function AuctionBidsModal() {
       setLoading(true);
       axios(APIConfig("get", `/bidhistory/${auctionId}`, null))
         .then(({ data }) => {
-          setData([data[0], data[0], data[0], data[0], data[0]]);
+          setData(data);
           setLoading(false);
         })
         .catch(console.error);
@@ -54,18 +57,26 @@ function AuctionBidsModal() {
               </tr>
             </thead>
             <tbody>
-              {data.map(({ bid_price, dealername, email, phone }) => (
-                <tr key={email} className="bids-modal-item">
-                  <td>{dealername}</td>
-                  <td>
-                    <a href={`mailto:${email}`}>{email}</a>
-                  </td>
-                  <td>{phone}</td>
-                  <td style={{ textAlign: "right" }}>
-                    {formatCurrency(bid_price)}
-                  </td>
-                </tr>
-              ))}
+              {data.map(({ bid_price, dealername, email, phone }) => {
+                const isAnonymousDealer = dealername !== userName;
+
+                return (
+                  <tr key={email} className="bids-modal-item">
+                    <td>{isAnonymousDealer ? "Anonymous" : dealername}</td>
+                    <td>
+                      {isAnonymousDealer ? (
+                        "Anonymous"
+                      ) : (
+                        <a href={`mailto:${email}`}>{email}</a>
+                      )}
+                    </td>
+                    <td>{isAnonymousDealer ? "Anonymous" : phone}</td>
+                    <td style={{ textAlign: "right" }}>
+                      {formatCurrency(bid_price)}
+                    </td>
+                  </tr>
+                );
+              })}
             </tbody>
           </table>
         )}
