@@ -38,7 +38,7 @@ class List extends Component {
 
     this.props.history.push({
       pathname,
-      state: { auctionDetail },
+      state: { auctionDetail, editing: true },
     });
   };
   handleOutDatedAuction = (id) => {
