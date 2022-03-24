@@ -46,6 +46,23 @@ class List extends Component {
     temp.push(id);
     this.setState({ outDatedAuctionIds: temp });
   };
+  formatDate = (date) => {
+    const replaceMap = {
+      "/": "-",
+      ",": "",
+    };
+
+    return Intl.DateTimeFormat(navigator.language, {
+      month: "2-digit",
+      day: "2-digit",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+    })
+      .format(new Date(date))
+      .replace(/\/|,/g, (match) => replaceMap[match]);
+  };
 
   render() {
     const { loadMore, handleLoadMore, handleBidsModal } = this.props;
@@ -141,6 +158,10 @@ class List extends Component {
                 <div className="car-list-wrap">
                   <div className="car-list-wrap-left">
                     <div className="right--content">
+                      <span className="card-list__title">Make: </span>
+                      <span className="card-list__info">{item.make} </span>
+                    </div>
+                    <div className="right--content">
                       <span className="card-list__title">Year: </span>
                       <span className="card-list__info">{item.year} </span>
                     </div>
@@ -179,6 +200,10 @@ class List extends Component {
                     )}
                   </div>
                   <div className="car-list-wrap-right">
+                    <div className="right--content">
+                      <span className="card-list__title">Model: </span>
+                      <span className="card-list__info">{item.model} </span>
+                    </div>
                     <div className="right--content">
                       <span className="card-list__title">City: </span>
                       <span className="card-list__info">{item.city} </span>
@@ -302,10 +327,10 @@ class List extends Component {
                 <Col lg={8} md={12} sm={10} className="mt-2">
                   <div className="d-flex">
                     <h5 className="card-start-time">
-                      Start Time: {item.created_at}
+                      Start Time: {this.formatDate(item.created_at)}
                     </h5>
                     <h5 className="card-end-time">
-                      End Time: {item?.expiry_at}
+                      End Time: {this.formatDate(item.expiry_at)}
                     </h5>
                   </div>
                 </Col>
