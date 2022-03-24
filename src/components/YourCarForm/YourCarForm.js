@@ -116,6 +116,7 @@ class YourCarForm extends Component {
       loading: false,
       isVINValid: false,
       preview: [],
+      editing: false,
     };
   }
   handleNextStep = (e) => {
@@ -329,12 +330,15 @@ class YourCarForm extends Component {
     try {
       const response = await axios(APIConfig("post", "/trade_your_car", data));
       if (response.status === 200) {
-        toast.success("Data submited successFully", {
+        toast.success("Data submited successfully", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 1000,
         });
         this.setState({ loading: false });
-        this.props.history.push("/");
+        this.props.handleChangeSidebarItem(
+          this.state.btnType === "draft" ? "drafts" : "viewAuction"
+        );
+        this.props.history.push("/dashboard");
       }
     } catch (error) {
       toast.error("Network Error ", {
@@ -389,14 +393,12 @@ class YourCarForm extends Component {
   componentDidMount() {
     let { state } = this.props.history.location;
     if (state) {
-      this.setState(state.auctionDetail);
       this.setState({
+        ...state.auctionDetail,
         step: 1,
-        images360: state.auctionDetail.images360,
-        images: state.auctionDetail.images,
+        editing: !!state.editing,
+        isVINValid: !!state.auctionDetail.vin,
       });
-
-      console.log("Auction Detials" + JSON.stringify(state.auctionDetail));
     }
   }
   componentWillUnmount() {
@@ -489,7 +491,7 @@ class YourCarForm extends Component {
                               type="text"
                               id={"vin"}
                               required
-                              value={"" || this.state.vin}
+                              value={this.state.vin || ""}
                               onChange={(e) =>
                                 this.setState({ vin: e.target.value })
                               }
@@ -652,7 +654,7 @@ class YourCarForm extends Component {
                             variant=" btn-next"
                             id="button-addon2a"
                           >
-                            Start
+                            {this.state.editing ? "Continue" : "Start"}
                           </Button>
                         ) : (
                           <Button
@@ -2354,7 +2356,10 @@ const mapStateToProps = (state) => {
     acution_detail: state.app.acution_detail,
   };
 };
-const mapDispatchToProps = () => {
-  return {};
+const mapDispatchToProps = (dispatch) => {
+  return {
+    handleChangeSidebarItem: (value) =>
+      dispatch({ type: "SHOWSIDEBARITEM", value: value }),
+  };
 };
 export default connect(mapStateToProps, mapDispatchToProps)(YourCarForm);
