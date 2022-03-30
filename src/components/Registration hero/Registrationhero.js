@@ -272,17 +272,17 @@ class RegistrationHero extends Component {
 
                       <Row>
                         <Col lg={6} sm={12} md={12}>
-                          <Form.Group className="mb-3" controlId="State">
+                          <Form.Group className="mb-3" controlId="address">
                             <Form.Control
-                              className="ts-input"
-                              name="state"
-                              required
-                              value={"" || this.state.state}
+                              value={this.state.address || ""}
                               onChange={(e) =>
-                                this.setState({ state: e.target.value })
+                                this.setState({ address: e.target.value })
                               }
-                              type="text"
-                              placeholder="State*"
+                              required
+                              name="address"
+                              className="ts-input"
+                              type="textarea"
+                              placeholder="Address"
                             />
                           </Form.Group>
                         </Col>
@@ -302,6 +302,40 @@ class RegistrationHero extends Component {
                           </Form.Group>
                         </Col>
                       </Row>
+
+                      <Row>
+                        <Col lg={6} sm={12} md={12}>
+                          <Form.Group className="mb-3" controlId="State">
+                            <Form.Control
+                              className="ts-input"
+                              name="state"
+                              required
+                              value={"" || this.state.state}
+                              onChange={(e) =>
+                                this.setState({ state: e.target.value })
+                              }
+                              type="text"
+                              placeholder="State*"
+                            />
+                          </Form.Group>
+                        </Col>
+                        <Col lg={6} sm={12} md={12}>
+                          <Form.Group className="mb-3" controlId="zip_code">
+                            <Form.Control
+                              value={this.state.zip_code || ""}
+                              onChange={(e) =>
+                                this.setState({ zip_code: e.target.value })
+                              }
+                              required
+                              name="zip_code"
+                              className="ts-input"
+                              type="textarea"
+                              placeholder="Zip Code"
+                            />
+                          </Form.Group>
+                        </Col>
+                      </Row>
+
                       <Row>
                         <Col lg={6} sm={12} md={12}>
                           <Form.Group className="mb-3" controlId="Phone">
@@ -314,38 +348,6 @@ class RegistrationHero extends Component {
                               }
                               name="phone"
                               placeholder="Phone*"
-                            />
-                          </Form.Group>
-                        </Col>
-
-                        <Col lg={6} sm={12} md={12}>
-                          <Form.Group className="mb-3" controlId="address">
-                            <Form.Control
-                              value={this.state.address || ""}
-                              onChange={(e) =>
-                                this.setState({ address: e.target.value })
-                              }
-                              required
-                              name="address"
-                              className="ts-input"
-                              type="textarea"
-                              placeholder="  Address"
-                            />
-                          </Form.Group>
-                        </Col>
-
-                        <Col lg={6} sm={12} md={12}>
-                          <Form.Group className="mb-3" controlId="zip_code">
-                            <Form.Control
-                              value={this.state.zip_code || ""}
-                              onChange={(e) =>
-                                this.setState({ zip_code: e.target.value })
-                              }
-                              required
-                              name="zip_code"
-                              className="ts-input"
-                              type="textarea"
-                              placeholder="  Zip Code"
                             />
                           </Form.Group>
                         </Col>
@@ -491,7 +493,7 @@ class RegistrationHero extends Component {
                               name="name"
                               className="ts-input"
                               type="text"
-                              placeholder="Name"
+                              placeholder=" Name"
                             />
                           </Form.Group>
                         </Col>
@@ -506,59 +508,13 @@ class RegistrationHero extends Component {
                               name="email"
                               className="ts-input"
                               type="email"
-                              placeholder="User Name"
+                              placeholder=" User Name"
                             />
                           </Form.Group>
                         </Col>
                       </Row>
+
                       <Row>
-                        <Col lg={6} sm={12} md={12}>
-                          <Form.Group className="mb-3" controlId="Phone">
-                            <Form.Control
-                              className="ts-input"
-                              required
-                              value={this.state.phone || ""}
-                              onChange={(e) =>
-                                this.setState({ phone: e.target.value })
-                              }
-                              name="phone"
-                              placeholder="Phone*"
-                            />
-                          </Form.Group>
-                        </Col>
-
-                        <Col lg={6} sm={12} md={12}>
-                          <Form.Group className="mb-3" controlId="State">
-                            <Form.Control
-                              className="ts-input"
-                              name="state"
-                              required
-                              value={"" || this.state.state}
-                              onChange={(e) =>
-                                this.setState({ state: e.target.value })
-                              }
-                              type="text"
-                              placeholder="State*"
-                            />
-                          </Form.Group>
-                        </Col>
-
-                        <Col lg={6} sm={12} md={12}>
-                          <Form.Group className="mb-3" controlId="City">
-                            <Form.Control
-                              className="ts-input"
-                              name="city"
-                              required
-                              value={this.state.city || ""}
-                              onChange={(e) =>
-                                this.setState({ city: e.target.value })
-                              }
-                              type="text"
-                              placeholder="City*  "
-                            />
-                          </Form.Group>
-                        </Col>
-
                         <Col lg={6} sm={12} md={12}>
                           <Form.Group className="mb-3" controlId="address">
                             <Form.Control
@@ -574,7 +530,39 @@ class RegistrationHero extends Component {
                             />
                           </Form.Group>
                         </Col>
+                        <Col lg={6} sm={12} md={12}>
+                          <Form.Group className="mb-3" controlId="City">
+                            <Form.Control
+                              className="ts-input"
+                              name="city"
+                              required
+                              value={this.state.city || ""}
+                              onChange={(e) =>
+                                this.setState({ city: e.target.value })
+                              }
+                              type="text"
+                              placeholder=" City*  "
+                            />
+                          </Form.Group>
+                        </Col>
+                      </Row>
 
+                      <Row>
+                        <Col lg={6} sm={12} md={12}>
+                          <Form.Group className="mb-3" controlId="State">
+                            <Form.Control
+                              className="ts-input"
+                              name="state"
+                              required
+                              value={"" || this.state.state}
+                              onChange={(e) =>
+                                this.setState({ state: e.target.value })
+                              }
+                              type="text"
+                              placeholder=" State*"
+                            />
+                          </Form.Group>
+                        </Col>
                         <Col lg={6} sm={12} md={12}>
                           <Form.Group className="mb-3" controlId="zip_code">
                             <Form.Control
@@ -586,11 +574,29 @@ class RegistrationHero extends Component {
                               name="zip_code"
                               className="ts-input"
                               type="textarea"
-                              placeholder="  Zip Code"
+                              placeholder="Zip Code"
                             />
                           </Form.Group>
                         </Col>
                       </Row>
+
+                      <Row>
+                        <Col lg={6} sm={12} md={12}>
+                          <Form.Group className="mb-3" controlId="Phone">
+                            <Form.Control
+                              className="ts-input"
+                              required
+                              value={this.state.phone || ""}
+                              onChange={(e) =>
+                                this.setState({ phone: e.target.value })
+                              }
+                              name="phone"
+                              placeholder="Phone*"
+                            />
+                          </Form.Group>
+                        </Col>
+                      </Row>
+
                       <Row>
                         <Col lg={6} sm={12} md={12}>
                           <Form.Group className="mb-3" controlId="dealerName">
