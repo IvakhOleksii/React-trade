@@ -6,6 +6,7 @@ import { Modal, ModalHeader } from "reactstrap";
 import NoResultFound from "../assets/imgs/png/dashboard/no-results-found1.png";
 import { AUCTION_DETAIL, BIDS_MODAL_ID } from "../redux/actions/app/appActions";
 import formatCurrency from "../helpers/formatCurrency";
+import formatDate from "../helpers/formatDate";
 import ImageViewer360 from "./imageViewer360";
 import Timmer from "./timmer";
 import AcceptAndRejectAuction from "./acceptAndRejectAuction";
@@ -47,21 +48,14 @@ class List extends Component {
     this.setState({ outDatedAuctionIds: temp });
   };
   formatDate = (date) => {
-    const replaceMap = {
-      "/": "-",
-      ",": "",
-    };
-
-    return Intl.DateTimeFormat(navigator.language, {
+    return formatDate(date, {
       month: "2-digit",
       day: "2-digit",
       year: "numeric",
       hour: "numeric",
       minute: "2-digit",
       hour12: true,
-    })
-      .format(new Date(date))
-      .replace(/\/|,/g, (match) => replaceMap[match]);
+    });
   };
 
   render() {

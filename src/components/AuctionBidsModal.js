@@ -5,13 +5,11 @@ import { BIDS_MODAL_ID } from "../redux/actions/app/appActions";
 import useOutsideClick from "../hooks/useOutsideClick";
 import APIConfig from "../helpers/api/config";
 import formatCurrency from "../helpers/formatCurrency";
+import formatDate from "../helpers/formatDate";
 import Loader from "./loader";
 
 function AuctionBidsModal() {
-  const {
-    auctionId,
-    user: { name: userName },
-  } = useSelector((state) => state.app);
+  const { auctionId } = useSelector((state) => state.app);
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(false);
   const ref = useRef(null);
@@ -50,33 +48,25 @@ function AuctionBidsModal() {
           <table className="bids-modal-table">
             <thead>
               <tr className="bids-modal-header">
-                <th>Dealer Name</th>
-                <th>Email</th>
-                <th>Phone</th>
+                <th>Start Date</th>
                 <th>Bid Price</th>
               </tr>
             </thead>
             <tbody>
-              {data.map(({ bid_price, dealername, email, phone }) => {
-                const isAnonymousDealer = dealername !== userName;
-
-                return (
-                  <tr key={email} className="bids-modal-item">
-                    <td>{isAnonymousDealer ? "Anonymous" : dealername}</td>
-                    <td>
-                      {isAnonymousDealer ? (
-                        "Anonymous"
-                      ) : (
-                        <a href={`mailto:${email}`}>{email}</a>
-                      )}
-                    </td>
-                    <td>{isAnonymousDealer ? "Anonymous" : phone}</td>
-                    <td style={{ textAlign: "right" }}>
-                      {formatCurrency(bid_price)}
-                    </td>
-                  </tr>
-                );
-              })}
+              {data.map(({ bid_price, start_date }) => (
+                <tr key={start_date} className="bids-modal-item">
+                  <td>
+                    {formatDate(start_date, {
+                      month: "2-digit",
+                      day: "2-digit",
+                      year: "numeric",
+                    })}
+                  </td>
+                  <td style={{ textAlign: "right" }}>
+                    {formatCurrency(bid_price)}
+                  </td>
+                </tr>
+              ))}
             </tbody>
           </table>
         )}
