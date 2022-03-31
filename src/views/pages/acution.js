@@ -11,9 +11,7 @@ import HandleAPIData from "../../helpers/handleAPIData";
 
 const INITIAL_STATE = {
   loading: false,
-  appliedAuction: [],
-  wonAuction: [],
-  lostAuction: [],
+  data: [],
   filters: {},
   start: 0,
   total: 0,
@@ -56,18 +54,12 @@ class Acution extends Component {
 
       if (response?.status === 200) {
         const { auctions, start, total } = response.data;
-        const dataKey =
-          key === "applied"
-            ? "appliedAuction"
-            : key === "won-auction"
-            ? "wonAuction"
-            : "lostAuction";
 
         this.setState({
           loading: false,
           start,
           total,
-          [dataKey]: [...this.state[dataKey], ...HandleAPIData(auctions)],
+          data: [...this.state.data, ...HandleAPIData(auctions)],
         });
       }
     } catch (error) {
@@ -109,15 +101,7 @@ class Acution extends Component {
   }
 
   render() {
-    const {
-      loading,
-      key,
-      appliedAuction,
-      wonAuction,
-      lostAuction,
-      start,
-      total,
-    } = this.state;
+    const { loading, key, data, start, total } = this.state;
 
     return (
       <div className="w-100">
@@ -129,7 +113,7 @@ class Acution extends Component {
               onSelect={(k) => this.handleTabChange(k)}
               className="mb-3 main-content-tabs"
             >
-              <Tab eventKey="applied" title="Applied" className="auction-text">
+              <Tab eventKey="applied" className="auction-text">
                 {!loading ? (
                   <React.Fragment>
                     <Filters
@@ -138,51 +122,7 @@ class Acution extends Component {
                     />
                     <List
                       {...this.props}
-                      listData={appliedAuction}
-                      loadMore={total > start}
-                      handleLoadMore={this.handleLoadMore.bind(this)}
-                    />
-                  </React.Fragment>
-                ) : (
-                  <Loader />
-                )}
-              </Tab>
-              <Tab
-                eventKey="won-auction"
-                title="Won Auction"
-                className="auction-text"
-              >
-                {!loading ? (
-                  <React.Fragment>
-                    <Filters
-                      handleResetFilter={this.handleResetFilter}
-                      handleFilters={this.handleFilters}
-                    />
-                    <List
-                      {...this.props}
-                      listData={wonAuction}
-                      loadMore={total > start}
-                      handleLoadMore={this.handleLoadMore.bind(this)}
-                    />
-                  </React.Fragment>
-                ) : (
-                  <Loader />
-                )}
-              </Tab>
-              <Tab
-                eventKey="lost-auction"
-                title="Lost Auction"
-                className="auction-text"
-              >
-                {!loading ? (
-                  <React.Fragment>
-                    <Filters
-                      handleResetFilter={this.handleResetFilter}
-                      handleFilters={this.handleFilters}
-                    />
-                    <List
-                      {...this.props}
-                      listData={lostAuction}
+                      listData={data}
                       loadMore={total > start}
                       handleLoadMore={this.handleLoadMore.bind(this)}
                     />
