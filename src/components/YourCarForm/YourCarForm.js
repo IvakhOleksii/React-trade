@@ -23,6 +23,8 @@ import {
 } from "../../helpers/validation";
 import Registrationhero from "../Registration hero/Registrationhero";
 import Login from "../login hero/loginHero";
+import Modal from "../Modal";
+import Loader from "../loader";
 import Card from "./Card";
 
 export const FORM_MODES = {
@@ -114,6 +116,7 @@ class YourCarForm extends Component {
 
       alredyHaveAccount: false,
       loading: false,
+      loadingModal: false,
       isVINValid: false,
       preview: [],
       editing: false,
@@ -217,7 +220,7 @@ class YourCarForm extends Component {
     this._isMounted = true;
     var FormData = require("form-data");
     var data = new FormData();
-    this.setState({ loading: true });
+    this.setState({ loading: true, loadingModal: true });
 
     // 3rd step
 
@@ -334,7 +337,7 @@ class YourCarForm extends Component {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 1000,
         });
-        this.setState({ loading: false });
+        this.setState({ loading: false, loadingModal: false });
         this.props.handleChangeSidebarItem(
           this.state.btnType === "draft" ? "drafts" : "viewAuction"
         );
@@ -428,6 +431,13 @@ class YourCarForm extends Component {
     return (
       <div className="contact-hero-section">
         <NavBar {...this.props} showSvg={true} />
+        <Modal
+          open={this.state.loadingModal}
+          style={{ width: "100vw", height: "100vh", padding: 0 }}
+          contentDivStyle={{ width: "100%" }}
+        >
+          <Loader />
+        </Modal>
         <Container>
           <Row className="d-flex justify-content-center align-items-center section-contact-t-b-padding">
             {this.state.step === 0 ? (
@@ -738,12 +748,12 @@ class YourCarForm extends Component {
                           <Form.Group className="mb-3" controlId="Fuel Type">
                             <Form.Select
                               name="fuel_type"
-                              value={"" || this.state.fuel_type}
+                              value={this.state.fuel_type || ""}
                               onChange={(e) =>
-                                this.setState({ condition: e.target.value })
+                                this.setState({ fuel_type: e.target.value })
                               }
                               className="ts-input"
-                              defaultValue="  Condition"
+                              defaultValue="Fuel Type"
                             >
                               <option>Fuel Type </option>
                               <option value="Gas">Gas</option>
