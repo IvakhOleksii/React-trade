@@ -127,7 +127,9 @@ class List extends Component {
               >
                 <div className="d-flex draft-items">
                   <div>
-                    <h5 className="car-list-title">{item.vin}</h5>
+                    <h5 className="car-list-title">
+                      {item.make} / {item.model}
+                    </h5>
                   </div>
                   {this.props?.user?.user_type === "Car Owner" &&
                   (this.props?.showSidebarItem === "viewAuction" ||
@@ -160,10 +162,6 @@ class List extends Component {
                 <div className="car-list-wrap">
                   <div className="car-list-wrap-left">
                     <div className="right--content">
-                      <span className="card-list__title">Make: </span>
-                      <span className="card-list__info">{item.make} </span>
-                    </div>
-                    <div className="right--content">
                       <span className="card-list__title">Year: </span>
                       <span className="card-list__info">{item.year} </span>
                     </div>
@@ -181,7 +179,11 @@ class List extends Component {
                       <span className="card-list__title">Engine: </span>
                       <span className="card-list__info">{item.engine} </span>
                     </div>
-                    {item.auction_bids?.length && (
+                    <div className="right--content">
+                      <span className="card-list__title">VIN: </span>
+                      <span className="card-list__info">{item.vin} </span>
+                    </div>
+                    {!!item.auction_bids?.length && (
                       <>
                         <div className="right--content">
                           <span className="card-list__title">
@@ -202,10 +204,6 @@ class List extends Component {
                     )}
                   </div>
                   <div className="car-list-wrap-right">
-                    <div className="right--content">
-                      <span className="card-list__title">Model: </span>
-                      <span className="card-list__info">{item.model} </span>
-                    </div>
                     <div className="right--content">
                       <span className="card-list__title">City: </span>
                       <span className="card-list__info">{item.city} </span>
