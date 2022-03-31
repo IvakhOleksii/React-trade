@@ -127,6 +127,10 @@ class NavBar extends Component {
                       {" "}
                       Login
                     </Link>
+                    <Link className="nav-link" to="/register">
+                      {" "}
+                      Register
+                    </Link>
                   </React.Fragment>
                 )}
               </Nav>

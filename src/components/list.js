@@ -141,14 +141,16 @@ class List extends Component {
                           ""
                         )}
                       </div>
-                      <div>
-                        <span
-                          onClick={() => this.handleEdit(item)}
-                          className="d-flex justify-between badge-link pt-2"
-                        >
-                          Edit
-                        </span>
-                      </div>
+                      {!item.auction_bids?.length && (
+                        <div>
+                          <span
+                            onClick={() => this.handleEdit(item)}
+                            className="d-flex justify-between badge-link pt-2"
+                          >
+                            Edit
+                          </span>
+                        </div>
+                      )}
                     </div>
                   ) : (
                     ""
