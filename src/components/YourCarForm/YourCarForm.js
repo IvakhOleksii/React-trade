@@ -372,6 +372,9 @@ class YourCarForm extends Component {
             year: parseInt(response.data.data.attributes.year),
             make: response.data.data.attributes.make,
             model: response.data.data.attributes.model,
+            body_type: response.data.data.attributes.style,
+            transmission: response.data.data.attributes.transmission,
+            exterior_color: response.data.data.attributes.exterior_color[0],
           });
 
           toast.success("Data has been fetched successfully", {
