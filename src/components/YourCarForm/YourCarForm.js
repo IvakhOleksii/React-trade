@@ -397,13 +397,21 @@ class YourCarForm extends Component {
     }
   };
   componentDidMount() {
-    let { state } = this.props.history.location;
+    const { state } = this.props.history.location;
     if (state) {
       this.setState({
         ...state.auctionDetail,
         step: 1,
         editing: !!state.editing,
         isVINValid: !!state.auctionDetail.vin,
+      });
+    }
+
+    const { user } = this.props;
+    if (user) {
+      this.setState({
+        state: user.state,
+        zip_code: user.zip_code,
       });
     }
   }
@@ -539,30 +547,12 @@ class YourCarForm extends Component {
                           </InputGroup>
                         </Col>
                         <Col lg={6} md={12} sm={12}>
-                          <Form.Group className="mb-3" controlId="Drivetrain">
-                            <Form.Control
-                              required
-                              className="ts-input"
-                              type="text"
-                              value={"" || this.state.drivetrain}
-                              onChange={(e) =>
-                                this.setState({ drivetrain: e.target.value })
-                              }
-                              name="drivetrain"
-                              placeholder=" Drivetrain*  "
-                            />
-                          </Form.Group>
-                        </Col>
-                      </Row>
-
-                      <Row className="  ">
-                        <Col lg={6} md={12} sm={12}>
                           <Form.Group className="mb-3" controlId="Engine">
                             <Form.Control
                               required
                               className="ts-input"
                               name="engine"
-                              value={"" || this.state.engine}
+                              value={this.state.engine || ""}
                               onChange={(e) =>
                                 this.setState({ engine: e.target.value })
                               }
@@ -571,13 +561,16 @@ class YourCarForm extends Component {
                             />
                           </Form.Group>
                         </Col>
+                      </Row>
+
+                      <Row className="  ">
                         <Col lg={6} md={12} sm={12}>
                           <Form.Group className="mb-3" controlId="year">
                             <Form.Control
                               required
                               className="ts-input"
                               name={"year"}
-                              value={"" || this.state.year}
+                              value={this.state.year || ""}
                               onChange={(e) =>
                                 this.setState({ year: e.target.value })
                               }
@@ -586,16 +579,13 @@ class YourCarForm extends Component {
                             />
                           </Form.Group>
                         </Col>
-                      </Row>
-
-                      <Row className=" ">
                         <Col lg={6} md={12} sm={12}>
                           <Form.Group className="mb-3" controlId="Make">
                             <Form.Control
                               required
                               className="ts-input"
                               name="make"
-                              value={"" || this.state.make}
+                              value={this.state.make || ""}
                               onChange={(e) =>
                                 this.setState({ make: e.target.value })
                               }
@@ -604,13 +594,16 @@ class YourCarForm extends Component {
                             />
                           </Form.Group>
                         </Col>
+                      </Row>
+
+                      <Row className=" ">
                         <Col lg={6} md={12} sm={12}>
                           <Form.Group className="mb-3" controlId="Model">
                             <Form.Control
                               required
                               className="ts-input"
                               name="model"
-                              value={"" || this.state.model}
+                              value={this.state.model || ""}
                               onChange={(e) =>
                                 this.setState({ model: e.target.value })
                               }
@@ -619,20 +612,34 @@ class YourCarForm extends Component {
                             />
                           </Form.Group>
                         </Col>
-                      </Row>
-
-                      <Row className="  ">
                         <Col lg={6} md={12} sm={12}>
                           <Form.Group className="mb-3" controlId="Body Type">
                             <Form.Control
                               name="body_type"
-                              value={"" || this.state.body_type}
+                              value={this.state.body_type || ""}
                               onChange={(e) =>
                                 this.setState({ body_type: e.target.value })
                               }
                               className="ts-input"
                               type="text"
                               placeholder=" Body Type *"
+                            />
+                          </Form.Group>
+                        </Col>
+                      </Row>
+
+                      <Row className="  ">
+                        <Col lg={6} md={12} sm={12}>
+                          <Form.Group className="mb-3" controlId="State">
+                            <Form.Control
+                              required
+                              className="ts-input"
+                              name="state"
+                              value={this.state.state || ""}
+                              onChange={(e) =>
+                                this.setState({ state: e.target.value })
+                              }
+                              placeholder="   State *"
                             />
                           </Form.Group>
                         </Col>
@@ -645,7 +652,7 @@ class YourCarForm extends Component {
                               required
                               className="ts-input"
                               name="zip_code"
-                              value={"" || this.state.zip_code}
+                              value={this.state.zip_code || ""}
                               onChange={(e) =>
                                 validateMaxLength(e.target.value, 5)
                                   ? this.setState({ zip_code: e.target.value })
@@ -700,11 +707,26 @@ class YourCarForm extends Component {
                               className="ts-input"
                               type="text"
                               name="odometer"
-                              value={"" || this.state.odometer}
+                              value={this.state.odometer || ""}
                               onChange={(e) =>
                                 this.setState({ odometer: e.target.value })
                               }
                               placeholder="Odometer  "
+                            />
+                          </Form.Group>
+                        </Col>
+                        <Col lg={6} md={12} sm={12}>
+                          <Form.Group className="mb-3" controlId="Drivetrain">
+                            <Form.Control
+                              required
+                              className="ts-input"
+                              type="text"
+                              value={this.state.drivetrain || ""}
+                              onChange={(e) =>
+                                this.setState({ drivetrain: e.target.value })
+                              }
+                              name="drivetrain"
+                              placeholder=" Drivetrain*  "
                             />
                           </Form.Group>
                         </Col>
@@ -715,7 +737,7 @@ class YourCarForm extends Component {
                           <Form.Group className="mb-3" controlId="Transmission">
                             <Form.Control
                               name="transmission"
-                              value={"" || this.state.transmission}
+                              value={this.state.transmission || ""}
                               onChange={(e) =>
                                 this.setState({ transmission: e.target.value })
                               }
@@ -732,7 +754,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Control
                               name="exterior_color"
-                              value={"" || this.state.exterior_color}
+                              value={this.state.exterior_color || ""}
                               onChange={(e) =>
                                 this.setState({
                                   exterior_color: e.target.value,
@@ -770,7 +792,7 @@ class YourCarForm extends Component {
                           <Form.Group controlId="formGridState">
                             <Form.Select
                               name="condition"
-                              value={"" || this.state.condition}
+                              value={this.state.condition || ""}
                               onChange={(e) =>
                                 this.setState({ condition: e.target.value })
                               }
@@ -795,7 +817,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="loan_or_lease_on_car"
-                              value={"" || this.state.loan_or_lease_on_car}
+                              value={this.state.loan_or_lease_on_car || ""}
                               onChange={(e) =>
                                 this.setState({
                                   loan_or_lease_on_car: e.target.value,
@@ -814,7 +836,7 @@ class YourCarForm extends Component {
                           <Form.Group controlId="formGridState">
                             <Form.Select
                               name="car_keys"
-                              value={"" || this.state.car_keys}
+                              value={this.state.car_keys || ""}
                               onChange={(e) =>
                                 this.setState({ car_keys: e.target.value })
                               }
@@ -866,7 +888,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="vehicle_driving"
-                              value={"" || this.state.vehicle_driving}
+                              value={this.state.vehicle_driving || ""}
                               onChange={(e) =>
                                 this.setState({
                                   vehicle_driving: e.target.value,
@@ -887,7 +909,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="transmission_issue"
-                              value={"" || this.state.transmission_issue}
+                              value={this.state.transmission_issue || ""}
                               onChange={(e) =>
                                 this.setState({
                                   transmission_issue: e.target.value,
@@ -911,7 +933,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="drivetrain_issue"
-                              value={"" || this.state.drivetrain_issue}
+                              value={this.state.drivetrain_issue || ""}
                               onChange={(e) =>
                                 this.setState({
                                   drivetrain_issue: e.target.value,
@@ -932,7 +954,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="steering_issue"
-                              value={"" || this.state.steering_issue}
+                              value={this.state.steering_issue || ""}
                               onChange={(e) =>
                                 this.setState({
                                   steering_issue: e.target.value,
@@ -953,7 +975,7 @@ class YourCarForm extends Component {
                           <Form.Group className="mb-3" controlId="brake_issue">
                             <Form.Select
                               name="brake_issue"
-                              value={"" || this.state.brake_issue}
+                              value={this.state.brake_issue || ""}
                               onChange={(e) =>
                                 this.setState({ brake_issue: e.target.value })
                               }
@@ -972,7 +994,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="suspension_issue"
-                              value={"" || this.state.suspension_issue}
+                              value={this.state.suspension_issue || ""}
                               onChange={(e) =>
                                 this.setState({
                                   suspension_issue: e.target.value,
@@ -1021,7 +1043,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="minor_body_damage"
-                              value={"" || this.state.minor_body_damage}
+                              value={this.state.minor_body_damage || ""}
                               onChange={(e) =>
                                 this.setState({
                                   minor_body_damage: e.target.value,
@@ -1042,7 +1064,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="moderate_body_damage"
-                              value={"" || this.state.moderate_body_damage}
+                              value={this.state.moderate_body_damage || ""}
                               onChange={(e) =>
                                 this.setState({
                                   moderate_body_damage: e.target.value,
@@ -1066,7 +1088,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="major_body_damage"
-                              value={"" || this.state.major_body_damage}
+                              value={this.state.major_body_damage || ""}
                               onChange={(e) =>
                                 this.setState({
                                   major_body_damage: e.target.value,
@@ -1084,7 +1106,7 @@ class YourCarForm extends Component {
                           <Form.Group className="mb-3" controlId="scratches">
                             <Form.Select
                               name="scratches"
-                              value={"" || this.state.scratches}
+                              value={this.state.scratches || ""}
                               onChange={(e) =>
                                 this.setState({ scratches: e.target.value })
                               }
@@ -1106,7 +1128,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="glass_damaged_cracked"
-                              value={"" || this.state.glass_damaged_cracked}
+                              value={this.state.glass_damaged_cracked || ""}
                               onChange={(e) =>
                                 this.setState({
                                   glass_damaged_cracked: e.target.value,
@@ -1127,7 +1149,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="lights_damaged_cracked"
-                              value={"" || this.state.lights_damaged_cracked}
+                              value={this.state.lights_damaged_cracked || ""}
                               onChange={(e) =>
                                 this.setState({
                                   lights_damaged_cracked: e.target.value,
@@ -1151,7 +1173,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="minor_body_rust"
-                              value={"" || this.state.minor_body_rust}
+                              value={this.state.minor_body_rust || ""}
                               onChange={(e) =>
                                 this.setState({
                                   minor_body_rust: e.target.value,
@@ -1172,7 +1194,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="moderate_body_rust"
-                              value={"" || this.state.moderate_body_rust}
+                              value={this.state.moderate_body_rust || ""}
                               onChange={(e) =>
                                 this.setState({
                                   moderate_body_rust: e.target.value,
@@ -1195,7 +1217,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="major_body_rust"
-                              value={"" || this.state.major_body_rust}
+                              value={this.state.major_body_rust || ""}
                               onChange={(e) =>
                                 this.setState({
                                   major_body_rust: e.target.value,
@@ -1241,7 +1263,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="mismatched_paint_colors"
-                              value={"" || this.state.mismatched_paint_colors}
+                              value={this.state.mismatched_paint_colors || ""}
                               onChange={(e) =>
                                 this.setState({
                                   mismatched_paint_colors: e.target.value,
@@ -1262,7 +1284,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="previous_paint_work"
-                              value={"" || this.state.previous_paint_work}
+                              value={this.state.previous_paint_work || ""}
                               onChange={(e) =>
                                 this.setState({
                                   previous_paint_work: e.target.value,
@@ -1308,7 +1330,7 @@ class YourCarForm extends Component {
                           <Form.Group className="mb-3" controlId="seat_damage">
                             <Form.Select
                               name="seat_damage"
-                              value={"" || this.state.seat_damage}
+                              value={this.state.seat_damage || ""}
                               onChange={(e) =>
                                 this.setState({ seat_damage: e.target.value })
                               }
@@ -1327,7 +1349,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="carpet_damage"
-                              value={"" || this.state.carpet_damage}
+                              value={this.state.carpet_damage || ""}
                               onChange={(e) =>
                                 this.setState({ carpet_damage: e.target.value })
                               }
@@ -1349,7 +1371,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="dashboard_damage"
-                              value={"" || this.state.dashboard_damage}
+                              value={this.state.dashboard_damage || ""}
                               onChange={(e) =>
                                 this.setState({
                                   dashboard_damage: e.target.value,
@@ -1370,7 +1392,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="interior_trim_damage"
-                              value={"" || this.state.interior_trim_damage}
+                              value={this.state.interior_trim_damage || ""}
                               onChange={(e) =>
                                 this.setState({
                                   interior_trim_damage: e.target.value,
@@ -1391,7 +1413,7 @@ class YourCarForm extends Component {
                           <Form.Group className="mb-3" controlId="sunroof">
                             <Form.Select
                               name="sunroof"
-                              value={"" || this.state.sunroof}
+                              value={this.state.sunroof || ""}
                               onChange={(e) =>
                                 this.setState({ sunroof: e.target.value })
                               }
@@ -1407,7 +1429,7 @@ class YourCarForm extends Component {
                           <Form.Group className="mb-3" controlId="navigation">
                             <Form.Select
                               name="navigation"
-                              value={"" || this.state.navigation}
+                              value={this.state.navigation || ""}
                               onChange={(e) =>
                                 this.setState({ navigation: e.target.value })
                               }
@@ -1452,7 +1474,7 @@ class YourCarForm extends Component {
                           >
                             <Form.Select
                               name="hvac_not_working"
-                              value={"" || this.state.hvac_not_working}
+                              value={this.state.hvac_not_working || ""}
                               onChange={(e) =>
                                 this.setState({
                                   hvac_not_working: e.target.value,
@@ -1537,7 +1559,7 @@ class YourCarForm extends Component {
                               <Form.Control
                                 className="ts-input"
                                 type="text"
-                                value={"" || this.state.make}
+                                value={this.state.make || ""}
                                 onChange={(e) =>
                                   this.setState({ make: e.target.value })
                                 }
@@ -1551,7 +1573,7 @@ class YourCarForm extends Component {
                               <Form.Control
                                 className="ts-input"
                                 type="text"
-                                value={"" || this.state.model}
+                                value={this.state.model || ""}
                                 onChange={(e) =>
                                   this.setState({ model: e.target.value })
                                 }
@@ -1574,7 +1596,7 @@ class YourCarForm extends Component {
                             >
                               <Form.Select
                                 name="radius"
-                                value={"" || this.state.radius}
+                                value={this.state.radius || ""}
                                 onChange={(e) =>
                                   this.setState({ radius: e.target.value })
                                 }
@@ -1634,7 +1656,7 @@ class YourCarForm extends Component {
                             >
                               <Form.Control
                                 name="front_Seats"
-                                value={"" || this.state?.primary_photo?.front}
+                                value={this.state?.primary_photo?.front || ""}
                                 onChange={(e) => this.handleImageChange(e)}
                                 className="ts-input"
                                 type="file"
