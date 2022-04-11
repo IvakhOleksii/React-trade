@@ -18,7 +18,7 @@ import axios from "axios";
 import APIConfig from "../../helpers/api/config";
 import { toast } from "react-toastify";
 import { CarMake } from "../../helpers/contraints";
-import { validateMaxLength } from "../../helpers/validation";
+
 class RegistrationHero extends Component {
   _isMounted = false;
   constructor(props) {
@@ -97,9 +97,8 @@ class RegistrationHero extends Component {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 1500,
         });
-        if (this.state?.showNavBar || reduxData?.user_type === "Car Dealer") {
-          this.props.history.push("/dashboard");
-        }
+
+        this.props.history.push("/dashboard");
         this.resetForm();
       } else if (response.status === 300) {
         toast.warn("Email already Exist", {
