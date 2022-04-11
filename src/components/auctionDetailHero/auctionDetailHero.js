@@ -10,7 +10,6 @@ import car6 from "../../assets/imgs/360/car7.jpg";
 import car7 from "../../assets/imgs/360/car6.jpg";
 import { Eye } from "react-feather";
 import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
-// import { Modal, ModalHeader, ModalBody, ModalFooter } from "react-bootstrap";
 import ImageViewer360 from "../imageViewer360";
 import "react-image-gallery/styles/css/image-gallery.css";
 import axios from "axios";
@@ -56,7 +55,7 @@ class AuctionDetailHero extends Component {
       showChatModal: false,
     };
   }
-  handleShow = (e) => {
+  handleShow = () => {
     this.setState({ openModal: true });
   };
 
@@ -70,15 +69,8 @@ class AuctionDetailHero extends Component {
     this.setState({ images: images });
     this.handlePopup();
   };
-  componentDidMount() {
-    console.log("qwe" + JSON.stringify(this.props?.acution_detail));
-  }
   handleSubmit = async (e) => {
     e.preventDefault();
-    // alert(this.state.bid_amount)
-    // alert(this.props?.user?.id)
-    // alert(this.props?.acution_detail?.id)
-    //   this.setState({ openModal: false });
     this._isMounted = true;
     this.setState({ loading: true });
     var FormData = require("form-data");
@@ -90,7 +82,6 @@ class AuctionDetailHero extends Component {
       data.append("owner_id", this.props?.acution_detail?.user_id);
       const response = await axios(APIConfig("post", "/addbid", data));
       if (response.status === 200) {
-        // console.log("testtt"+JSON.stringify(response?.data))
         this.setState({ loading: false });
         this.props.history.push("/dashboard");
         toast.success("Your Bid has been done", {
@@ -124,6 +115,9 @@ class AuctionDetailHero extends Component {
     this.props.handeChangeSidebarItem("messaging");
     this.props.history.push("/dashboard");
   };
+  handleBack = () => {
+    this.props.history.push("/dashboard");
+  };
   render() {
     return (
       <div className="contact-hero-section">
@@ -137,17 +131,6 @@ class AuctionDetailHero extends Component {
                     <ImageGallery items={this.state?.acution_detail?.images} />
                   </Col>
                   <Col lg={3} md={12} sm={12}>
-                    {/* <h3 className="detail-car-price">
-                      
-                      {this.state?.acution_detail?.price}{" "}
-                    </h3>
-                    <h3 className="detail-car-price mt-20">
-                      {this.state?.acution_detail?.title}{" "}
-                    </h3>
-                    <h3 className="detail-car-price mt-20">
-                    
-                      {this.state?.acution_detail?.city}{" "}
-                    </h3> */}
                     <button
                       className="detail-car-price mt-20 btn-detail w-100"
                       onClick={() => {
@@ -182,13 +165,20 @@ class AuctionDetailHero extends Component {
                       {" "}
                       Bid Now{" "}
                     </button>
+                    <button
+                      className="detail-car-price mt-20 btn-detail w-100"
+                      onClick={this.handleBack}
+                    >
+                      {" "}
+                      Back{" "}
+                    </button>
                   </Col>
 
                   <Col className=" dim-dark-bg p-5 mt-2" lg={9} md={12} sm={12}>
                     <Row>
                       <Col className="mb-4" lg={12} md={12} sm={12}>
                         <h5 className="car-list-title-simple">
-                          Vechile Specfication
+                          Vehicle Specification
                         </h5>
                       </Col>
                       <Col className=" details-info-container  " lg={4}>
@@ -271,12 +261,6 @@ class AuctionDetailHero extends Component {
                           {this.state?.acution_detail?.transmission}{" "}
                         </span>
                       </Col>
-                      {/* <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">Trim : </span>
-                        <span className="card-list__info_Auction">
-                        {this.state?.acution_detail?.trim}{" "}
-                        </span>
-                      </Col> */}
                       <Col className=" details-info-container" lg={4}>
                         <span className="detail-list__title">Fuel-Type: </span>
                         <span className="card-list__info_Auction">
@@ -314,138 +298,8 @@ class AuctionDetailHero extends Component {
                           {this.state?.acution_detail?.exterior_color}
                         </span>
                       </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Vehicle Driving:{" "}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {this.state?.acution_detail?.vehicle_driving}{" "}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Transmission Issue:{" "}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {" "}
-                          {this.state?.acution_detail?.transmission_issue}{" "}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Drivetrain Issue:{" "}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {" "}
-                          {this.state?.acution_detail?.drivetrain_issue}{" "}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Steering Issue:{" "}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {this.state?.acution_detail?.steering_issue}{" "}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Brake Issue:{" "}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {" "}
-                          {this.state?.acution_detail?.brake_issue}{" "}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Suspension Issue:{""}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {" "}
-                          {this.state?.acution_detail?.suspension_issue}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Minor Body Damage:{""}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {" "}
-                          {this.state?.acution_detail?.minor_body_damage}{" "}
-                        </span>
-                      </Col>
                       <Col lg={12}>
                         <hr className="m-3"></hr>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Moderate Body Damage:{" "}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {this.state?.acution_detail?.moderate_body_damage}{" "}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Major Body Damage:{" "}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {this.state?.acution_detail?.major_body_damage}{" "}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">Scratches: </span>
-                        <span className="card-list__info_Auction">
-                          {this.state?.acution_detail?.scratches}{" "}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Glass Damage Cracked:{" "}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {" "}
-                          {
-                            this.state?.acution_detail?.glass_damaged_cracked
-                          }{" "}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Lights Damage Cracked:{" "}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {" "}
-                          {
-                            this.state?.acution_detail?.lights_damaged_cracked
-                          }{" "}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Minor Body Rust:{" "}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {this.state?.acution_detail?.minor_body_rust}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Moderate Body Rust:{" "}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {" "}
-                          {this.state?.acution_detail?.moderate_body_rust}{" "}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          {this.state?.acution_detail?.major_body_rust}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {"Yes"}{" "}
-                        </span>
                       </Col>
 
                       <Col className=" details-info-container" lg={4}>
@@ -462,79 +316,9 @@ class AuctionDetailHero extends Component {
                       </Col>
 
                       <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Mismatch Paint Colors:{""}
-                        </span>
+                        <span className="detail-list__title">Make: </span>
                         <span className="card-list__info_Auction">
-                          {" "}
-                          {
-                            this.state?.acution_detail?.mismatched_paint_colors
-                          }{" "}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Previous Paint Colors :{""}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {" "}
-                          {this.state?.acution_detail?.previous_paint_work}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Seat Damage:{" "}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {this.state?.acution_detail?.seat_damage}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Carpet Damage:{" "}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {this.state?.acution_detail?.carpet_damage}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Dashboard Damage:{" "}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {this.state?.acution_detail?.dashboard_damage}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Interior Trim Damage:{" "}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {" "}
-                          {
-                            this.state?.acution_detail?.interior_trim_damage
-                          }{" "}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">Sunroof: </span>
-                        <span className="card-list__info_Auction">
-                          {" "}
-                          {this.state?.acution_detail?.sunroof}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">Navigation: </span>
-                        <span className="card-list__info_Auction">
-                          {this.state?.acution_detail?.navigation}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          {this.state?.acution_detail?.make}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {"BMW"}{" "}
+                          {this.state?.acution_detail?.make}{" "}
                         </span>
                       </Col>
 
@@ -563,12 +347,6 @@ class AuctionDetailHero extends Component {
                           }{" "}
                         </span>
                       </Col>
-                      {/* <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Make:{""}
-                        </span>
-                        <span className="card-list__info_Auction">{"BMW"} </span>
-                      </Col> */}
                       <Col className=" details-info-container" lg={4}>
                         <span className="detail-list__title">Model:{""}</span>
                         <span className="card-list__info_Auction">
@@ -607,55 +385,6 @@ class AuctionDetailHero extends Component {
                           }{" "}
                         </span>
                       </Col>
-
-                      {/*  <Col className="mb-4 mt-4" lg={12} md={12} sm={12}>
-                        <h5 className="car-list-title-simple">
-                          Other Information
-                        </h5>
-                      </Col>
-                      <Col className=" " lg={12} md={12} sm={12}>
-                        <Row className="d-flex justify-content-center align-items-center">
-                          <Col
-                            className=" details-info-container"
-                            lg={11}
-                            md={12}
-                            sm={12}
-                          >
-                            <span className="detail-list__title">
-                              • &nbsp; Is the vehicle in driving condition?{" "}
-                            </span>
-                            <span className="card-list__info_Auction">
-                              {"✓"}{" "}
-                            </span>
-                          </Col>
-                          <Col
-                            className=" details-info-container"
-                            lg={11}
-                            md={12}
-                            sm={12}
-                          >
-                            <span className="detail-list__title">
-                              • &nbsp; How many keys do you have?
-                            </span>
-                            <span className="card-list__info_Auction">
-                              {"2"}{" "}
-                            </span>
-                          </Col>
-                          <Col
-                            className=" details-info-container"
-                            lg={11}
-                            md={12}
-                            sm={12}
-                          >
-                            <span className="detail-list__title">
-                              • &nbsp; Is the vehicle in driving condition?{" "}
-                            </span>
-                            <span className="card-list__info_Auction">
-                              {"⨯"}{" "}
-                            </span>
-                          </Col>
-                        </Row>
-                      </Col> */}
                     </Row>
                   </Col>
                 </Row>
