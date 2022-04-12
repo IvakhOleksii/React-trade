@@ -5,7 +5,7 @@ import Tabs from "react-bootstrap/Tabs";
 import List from "../../components/list";
 import APIConfig from "../../helpers/api/config";
 import axios from "axios";
-import Filters from "../../components/filters";
+import Filters from "../../components/Filters";
 import Loader from "../../components/loader";
 import HandleAPIData from "../../helpers/handleAPIData";
 
@@ -37,17 +37,19 @@ class Acution extends Component {
         user: { id },
         topBids,
       } = this.props;
-      const { filters, start: startState, key } = this.state;
+      const { filters, start: startState } = this.state;
       const mode = topBids ? "top_bids" : "current_bids";
       const make = filters.car_make ? `&make=${filters.car_make}` : "";
       const model = filters.car_model ? `&model=${filters.car_model}` : "";
+      const state = filters.state ? `&state=${filters.state}` : "";
+      const location = filters.location ? `&proximity=${filters.location}` : "";
 
       const response = await axios(
         APIConfig(
           "get",
           `/list_auction_dealer?${mode}=1&dealer_id=${id}&start=${
             startState || 0
-          }${make}${model}`,
+          }${make}${model}${state}${location}`,
           null
         )
       );

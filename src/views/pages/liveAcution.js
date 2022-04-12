@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import { Card, Tab, Spinner } from "react-bootstrap";
 import Tabs from "react-bootstrap/Tabs";
 import List from "../../components/list";
-import Filters from "../../components/filters";
+import Filters from "../../components/Filters";
 import APIConfig from "../../helpers/api/config";
 import axios from "axios";
 import HandleAPIData from "../../helpers/handleAPIData";
@@ -41,11 +41,13 @@ class LiveAcution extends Component {
       const { filters, start: startState, appild } = this.state;
       const make = filters.car_make ? `&make=${filters.car_make}` : "";
       const model = filters.car_model ? `&model=${filters.car_model}` : "";
+      const state = filters.state ? `&state=${filters.state}` : "";
+      const location = filters.location ? `&proximity=${filters.location}` : "";
 
       const response = await axios(
         APIConfig(
           "get",
-          `/list_auction_dealer?start=${startState}${make}${model}`,
+          `/list_auction_dealer?start=${startState}${make}${model}${state}${location}`,
           null
         )
       );
