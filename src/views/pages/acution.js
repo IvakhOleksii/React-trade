@@ -37,7 +37,7 @@ class Acution extends Component {
         user: { id },
         topBids,
       } = this.props;
-      const { filters, start: startState, key } = this.state;
+      const { filters, start: startState } = this.state;
       const mode = topBids ? "top_bids" : "current_bids";
       const make = filters.car_make ? `&make=${filters.car_make}` : "";
       const model = filters.car_model ? `&model=${filters.car_model}` : "";
