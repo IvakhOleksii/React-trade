@@ -273,12 +273,6 @@ class AuctionDetailHero extends Component {
                           {this.state?.acution_detail?.body_type}{" "}
                         </span>
                       </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">Mileage: </span>
-                        <span className="card-list__info_Auction">
-                          {this.state?.acution_detail?.mileage}{" "}
-                        </span>
-                      </Col>
 
                       <Col lg={12}>
                         <hr className="m-3"></hr>
@@ -316,45 +310,6 @@ class AuctionDetailHero extends Component {
                       </Col>
 
                       <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">Make: </span>
-                        <span className="card-list__info_Auction">
-                          {this.state?.acution_detail?.make}{" "}
-                        </span>
-                      </Col>
-
-                      <Col lg={12}>
-                        <hr className="m-3"></hr>
-                      </Col>
-
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Hvac Not Working:{""}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {" "}
-                          {this.state?.acution_detail?.hvac_not_working}{" "}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Leather Seats:{""}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {" "}
-                          {
-                            this.state?.acution_detail
-                              ?.leather_Or_Leather_type_seats
-                          }{" "}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">Model:{""}</span>
-                        <span className="card-list__info_Auction">
-                          {" "}
-                          {this.state?.acution_detail?.model}{" "}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
                         <span className="detail-list__title">
                           Area/Radius:{""}
                         </span>
@@ -371,18 +326,6 @@ class AuctionDetailHero extends Component {
                         <span className="card-list__info_Auction">
                           {" "}
                           {this.state?.acution_detail?.loan_or_lease_on_car}
-                        </span>
-                      </Col>
-                      <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">
-                          Aftermarket Stereo Equipment :{""}
-                        </span>
-                        <span className="card-list__info_Auction">
-                          {" "}
-                          {
-                            this.state?.acution_detail
-                              ?.aftermarket_stereo_equipment
-                          }{" "}
                         </span>
                       </Col>
                     </Row>
