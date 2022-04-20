@@ -17,6 +17,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import axios from "axios";
 import NavBar from "../../views/_partials/navbar";
 import APIConfig from "../../helpers/api/config";
+import formatThousands from "../../helpers/formatThousands";
 import {
   validateMaxLength,
   validateSingleField,
@@ -707,11 +708,13 @@ class YourCarForm extends Component {
                               className="ts-input"
                               type="text"
                               name="odometer"
-                              value={this.state.odometer || ""}
+                              value={formatThousands(this.state.odometer || "")}
                               onChange={(e) =>
-                                this.setState({ odometer: e.target.value })
+                                this.setState({
+                                  odometer: e.target.value.replace(/,/g, ""),
+                                })
                               }
-                              placeholder="Odometer  "
+                              placeholder="Mileage  "
                             />
                           </Form.Group>
                         </Col>
