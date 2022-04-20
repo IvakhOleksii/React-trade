@@ -5,7 +5,6 @@ import Tabs from "react-bootstrap/Tabs";
 import List from "../../components/list";
 import APIConfig from "../../helpers/api/config";
 import axios from "axios";
-import Filters from "../../components/filters";
 import Loader from "../../components/loader";
 import HandleAPIData from "../../helpers/handleAPIData";
 
@@ -86,16 +85,6 @@ class Acution extends Component {
       });
     }
   }
-  handleFilters = (filters) => {
-    this.setState({ showData: true, filters }, () => {
-      this.getData();
-    });
-  };
-  handleResetFilter = () => {
-    this.setState({ showData: false, filters: {} }, () => {
-      this.getData();
-    });
-  };
   handleLoadMore() {
     this.getData();
   }
@@ -116,10 +105,6 @@ class Acution extends Component {
               <Tab eventKey="applied" className="auction-text">
                 {!loading ? (
                   <React.Fragment>
-                    <Filters
-                      handleResetFilter={this.handleResetFilter}
-                      handleFilters={this.handleFilters}
-                    />
                     <List
                       {...this.props}
                       listData={data}

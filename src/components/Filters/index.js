@@ -2,15 +2,18 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Row, Col, Form, Button } from "react-bootstrap";
 import { Search } from "react-feather";
-import { CarMake } from "../helpers/contraints";
 import { toast } from "react-toastify";
 import Switch from "react-switch";
+import { CarMake } from "../../helpers/contraints";
+import StatesInput from "./StatesInput";
+
 class Filters extends Component {
   constructor(props) {
     super(props);
     this.state = {
       car_make: "",
       car_model: "",
+      state: "",
       location: false,
     };
   }
@@ -28,9 +31,11 @@ class Filters extends Component {
       car_make: this.state.car_make,
       car_model: this.state.car_model,
       location: this.state.location,
+      state: this.state.state,
     };
     if (
       obj.car_make !== "" ||
+      obj.state !== "" ||
       this.state.location === true ||
       obj.car_model !== ""
     ) {
@@ -52,7 +57,7 @@ class Filters extends Component {
           }}
         >
           <Row className=" pt-1 ">
-            <Col lg={3} md={12} sm={12} className="cars-modal-textfeild">
+            <Col lg={2} md={12} sm={12} className="cars-modal-textfeild">
               <Form.Group className="mb-3" controlId="  car_model">
                 <Form.Control
                   name="car_model"
@@ -64,7 +69,7 @@ class Filters extends Component {
                 />
               </Form.Group>
             </Col>
-            <Col lg={3} md={12} sm={12} className="cars-modal-textfeild">
+            <Col lg={2} md={12} sm={12} className="cars-modal-textfeild">
               <Form.Group controlId="car_make">
                 <Form.Select
                   name="car_make"
@@ -81,6 +86,12 @@ class Filters extends Component {
                 </Form.Select>
               </Form.Group>
             </Col>
+            <Col lg={2} md={12} sm={12} className="cars-modal-textfeild">
+              <StatesInput
+                value={this.state.state || ""}
+                handleChange={(e) => this.setState({ state: e.target.value })}
+              />
+            </Col>
             <Col
               lg={3}
               md={12}
@@ -88,7 +99,7 @@ class Filters extends Component {
               className="cars-modal-textfeild location-cars"
             >
               <label className="d-flex mt-2">
-                <span className="mr-2  "> Get By Location </span>
+                <span className="mr-2  ">Search by Distance</span>
                 <Switch
                   className=" "
                   onChange={() =>
