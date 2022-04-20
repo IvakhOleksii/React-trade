@@ -5,7 +5,6 @@ import Tabs from "react-bootstrap/Tabs";
 import List from "../../components/list";
 import APIConfig from "../../helpers/api/config";
 import axios from "axios";
-import Filters from "../../components/Filters";
 import Loader from "../../components/loader";
 import HandleAPIData from "../../helpers/handleAPIData";
 
@@ -41,15 +40,13 @@ class Acution extends Component {
       const mode = topBids ? "top_bids" : "current_bids";
       const make = filters.car_make ? `&make=${filters.car_make}` : "";
       const model = filters.car_model ? `&model=${filters.car_model}` : "";
-      const state = filters.state ? `&state=${filters.state}` : "";
-      const location = filters.location ? `&proximity=${filters.location}` : "";
 
       const response = await axios(
         APIConfig(
           "get",
           `/list_auction_dealer?${mode}=1&dealer_id=${id}&start=${
             startState || 0
-          }${make}${model}${state}${location}`,
+          }${make}${model}`,
           null
         )
       );
@@ -88,16 +85,6 @@ class Acution extends Component {
       });
     }
   }
-  handleFilters = (filters) => {
-    this.setState({ showData: true, filters }, () => {
-      this.getData();
-    });
-  };
-  handleResetFilter = () => {
-    this.setState({ showData: false, filters: {} }, () => {
-      this.getData();
-    });
-  };
   handleLoadMore() {
     this.getData();
   }
@@ -118,10 +105,6 @@ class Acution extends Component {
               <Tab eventKey="applied" className="auction-text">
                 {!loading ? (
                   <React.Fragment>
-                    <Filters
-                      handleResetFilter={this.handleResetFilter}
-                      handleFilters={this.handleFilters}
-                    />
                     <List
                       {...this.props}
                       listData={data}
