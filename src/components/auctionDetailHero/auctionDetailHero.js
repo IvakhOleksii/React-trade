@@ -251,9 +251,7 @@ class AuctionDetailHero extends Component {
                       <Col className=" details-info-container" lg={4}>
                         <span className="detail-list__title">Mileage: </span>
                         <span className="card-list__info_Auction">
-                          {formatThousands(
-                            this.state?.acution_detail?.odometer
-                          )}{" "}
+                          {formatThousands(this.state?.acution_detail?.mileage)}{" "}
                         </span>
                       </Col>
                       <Col className=" details-info-container" lg={4}>

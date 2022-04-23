@@ -65,7 +65,7 @@ class YourCarForm extends Component {
 
       // Additional Information 2
 
-      odometer: "",
+      mileage: "",
       transmission: "",
       fuel_type: "",
       body_type: "",
@@ -281,7 +281,7 @@ class YourCarForm extends Component {
     data.append("phone", this.state.phone);
 
     // 2nd step
-    data.append("odometer", this.state.odometer);
+    data.append("mileage", this.state.mileage);
     data.append("transmission", this.state.transmission);
     data.append("fuel_type", this.state.fuel_type);
     data.append("body_type", this.state.body_type);
@@ -703,15 +703,15 @@ class YourCarForm extends Component {
                     <Form onSubmit={this.handleNextStep}>
                       <Row className="   ">
                         <Col lg={6} md={12} sm={12}>
-                          <Form.Group className="mb-3" controlId="Odometer2">
+                          <Form.Group className="mb-3" controlId="Mileage">
                             <Form.Control
                               className="ts-input"
                               type="text"
-                              name="odometer"
-                              value={formatThousands(this.state.odometer || "")}
+                              name="mileage"
+                              value={formatThousands(this.state.mileage || "")}
                               onChange={(e) =>
                                 this.setState({
-                                  odometer: e.target.value.replace(/,/g, ""),
+                                  mileage: e.target.value.replace(/,/g, ""),
                                 })
                               }
                               placeholder="Mileage  "
