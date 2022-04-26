@@ -98,7 +98,9 @@ class RegistrationHero extends Component {
           autoClose: 1500,
         });
 
-        this.props.history.push("/dashboard");
+        if (this.state?.showNavBar || reduxData?.user_type === "Car Dealer") {
+          this.props.history.push("/dashboard");
+        }
         this.resetForm();
       } else if (response.status === 300) {
         toast.warn("Email already Exist", {
