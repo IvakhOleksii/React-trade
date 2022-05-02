@@ -217,6 +217,18 @@ class YourCarForm extends Component {
 
   handleFinalSubmit = async (e) => {
     e.preventDefault();
+
+    if (
+      this.state.btnType === "publish" &&
+      this.state.primary_photo.length + this.state.additional_photos.length < 2
+    ) {
+      toast.error("Please upload at least two photos before publishing.", {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 1000,
+      });
+      return;
+    }
+
     this._isMounted = true;
     var FormData = require("form-data");
     var data = new FormData();

@@ -34,6 +34,7 @@ class ViewAuction extends Component {
         bids,
         drafts,
       } = this.props;
+      const { start, key } = this.state;
       const mode =
         this.props.viewAuctionTabKey === "tradecar" ? "trade" : "sell";
       const extraParams = bids
@@ -45,18 +46,17 @@ class ViewAuction extends Component {
       const response = await axios(
         APIConfig(
           "get",
-          `/list_auction_owner?type=${mode}&user_id=${id}&start=${this.state.start}${extraParams}`,
+          `/list_auction_owner?type=${mode}&user_id=${id}&start=${start}${extraParams}`,
           null
         )
       );
       if (response.status === 200) {
-        const { auctions, start, total } = response.data;
-        const dataKey =
-          this.state.key === "tradecar" ? "tradeAuction" : "sellAuction";
+        const { auctions, limit, total } = response.data;
+        const dataKey = key === "tradecar" ? "tradeAuction" : "sellAuction";
 
         this.setState({
           loading: false,
-          start,
+          start: start + limit,
           total,
           [dataKey]: [...this.state[dataKey], ...HandleAPIData(auctions)],
         });
