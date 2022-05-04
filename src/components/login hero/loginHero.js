@@ -34,9 +34,10 @@ class LoginHero extends Component {
     try {
       const response = await axios(APIConfig("post", "/login", data));
       if (response.status === 200) {
-        var reduxData = response.data.data;
+        var { token, data: reduxData } = response.data;
         reduxData["isLogin"] = true;
         this.props.UserHandler(reduxData);
+        this.props.TokenHandler(token);
         toast.success("Login SuccessFully", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 1000,
@@ -240,6 +241,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     UserHandler: (value) => dispatch({ type: "USER", value: value }),
+    TokenHandler: (value) => dispatch({ type: "TOKEN", value: value }),
     hanleShowAlert: (value) => dispatch({ type: "SHOW_ALERT", value: value }),
     handleAlertMessage: (value) =>
       dispatch({ type: "ALERT_MESSAGE", value: value }),

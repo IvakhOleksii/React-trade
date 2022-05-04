@@ -23,22 +23,9 @@ class Messaging extends Component {
     this._isMounted = true;
     this.setState({ loading: true });
     try {
-      const response =
-        this.props.user?.user_type === "Car Owner"
-          ? await axios(
-              APIConfig(
-                "get",
-                `/messaging_conversation/${this.props.user?.id}/owner`,
-                null
-              )
-            )
-          : await axios(
-              APIConfig(
-                "get",
-                `/messaging_conversation/${this.props.user?.id}/dealer`,
-                null
-              )
-            );
+      const response = await axios(
+        APIConfig("get", "/messaging_conversation", null)
+      );
       if (response.status === 200) {
         this.setState({
           loading: false,
