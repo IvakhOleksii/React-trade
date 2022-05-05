@@ -33,10 +33,7 @@ class Acution extends Component {
     this._isMounted = true;
     this.setState({ loading: true });
     try {
-      const {
-        user: { id },
-        topBids,
-      } = this.props;
+      const { topBids } = this.props;
       const { filters, start, data } = this.state;
       const endpoint = topBids
         ? "list_auction_dealer_top"
@@ -48,7 +45,7 @@ class Acution extends Component {
       const response = await axios(
         APIConfig(
           "get",
-          `/${endpoint}?dealer_id=${id}&start=${start}${mode}${make}${model}`,
+          `/${endpoint}?start=${start}${mode}${make}${model}`,
           null
         )
       );
@@ -129,7 +126,6 @@ const mapStateToProps = (state) => {
   return {
     sortFilter: state.app.sortFilter,
     appliedAuctionKey: state.app.appliedAuctionKey,
-    user: state.app.user,
   };
 };
 const mapDispatchToProps = (dispatch) => {
