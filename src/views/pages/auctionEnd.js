@@ -24,14 +24,13 @@ class AuctionEnd extends Component {
     this._isMounted = true;
     this.setState({ loading: true });
     try {
-      const { id } = this.props.user;
       const { start } = this.state;
       const mode = !tabValue || tabValue === "tradecar" ? "trade" : "sell";
 
       const response = await axios(
         APIConfig(
           "get",
-          `/list_auction_owner?type=${mode}&user_id=${id}&start=${start}&expired=1`,
+          `/list_auction_owner?type=${mode}&start=${start}&expired=1`,
           null
         )
       );
@@ -116,7 +115,6 @@ class AuctionEnd extends Component {
 }
 const mapStateToProps = (state) => {
   return {
-    user: state.app.user,
     auctionEndTabKey: state.app.auctionEndTabKey,
   };
 };

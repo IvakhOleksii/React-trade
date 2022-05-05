@@ -1,21 +1,22 @@
+import axios from "axios";
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Container, Row, Col, Spinner } from "react-bootstrap";
+import { Eye } from "react-feather";
 import ImageGallery from "react-image-gallery";
+import { toast } from "react-toastify";
+import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
 import NavBar from "../../views/_partials/navbar";
 import car3 from "../../assets/imgs/360/car3.jpeg";
 import car4 from "../../assets/imgs/360/car4.jpg";
 import car5 from "../../assets/imgs/360/car8.jpg";
 import car6 from "../../assets/imgs/360/car7.jpg";
 import car7 from "../../assets/imgs/360/car6.jpg";
-import { Eye } from "react-feather";
-import { Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import formatThousands from "../../helpers/formatThousands";
+import APIConfig from "../../helpers/api/config";
+import ChatModal from "../chatModal";
 import ImageViewer360 from "../imageViewer360";
 import "react-image-gallery/styles/css/image-gallery.css";
-import axios from "axios";
-import APIConfig from "../../helpers/api/config";
-import { toast } from "react-toastify";
-import ChatModal from "../chatModal";
 
 class AuctionDetailHero extends Component {
   _isMounted = false;
@@ -248,9 +249,9 @@ class AuctionDetailHero extends Component {
                       </Col>
 
                       <Col className=" details-info-container" lg={4}>
-                        <span className="detail-list__title">Odometer: </span>
+                        <span className="detail-list__title">Mileage: </span>
                         <span className="card-list__info_Auction">
-                          {this.state?.acution_detail?.odometer}{" "}
+                          {formatThousands(this.state?.acution_detail?.mileage)}{" "}
                         </span>
                       </Col>
                       <Col className=" details-info-container" lg={4}>

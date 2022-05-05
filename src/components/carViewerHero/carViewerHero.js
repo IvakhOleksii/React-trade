@@ -42,7 +42,7 @@ class CarViewerHero extends Component {
 
       // Additional Information 2
 
-      odometer: "",
+      mileage: "",
       transmission: "",
       trim: "",
       fuel_type: "",
@@ -186,7 +186,7 @@ class CarViewerHero extends Component {
     }
 
     data.append("vin", this.state.vin);
-    data.append("odometer", this.state.odometer);
+    data.append("mileage", this.state.mileage);
     data.append("transmission", this.state.transmission);
     data.append("trim", this.state.trim);
     data.append("drivetrain", this.state.drivetrain);
