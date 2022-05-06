@@ -26,6 +26,7 @@ class Acution extends Component {
       loading: false,
       data: [],
       filterValue: "",
+      start: 0,
     };
   }
   getData = async () => {
@@ -33,29 +34,30 @@ class Acution extends Component {
     this.setState({ loading: true });
     try {
       const { topBids } = this.props;
-      const { filters, start: startState } = this.state;
-      const mode = topBids ? "top_bids" : "current_bids";
+      const { filters, start, data } = this.state;
+      const endpoint = topBids
+        ? "list_auction_dealer_top"
+        : "list_auction_dealer";
+      const mode = topBids ? "" : "&current_bids=1";
       const make = filters.car_make ? `&make=${filters.car_make}` : "";
       const model = filters.car_model ? `&model=${filters.car_model}` : "";
 
       const response = await axios(
         APIConfig(
           "get",
-          `/list_auction_dealer?${mode}=1&start=${
-            startState || 0
-          }${make}${model}`,
+          `/${endpoint}?start=${start}${mode}${make}${model}`,
           null
         )
       );
 
       if (response?.status === 200) {
-        const { auctions, start, total } = response.data;
+        const { auctions, total, limit } = response.data;
 
         this.setState({
           loading: false,
-          start,
+          start: start + limit,
           total,
-          data: [...this.state.data, ...HandleAPIData(auctions)],
+          data: [...data, ...HandleAPIData(auctions)],
         });
       }
     } catch (error) {

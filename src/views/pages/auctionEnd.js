@@ -24,24 +24,25 @@ class AuctionEnd extends Component {
     this._isMounted = true;
     this.setState({ loading: true });
     try {
+      const { start } = this.state;
       const mode = !tabValue || tabValue === "tradecar" ? "trade" : "sell";
 
       const response = await axios(
         APIConfig(
           "get",
-          `/list_auction_owner?type=${mode}&start=${this.state.start}&expired=1`,
+          `/list_auction_owner?type=${mode}&start=${start}&expired=1`,
           null
         )
       );
 
       if (response.status === 200) {
-        const { auctions, start, total } = response.data;
+        const { auctions, limit, total } = response.data;
         const dataKey =
           this.state.key === "tradecar" ? "tradeAuctionEnd" : "sellAuctionEnd";
 
         this.setState({
           loading: false,
-          start,
+          start: start + limit,
           total,
           [dataKey]: [...this.state[dataKey], ...HandleAPIData(auctions)],
         });

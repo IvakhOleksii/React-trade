@@ -38,7 +38,7 @@ class LiveAcution extends Component {
     this._isMounted = true;
     this.setState({ loading: true });
     try {
-      const { filters, start: startState, appild } = this.state;
+      const { filters, start, appild } = this.state;
       const make = filters.car_make ? `&make=${filters.car_make}` : "";
       const model = filters.car_model ? `&model=${filters.car_model}` : "";
       const state = filters.state ? `&state=${filters.state}` : "";
@@ -47,16 +47,16 @@ class LiveAcution extends Component {
       const response = await axios(
         APIConfig(
           "get",
-          `/list_auction_dealer?start=${startState}${make}${model}${state}${location}`,
+          `/list_auction_dealer?start=${start}${make}${model}${state}${location}`,
           null
         )
       );
       if (response.status === 200) {
-        const { auctions, start, total } = response.data;
+        const { auctions, total, limit } = response.data;
 
         this.setState({
           loading: false,
-          start,
+          start: start + limit,
           total,
           appild: [...appild, ...HandleAPIData(auctions)],
         });
