@@ -36,11 +36,8 @@ function AuctionBidsModal() {
   return auctionId ? (
     <div className="bids-modal-container">
       <div ref={ref} className="bids-modal-content">
-        <div className="bids-modal-title bids-modal-header">
+        <div className="bids-modal-row">
           <span>Bid History</span>
-          <span className="bids-modal-close" onClick={handleClose}>
-            X
-          </span>
         </div>
         {loading ? (
           <Loader style={{ maxHeight: 250 }} />
@@ -70,6 +67,11 @@ function AuctionBidsModal() {
             </tbody>
           </table>
         )}
+        <div className="bids-modal-row">
+          <button className="bids-modal-button" onClick={handleClose}>
+            Cancel
+          </button>
+        </div>
       </div>
     </div>
   ) : null;
