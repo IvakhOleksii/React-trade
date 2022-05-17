@@ -134,15 +134,19 @@ class YourCarForm extends Component {
       return;
     }
 
-    const nextStep = FORM_STEPS[this.props.mode][this.state.step + 1];
+    const nextStepIndex =
+      FORM_STEPS[this.props.mode].findIndex((n) => n === this.state.step) + 1;
+    const nextStep = FORM_STEPS[this.props.mode][nextStepIndex];
     this.setState({ step: nextStep });
     window.scroll(100, 100);
   };
   handlePreviousStep = (e) => {
     e.preventDefault();
 
-    const nextStep = FORM_STEPS[this.props.mode][this.state.step - 1];
-    this.setState({ step: nextStep });
+    const previousStepIndex =
+      FORM_STEPS[this.props.mode].findIndex((n) => n === this.state.step) - 1;
+    const previousStep = FORM_STEPS[this.props.mode][previousStepIndex];
+    this.setState({ step: previousStep });
     window.scroll(100, 100);
   };
   handleDeletePhoto = (item, fileName) => {
