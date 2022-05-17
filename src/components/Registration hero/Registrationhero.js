@@ -250,7 +250,7 @@ class RegistrationHero extends Component {
                               name="name"
                               className="ts-input"
                               type="text"
-                              placeholder="Name"
+                              placeholder="Name*"
                             />
                           </Form.Group>
                         </Col>
@@ -265,7 +265,7 @@ class RegistrationHero extends Component {
                               name="email"
                               className="ts-input"
                               type="email"
-                              placeholder="User Name"
+                              placeholder="Email Address*"
                             />
                           </Form.Group>
                         </Col>
@@ -283,7 +283,7 @@ class RegistrationHero extends Component {
                               name="address"
                               className="ts-input"
                               type="textarea"
-                              placeholder="Address"
+                              placeholder="Address*"
                             />
                           </Form.Group>
                         </Col>
@@ -331,7 +331,7 @@ class RegistrationHero extends Component {
                               name="zip_code"
                               className="ts-input"
                               type="textarea"
-                              placeholder="Zip Code"
+                              placeholder="Zip Code*"
                             />
                           </Form.Group>
                         </Col>
@@ -367,7 +367,7 @@ class RegistrationHero extends Component {
                               name="password"
                               className="ts-input"
                               type="password"
-                              placeholder="Password"
+                              placeholder="Password*"
                             />
                           </Form.Group>
                           <small style={{ color: "black", fontSize: "10px" }}>
@@ -392,7 +392,7 @@ class RegistrationHero extends Component {
                               name="confirmPassword"
                               className="ts-input"
                               type="password"
-                              placeholder="Confirm Password"
+                              placeholder="Confirm Password*"
                             />
                           </Form.Group>
                         </Col>
@@ -494,7 +494,7 @@ class RegistrationHero extends Component {
                               name="name"
                               className="ts-input"
                               type="text"
-                              placeholder=" Name"
+                              placeholder="Name*"
                             />
                           </Form.Group>
                         </Col>
@@ -509,7 +509,7 @@ class RegistrationHero extends Component {
                               name="email"
                               className="ts-input"
                               type="email"
-                              placeholder=" User Name"
+                              placeholder="Email Address*"
                             />
                           </Form.Group>
                         </Col>
@@ -527,7 +527,7 @@ class RegistrationHero extends Component {
                               name="address"
                               className="ts-input"
                               type="textarea"
-                              placeholder=" Address"
+                              placeholder="Address*"
                             />
                           </Form.Group>
                         </Col>
@@ -542,7 +542,7 @@ class RegistrationHero extends Component {
                                 this.setState({ city: e.target.value })
                               }
                               type="text"
-                              placeholder=" City*  "
+                              placeholder="City*  "
                             />
                           </Form.Group>
                         </Col>
@@ -560,7 +560,7 @@ class RegistrationHero extends Component {
                                 this.setState({ state: e.target.value })
                               }
                               type="text"
-                              placeholder=" State*"
+                              placeholder="State*"
                             />
                           </Form.Group>
                         </Col>
@@ -575,7 +575,7 @@ class RegistrationHero extends Component {
                               name="zip_code"
                               className="ts-input"
                               type="textarea"
-                              placeholder="Zip Code"
+                              placeholder="Zip Code*"
                             />
                           </Form.Group>
                         </Col>
@@ -609,7 +609,7 @@ class RegistrationHero extends Component {
                                 this.setState({ dealerName: e.target.value })
                               }
                               type="text"
-                              placeholder="Dealer Name"
+                              placeholder="Dealer Name*"
                             />
                           </Form.Group>
                         </Col>
@@ -628,7 +628,7 @@ class RegistrationHero extends Component {
                                 })
                               }
                               type="text"
-                              placeholder="Company Website*  "
+                              placeholder="Company Website"
                             />
                           </Form.Group>
                         </Col>
@@ -645,7 +645,7 @@ class RegistrationHero extends Component {
                                 this.setState({ car_make: e.target.value })
                               }
                               className="ts-input mb-3"
-                              defaultValue="  Car Make"
+                              defaultValue="Car Make"
                             >
                               <option>Car Make </option>
                               {CarMake?.map((item, index) => (
@@ -669,7 +669,7 @@ class RegistrationHero extends Component {
                               name="password"
                               className="ts-input"
                               type="password"
-                              placeholder="Password"
+                              placeholder="Password*"
                             />
                           </Form.Group>
                           <small style={{ color: "black", fontSize: "10px" }}>
@@ -694,7 +694,7 @@ class RegistrationHero extends Component {
                               name="confirmPassword"
                               className="ts-input"
                               type="password"
-                              placeholder="Confirm Password"
+                              placeholder="Confirm Password*"
                             />
                           </Form.Group>
                         </Col>

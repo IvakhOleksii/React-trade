@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { Row, Col, Carousel, Button, Image, Badge } from "react-bootstrap";
 import { Eye } from "react-feather";
 import { Modal, ModalHeader } from "reactstrap";
+import formatThousands from "../helpers/formatThousands";
 import NoResultFound from "../assets/imgs/png/dashboard/no-results-found1.png";
 import { AUCTION_DETAIL, BIDS_MODAL_ID } from "../redux/actions/app/appActions";
 import formatCurrency from "../helpers/formatCurrency";
@@ -217,7 +218,9 @@ class List extends Component {
                     </div>{" "}
                     <div className="right--content">
                       <span className="card-list__title"> Mileage : </span>
-                      <span className="card-list__info">{item?.mileage} </span>
+                      <span className="card-list__info">
+                        {formatThousands(item?.mileage)}{" "}
+                      </span>
                     </div>{" "}
                     {this.props?.showSidebarItem === "auctionEnd" ||
                     this.props?.showSidebarItem === "auction" ? (
