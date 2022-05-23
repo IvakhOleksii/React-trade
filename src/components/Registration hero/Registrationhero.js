@@ -90,17 +90,15 @@ class RegistrationHero extends Component {
     try {
       const response = await axios(APIConfig("post", "/register", data));
       if (response.status === 200) {
-        var reduxData = response.data.data;
-        reduxData["isLogin"] = true;
-        this.props.UserHandler(reduxData);
         toast.success("Successfully Registered", {
           position: toast.POSITION.TOP_RIGHT,
           autoClose: 1500,
         });
 
-        if (this.state?.showNavBar || reduxData?.user_type === "Car Dealer") {
-          this.props.history.push("/dashboard");
-        }
+        this.props.history.push("/registration-success", {
+          userName: this.state.name,
+          userType: this.state.key,
+        });
         this.resetForm();
       } else if (response.status === 300) {
         toast.warn("Email already Exist", {
@@ -853,9 +851,4 @@ const mapStateToProps = (state) => {
     user: state.app.user,
   };
 };
-const mapDispatchToProps = (dispatch) => {
-  return {
-    UserHandler: (value) => dispatch({ type: "USER", value: value }),
-  };
-};
-export default connect(mapStateToProps, mapDispatchToProps)(RegistrationHero);
+export default connect(mapStateToProps)(RegistrationHero);

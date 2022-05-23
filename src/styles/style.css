@@ -2649,3 +2649,12 @@ Button.svg-send-btn:hover {
   border: 1px solid black;
   padding: 7px;
 }
+
+.registration-success-container {
+  font-family: Josefin sans;
+  min-height: 550px;
+}
+
+.registration-success-container p {
+  font-size: 20px;
+}

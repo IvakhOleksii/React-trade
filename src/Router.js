@@ -17,6 +17,10 @@ const SellYourCar = lazy(() => import("./views/pages/sellYourCar"));
 const CarViewer = lazy(() => import("./views/pages/carViewer"));
 const Dashboard = lazy(() => import("./views/pages/dashboard"));
 const AuctionDetail = lazy(() => import("./views/pages/auctionDetail"));
+const RegistrationSuccess = lazy(() =>
+  import("./views/pages/registrationSuccess")
+);
+
 class AppRouter extends React.Component {
   render() {
     return (
@@ -37,6 +41,11 @@ class AppRouter extends React.Component {
           <Route exact path="/" component={Home} />
           <Route exact path="/login" component={Login} />
           <Route exact path="/register" component={Registration} />
+          <Route
+            exact
+            path="/registration-success"
+            component={RegistrationSuccess}
+          />
           <Route exact path="/contactus" component={Contactus} />
           <Route exact path="/aboutus" component={Aboutus} />
           <Route exact path="/trade-your-car" component={TradeYourCar} />
