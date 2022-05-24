@@ -11,16 +11,16 @@ const CARDS_DATA = {
   heading2: "Selling your Vehicle",
   cards: [
     {
-      value:
-        "  My vehicle is 6 years or newer and I’m ready to sell now for the best offer.",
+      value: 0,
+      text: "  My vehicle is 6 years or newer and I’m ready to sell now for the best offer.",
     },
     {
-      value:
-        "My vehicle is older than 6 years and I’m ready to sell now for the best offer.",
+      value: 1,
+      text: "My vehicle is older than 6 years and I’m ready to sell now for the best offer.",
     },
     {
-      value:
-        "I’m not ready to sell but would like an idea of what my vehicle is worth",
+      value: 3,
+      text: "I’m not ready to sell but would like an idea of what my vehicle is worth",
     },
   ],
 };
