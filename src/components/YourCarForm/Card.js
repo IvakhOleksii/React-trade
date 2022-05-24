@@ -33,7 +33,7 @@ class Card extends Component {
               md={5}
             >
               <div className="option-card-bg card1">
-                <p>{item.value}</p>
+                <p>{item.text}</p>
               </div>
             </Col>
           ))}

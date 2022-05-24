@@ -11,16 +11,16 @@ const CARDS_DATA = {
   heading2: "Purchasing Process.",
   cards: [
     {
-      value:
-        "  I’m ready to purchase now. Get me Top Dollar for my Trade-in Vehicle.",
+      value: 0,
+      text: "  I’m ready to purchase now. Get me Top Dollar for my Trade-in Vehicle.",
     },
     {
-      value:
-        "  I’m within 60 days of a purchase. Get me Top Dollar for my Trade-in Vehicle.",
+      value: 1,
+      text: "  I’m within 60 days of a purchase. Get me Top Dollar for my Trade-in Vehicle.",
     },
     {
-      value:
-        " I’m not quite ready, I’d like an idea of what to expect for my Trade-in Vehicle.",
+      value: 3,
+      text: " I’m not quite ready, I’d like an idea of what to expect for my Trade-in Vehicle.",
     },
   ],
 };

@@ -43,12 +43,13 @@ class YourCarForm extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      seletedValue: "",
       images: [],
       images360: [],
       step: 0,
       btnType: "",
       car_details_by_vin: null,
+
+      trade_time: null,
 
       id: null,
       vin: "",
@@ -281,6 +282,8 @@ class YourCarForm extends Component {
       data.append("id", this.state.id);
     }
 
+    data.append("trade_time", this.state.trade_time);
+
     data.append("publish_status", this.state?.btnType);
     data.append("type", this.props.mode);
     data.append("user_id", this.props.user.id);
@@ -436,7 +439,7 @@ class YourCarForm extends Component {
     this._isMounted = false;
   }
   handleOptions = (value) => {
-    this.setState({ step: 1, seletedValue: value });
+    this.setState({ step: 1, trade_time: value });
   };
   handleDeletePhotoOnServer(id, name, is_primary) {
     if (is_primary === 0) {
@@ -484,7 +487,6 @@ class YourCarForm extends Component {
                         onClick={() =>
                           this.setState({
                             step: this.state.step - 1,
-                            seletedValue: "",
                           })
                         }
                         className="btn--back"
