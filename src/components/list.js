@@ -109,14 +109,7 @@ class List extends Component {
               </Col>
               <Col
                 className="list-text-area"
-                lg={
-                  this.props?.user?.user_type === "Car Owner" &&
-                  this.props?.showSidebarItem === "auctionEnd" &&
-                  (this.props?.auctionEndTabKey === "tradecar" ||
-                    this.props?.auctionEndTabKey === "sellcar")
-                    ? "5"
-                    : "7"
-                }
+                lg={this.props.showWinner ? "5" : "7"}
                 md={10}
                 sm={10}
               >
@@ -251,10 +244,7 @@ class List extends Component {
                 </div>
               </Col>
 
-              {this.props?.user?.user_type === "Car Owner" &&
-              this.props?.showSidebarItem === "auctionEnd" &&
-              (this.props?.auctionEndTabKey === "tradecar" ||
-                this.props?.auctionEndTabKey === "sellcar") ? (
+              {this.props.showWinner ? (
                 <Col lg={2} md={12} sm={10} className="winner-card ">
                   <div className="   ">
                     <img src={item?.winner?.image} alt="Winner" />
@@ -266,13 +256,17 @@ class List extends Component {
                       </span>
                     </div>
                     <div className="  space-between bid-amount">
-                      <span className="card-list__title">
-                        {" "}
-                        Bid Amount &nbsp;{" "}
-                      </span>
+                      <span className="card-list__title"> Email &nbsp; </span>
                       <span className="card-list__info">
                         {" "}
-                        {item?.winner?.bid_amount}{" "}
+                        {item?.winner?.email}{" "}
+                      </span>
+                    </div>
+                    <div className="  space-between bid-amount">
+                      <span className="card-list__title"> Phone &nbsp; </span>
+                      <span className="card-list__info">
+                        {" "}
+                        {item?.winner?.phone}{" "}
                       </span>
                     </div>
                   </div>
