@@ -1,5 +1,4 @@
 import React from "react";
-import { useSelector } from "react-redux";
 import { Container } from "react-bootstrap";
 import GetRegistered from "../../components/getRegistered";
 import Footer from "../_partials/footer";

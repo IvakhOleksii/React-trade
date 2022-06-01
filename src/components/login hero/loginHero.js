@@ -48,7 +48,15 @@ class LoginHero extends Component {
         }
       }
     } catch (error) {
-      toast.error("Failed please try again  ", {
+      const { status } = error.response;
+      const errorString =
+        status === 320
+          ? "Your User Name and password do not match. Please try again."
+          : status === 400
+          ? "Your account has not been activated. Please check the email account you registered with."
+          : "Failed, please try again.";
+
+      toast.error(errorString, {
         position: toast.POSITION.TOP_RIGHT,
         autoClose: 1000,
       });
