@@ -109,6 +109,7 @@ class Acution extends Component {
                       listData={data}
                       loadMore={total > start}
                       handleLoadMore={this.handleLoadMore.bind(this)}
+                      showWinner
                     />
                   </React.Fragment>
                 ) : (

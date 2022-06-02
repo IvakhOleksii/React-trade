@@ -90,6 +90,7 @@ class AuctionEnd extends Component {
                     listData={tradeAuctionEnd}
                     loadMore={total > start}
                     handleLoadMore={this.handleLoadMore.bind(this)}
+                    showWinner
                   />
                 ) : (
                   <Loader />
@@ -101,6 +102,7 @@ class AuctionEnd extends Component {
                     listData={sellAuctionEnd}
                     loadMore={total > start}
                     handleLoadMore={this.handleLoadMore.bind(this)}
+                    showWinner
                   />
                 ) : (
                   <Loader />
